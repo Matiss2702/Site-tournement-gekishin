@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 export async function getUserTeams(userId: string) {
   return prisma.team.findMany({
     where: {
+      tournamentId: null,
       members: { some: { userId } },
     },
     select: {
@@ -18,6 +19,7 @@ export async function getUserTeams(userId: string) {
 export async function getUserTeamsWithDetails(userId: string) {
   return prisma.team.findMany({
     where: {
+      tournamentId: null,
       members: { some: { userId } },
     },
     include: {

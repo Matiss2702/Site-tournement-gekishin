@@ -1,6 +1,12 @@
 import { prisma } from "@/lib/prisma";
 import { createNotification } from "@/lib/notifications";
-import { MIN_TOURNAMENT_PARTICIPANTS } from "@/lib/tournament-prize-config";
+import {
+  isValidSoloPlayerCount,
+  MIN_SOLO_PLAYERS,
+  MIN_TOURNAMENT_PARTICIPANTS,
+  SOLO_TEAM_SIZE,
+} from "@/lib/tournament-prize-config";
+import { formRandomTeamsForSoloTournament } from "@/lib/tournament-random-teams";
 
 export async function getTournamentCheckInSummary(tournamentId: string) {
   const entries = await prisma.tournamentEntry.findMany({
@@ -37,6 +43,7 @@ export async function startTournamentCheckIn(tournamentId: string) {
       id: true,
       title: true,
       status: true,
+      type: true,
       entries: {
         include: {
           team: { select: { captainId: true } },
@@ -52,15 +59,44 @@ export async function startTournamentCheckIn(tournamentId: string) {
   if (tournament.status !== "REGISTRATION") {
     return { ok: false as const, error: "invalid_status" };
   }
-  if (tournament.entries.length === 0) {
+
+  const soloPlayers =
+    tournament.type === "SOLO"
+      ? tournament.entries.filter((entry) => entry.userId && !entry.teamId)
+      : [];
+  const teamEntries =
+    tournament.type === "TEAM"
+      ? tournament.entries.filter((entry) => entry.teamId)
+      : [];
+
+  const participantCount =
+    tournament.type === "SOLO" ? soloPlayers.length : teamEntries.length;
+
+  if (participantCount === 0) {
     return { ok: false as const, error: "no_entries" };
   }
-  if (tournament.entries.length < MIN_TOURNAMENT_PARTICIPANTS) {
+
+  if (tournament.type === "SOLO") {
+    if (!isValidSoloPlayerCount(soloPlayers.length)) {
+      return {
+        ok: false as const,
+        error: "solo_team_size_mismatch" as const,
+        minPlayers: MIN_SOLO_PLAYERS,
+        teamSize: SOLO_TEAM_SIZE,
+        current: soloPlayers.length,
+      };
+    }
+
+    const formed = await formRandomTeamsForSoloTournament(tournamentId);
+    if (!formed.ok) {
+      return formed;
+    }
+  } else if (teamEntries.length < MIN_TOURNAMENT_PARTICIPANTS) {
     return {
       ok: false as const,
       error: "min_participants" as const,
       required: MIN_TOURNAMENT_PARTICIPANTS,
-      current: tournament.entries.length,
+      current: teamEntries.length,
     };
   }
 
@@ -75,8 +111,16 @@ export async function startTournamentCheckIn(tournamentId: string) {
     }),
   ]);
 
+  const entriesForCheckIn = await prisma.tournamentEntry.findMany({
+    where: { tournamentId },
+    include: {
+      team: { select: { captainId: true } },
+      user: { select: { id: true } },
+    },
+  });
+
   const notifyUserIds = new Set<string>();
-  for (const entry of tournament.entries) {
+  for (const entry of entriesForCheckIn) {
     if (entry.team?.captainId) notifyUserIds.add(entry.team.captainId);
     else if (entry.userId) notifyUserIds.add(entry.userId);
   }
@@ -141,4 +185,32 @@ export async function assertAllParticipantsCheckedIn(tournamentId: string) {
     where: { tournamentId, checkedInAt: null },
   });
   return unchecked === 0;
+}
+
+/** Solo entries with a userId, or team entries where the user is captain. */
+export function canUserConfirmCheckInForEntry(
+  entry: {
+    userId: string | null;
+    team: { captainId: string } | null;
+  },
+  userId: string
+) {
+  if (entry.userId === userId) return true;
+  return entry.team?.captainId === userId;
+}
+
+export function findUserTournamentEntry<
+  T extends {
+    userId: string | null;
+    team: {
+      captainId: string;
+      members: { user: { id: string } }[];
+    } | null;
+  },
+>(entries: T[], userId: string) {
+  return entries.find(
+    (entry) =>
+      entry.userId === userId ||
+      entry.team?.members.some((member) => member.user.id === userId)
+  );
 }

@@ -15,13 +15,14 @@ import {
 } from "@/lib/user-dashboard";
 import { canManageDraft, canManageScores } from "@/lib/tournament-auth";
 import { getUserTournamentPrize, syncTournamentCompletionIfReady } from "@/lib/tournament-prizes";
-import { MIN_TEAM_ROSTER_SIZE } from "@/lib/tournament-prize-config";
+import { MIN_SOLO_PLAYERS, MIN_TEAM_ROSTER_SIZE, MIN_TOURNAMENT_PARTICIPANTS } from "@/lib/tournament-prize-config";
 import { TournamentPrizeCard } from "@/components/TournamentPrizeCard";
 import { TournamentParticipantsList } from "@/components/TournamentParticipantsList";
 import { TournamentStatusBadge } from "@/components/TournamentStatusBadge";
 import { TournamentCheckInPanel } from "@/components/TournamentCheckInPanel";
 import { TournamentPodium } from "@/components/TournamentPodium";
-import { getTournamentCheckInSummary } from "@/lib/tournament-check-in";
+import { getTournamentCheckInSummary, canUserConfirmCheckInForEntry, findUserTournamentEntry } from "@/lib/tournament-check-in";
+import { soloTournamentUsesTeams } from "@/lib/tournament-random-teams";
 import { getBracketSize } from "@/lib/bracket";
 import { GRAND_FINAL_ROUND, getWinnersRoundCount } from "@/lib/bracket-progression";
 import { resolveTournamentPlacements } from "@/lib/tournament-placements";
@@ -60,7 +61,7 @@ export default async function TournamentDetailPage({
               members: {
                 include: {
                   user: {
-                    select: { username: true, displayName: true },
+                    select: { id: true, username: true, displayName: true },
                   },
                 },
               },
@@ -162,6 +163,10 @@ export default async function TournamentDetailPage({
       : null;
 
   const entryCount = tournament.entries.length;
+  const soloUsesTeams = soloTournamentUsesTeams(
+    tournament.type,
+    tournament.entries
+  );
   const capacity =
     tournament.type === "TEAM" ? tournament.maxTeams : tournament.maxPlayers;
   const registrationFull =
@@ -175,16 +180,22 @@ export default async function TournamentDetailPage({
   const userId = session?.user?.id;
   let canConfirmCheckIn = false;
   let hasConfirmedCheckIn = false;
+  let waitingForCaptainCheckIn = false;
+  let teamCheckInConfirmed = false;
 
   if (userId && checkInSummary) {
-    const userEntry = tournament.entries.find(
-      (entry) =>
-        entry.userId === userId ||
-        entry.team?.captainId === userId
-    );
+    const userEntry = findUserTournamentEntry(tournament.entries, userId);
     if (userEntry) {
-      hasConfirmedCheckIn = !!userEntry.checkedInAt;
-      canConfirmCheckIn = !hasConfirmedCheckIn;
+      const isCaptain = canUserConfirmCheckInForEntry(userEntry, userId);
+      const entryCheckedIn = !!userEntry.checkedInAt;
+
+      if (isCaptain) {
+        hasConfirmedCheckIn = entryCheckedIn;
+        canConfirmCheckIn = !entryCheckedIn;
+      } else if (userEntry.team) {
+        waitingForCaptainCheckIn = !entryCheckedIn;
+        teamCheckInConfirmed = entryCheckedIn;
+      }
     }
   }
 
@@ -252,6 +263,15 @@ export default async function TournamentDetailPage({
       ? t("manageDraft")
       : t("draft");
 
+  const myAssignedTeam =
+    session?.user && soloUsesTeams
+      ? tournament.entries.find((entry) =>
+          entry.team?.members.some(
+            (member) => member.user.id === session.user!.id
+          )
+        )?.team ?? null
+      : null;
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-8">
@@ -286,6 +306,16 @@ export default async function TournamentDetailPage({
           </div>
         </div>
         <p className="mt-4 text-foreground/80">{description}</p>
+        {tournament.type === "SOLO" && tournamentStatus === "REGISTRATION" && (
+          <p className="mt-2 text-sm text-muted">{t("soloRegisterHint")}</p>
+        )}
+        {myAssignedTeam && (
+          <p className="mt-2 text-sm text-sky-400">
+            {t("soloAssignedTeam", {
+              team: `${myAssignedTeam.name}${myAssignedTeam.tag ? ` [${myAssignedTeam.tag}]` : ""}`,
+            })}
+          </p>
+        )}
         {tournamentStatus === "COMPLETED" && (
           <p className="mt-2 text-sm text-amber-300/90">{t("tournamentFinishedHint")}</p>
         )}
@@ -338,9 +368,16 @@ export default async function TournamentDetailPage({
           }))}
           checkedIn={checkInSummary.checkedIn}
           total={checkInSummary.total}
+          minParticipants={
+            tournament.type === "SOLO" && !soloUsesTeams
+              ? MIN_SOLO_PLAYERS
+              : MIN_TOURNAMENT_PARTICIPANTS
+          }
           allCheckedIn={checkInSummary.allCheckedIn}
           canConfirmCheckIn={canConfirmCheckIn}
           hasConfirmedCheckIn={hasConfirmedCheckIn}
+          waitingForCaptainCheckIn={waitingForCaptainCheckIn}
+          teamCheckInConfirmed={teamCheckInConfirmed}
           isOrganizer={isOrganizer}
         />
       )}
@@ -433,7 +470,7 @@ export default async function TournamentDetailPage({
         </section>
       )}
 
-      {tournament.type === "TEAM" &&
+      {(tournament.type === "TEAM" || soloUsesTeams) &&
         tournament.entries.length >= 2 &&
         (tournamentStatus === "IN_PROGRESS" ||
           tournamentStatus === "COMPLETED") && (
@@ -477,7 +514,8 @@ export default async function TournamentDetailPage({
           </div>
         </section>
 
-        {!(tournament.type === "TEAM" && tournament.entries.length >= 2) && (
+        {!((tournament.type === "TEAM" || soloUsesTeams) &&
+          tournament.entries.length >= 2) && (
         <section>
           <h2 className="text-xl font-semibold mb-4">{t("matches")}</h2>
           {canScore ? (

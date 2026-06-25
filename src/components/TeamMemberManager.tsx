@@ -10,7 +10,13 @@ interface Member {
   id: string;
   memberRole: MemberRole;
   gameRole: string | null;
-  user: { id: string; username: string; displayName: string | null };
+  user: {
+    id: string;
+    username: string;
+    displayName: string | null;
+    discordId?: string | null;
+    discordUsername?: string | null;
+  };
 }
 
 interface TeamMemberManagerProps {
@@ -54,10 +60,21 @@ export function TeamMemberManager({
             key={member.id}
             className="flex items-center justify-between gap-3 py-2 border-b border-card-border last:border-0"
           >
-            <div className="flex items-center gap-2 min-w-0">
+            <div className="flex items-center gap-2 min-w-0 flex-wrap">
               <span className="truncate">
                 {member.user.displayName || member.user.username}
               </span>
+              {member.user.discordUsername && member.user.discordId && (
+                <a
+                  href={`https://discord.com/users/${member.user.discordId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="badge bg-[#5865F2]/20 text-[#5865F2] shrink-0 text-xs hover:bg-[#5865F2]/30"
+                  title={t("discordTeammateHint")}
+                >
+                  {member.user.discordUsername}
+                </a>
+              )}
               {!isCaptain || isTeamCaptain ? (
                 <span className="badge bg-primary/20 text-primary shrink-0">
                   {roleLabel}

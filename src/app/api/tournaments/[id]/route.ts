@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { createNotification } from "@/lib/notifications";
-import { MIN_TEAM_ROSTER_SIZE, MIN_TOURNAMENT_PARTICIPANTS } from "@/lib/tournament-prize-config";
+import { MIN_TEAM_ROSTER_SIZE, getMinEntriesToStartTournament } from "@/lib/tournament-prize-config";
+import { initializeTournamentBracketIfEmpty } from "@/lib/tournament-bracket-init";
 import { assertTeamCanRegisterForTournament } from "@/lib/team-membership";
 import { canManageTournament } from "@/lib/tournament-auth";
 import {
@@ -102,14 +103,24 @@ export async function PATCH(
           { status: 400 }
         );
       }
-      const entryCount = await prisma.tournamentEntry.count({
-        where: { tournamentId: id },
+      const tournamentMeta = await prisma.tournament.findUnique({
+        where: { id },
+        select: { type: true },
       });
-      if (entryCount < MIN_TOURNAMENT_PARTICIPANTS) {
+      const entries = await prisma.tournamentEntry.findMany({
+        where: { tournamentId: id },
+        select: { teamId: true, userId: true },
+      });
+      const entryCount = entries.length;
+      const minEntries = getMinEntriesToStartTournament(
+        tournamentMeta?.type ?? "TEAM",
+        entries
+      );
+      if (entryCount < minEntries) {
         return NextResponse.json(
           {
             error: "min_participants",
-            required: MIN_TOURNAMENT_PARTICIPANTS,
+            required: minEntries,
             current: entryCount,
           },
           { status: 400 }
@@ -170,6 +181,10 @@ export async function PATCH(
     where: { id },
     data: body,
   });
+
+  if (body.status === "IN_PROGRESS") {
+    await initializeTournamentBracketIfEmpty(id);
+  }
 
   return NextResponse.json(tournament);
 }
@@ -333,6 +348,17 @@ export async function POST(
           {
             error: result.error,
             required: result.required,
+            current: result.current,
+          },
+          { status }
+        );
+      }
+      if (result.error === "solo_team_size_mismatch") {
+        return NextResponse.json(
+          {
+            error: result.error,
+            minPlayers: result.minPlayers,
+            teamSize: result.teamSize,
             current: result.current,
           },
           { status }

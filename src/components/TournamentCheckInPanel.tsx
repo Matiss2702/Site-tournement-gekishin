@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { MIN_TOURNAMENT_PARTICIPANTS } from "@/lib/tournament-prize-config";
 
 export type CheckInEntry = {
   id: string;
@@ -17,9 +16,12 @@ interface TournamentCheckInPanelProps {
   entries: CheckInEntry[];
   checkedIn: number;
   total: number;
+  minParticipants: number;
   allCheckedIn: boolean;
   canConfirmCheckIn: boolean;
   hasConfirmedCheckIn: boolean;
+  waitingForCaptainCheckIn: boolean;
+  teamCheckInConfirmed: boolean;
   isOrganizer: boolean;
 }
 
@@ -28,9 +30,12 @@ export function TournamentCheckInPanel({
   entries,
   checkedIn,
   total,
+  minParticipants,
   allCheckedIn,
   canConfirmCheckIn,
   hasConfirmedCheckIn,
+  waitingForCaptainCheckIn,
+  teamCheckInConfirmed,
   isOrganizer,
 }: TournamentCheckInPanelProps) {
   const t = useTranslations("tournaments");
@@ -82,10 +87,14 @@ export function TournamentCheckInPanel({
           ? t("checkInIncomplete")
           : data.error === "min_participants"
             ? t("minParticipantsRequired", {
-                required: data.required ?? MIN_TOURNAMENT_PARTICIPANTS,
+                required: data.required ?? minParticipants,
                 current: data.current ?? total,
               })
-            : t("startTournamentFailed")
+            : data.error === "check_in_required"
+              ? t("checkInClosed")
+              : data.error === "Forbidden" || res.status === 403
+                ? t("startTournamentForbidden")
+                : t("startTournamentFailed")
       );
     }
     setLoading(false);
@@ -142,6 +151,16 @@ export function TournamentCheckInPanel({
           </span>
         )}
 
+        {teamCheckInConfirmed && !isOrganizer && (
+          <span className="badge bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+            {t("checkInTeamConfirmed")}
+          </span>
+        )}
+
+        {waitingForCaptainCheckIn && !isOrganizer && (
+          <p className="text-sm text-muted">{t("checkInCaptainOnly")}</p>
+        )}
+
         {isOrganizer && (
           <button
             type="button"
@@ -149,13 +168,13 @@ export function TournamentCheckInPanel({
             disabled={
               loading ||
               !allCheckedIn ||
-              total < MIN_TOURNAMENT_PARTICIPANTS
+              total < minParticipants
             }
             className="btn btn-primary"
             title={
-              total < MIN_TOURNAMENT_PARTICIPANTS
+              total < minParticipants
                 ? t("minParticipantsRequired", {
-                    required: MIN_TOURNAMENT_PARTICIPANTS,
+                    required: minParticipants,
                     current: total,
                   })
                 : !allCheckedIn

@@ -41,13 +41,17 @@ async function getRecipientUserIds(
   tournament: Pick<TournamentForPrizes, "type">,
   participantId: string
 ) {
-  if (tournament.type === "TEAM") {
-    const members = await client.teamMember.findMany({
-      where: { teamId: participantId },
-      select: { userId: true },
-      orderBy: [{ memberRole: "asc" }, { joinedAt: "asc" }],
-    });
+  const members = await client.teamMember.findMany({
+    where: { teamId: participantId },
+    select: { userId: true },
+    orderBy: [{ memberRole: "asc" }, { joinedAt: "asc" }],
+  });
+  if (members.length > 0) {
     return members.map((m) => m.userId);
+  }
+
+  if (tournament.type === "TEAM") {
+    return [];
   }
 
   return [participantId];
@@ -74,7 +78,8 @@ async function distributePlacementPrizes(
 
   if (availableCodes.length === 0) return [];
 
-  const teamId = tournament.type === "TEAM" ? participantId : null;
+  const teamId =
+    tournament.type === "TEAM" || userIds.length > 1 ? participantId : null;
   const pending: PendingPrizeNotification[] = [];
 
   for (let i = 0; i < userIds.length; i++) {

@@ -3,7 +3,12 @@
 import { useState, useEffect } from "react";
 import { Link, useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { MIN_TOURNAMENT_PARTICIPANTS } from "@/lib/tournament-prize-config";
+import {
+  MIN_SOLO_PLAYERS,
+  MIN_TOURNAMENT_PARTICIPANTS,
+  isValidSoloPlayerCount,
+  SOLO_TEAM_SIZE,
+} from "@/lib/tournament-prize-config";
 
 interface TeamOption {
   id: string;
@@ -75,7 +80,10 @@ export function TournamentActions({
         : availableTeams[0]?.id ?? "";
   const [selectedTeamId, setSelectedTeamId] = useState(initialTeamId);
   const [message, setMessage] = useState("");
-  const canStartCheckIn = entryCount >= MIN_TOURNAMENT_PARTICIPANTS;
+  const canStartCheckIn =
+    type === "SOLO"
+      ? isValidSoloPlayerCount(entryCount)
+      : entryCount >= MIN_TOURNAMENT_PARTICIPANTS;
 
   useEffect(() => {
     const preferred =
@@ -183,6 +191,13 @@ export function TournamentActions({
                 required: data.required ?? MIN_TOURNAMENT_PARTICIPANTS,
                 current: data.current ?? entryCount,
               })
+          : data.error === "solo_team_size_mismatch"
+            ? t("soloTeamSizeMismatch", {
+                minPlayers: data.minPlayers ?? MIN_SOLO_PLAYERS,
+                teams: MIN_TOURNAMENT_PARTICIPANTS,
+                teamSize: data.teamSize ?? SOLO_TEAM_SIZE,
+                current: data.current ?? entryCount,
+              })
           : data.error === "invalid_status"
             ? t("checkInInvalidStatus")
             : t("checkInFailed")
@@ -228,6 +243,9 @@ export function TournamentActions({
 
         {status === "REGISTRATION" && !isOrganizer && !alreadyJoined && !registrationFull && (
           <>
+            {type === "SOLO" && isLoggedIn && (
+              <p className="text-sm text-muted w-full">{t("soloRegisterHint")}</p>
+            )}
             {!isLoggedIn ? (
               <Link href="/login" className="btn btn-primary">
                 {t("joinLogin")}
@@ -317,10 +335,17 @@ export function TournamentActions({
           <>
             {!canStartCheckIn && (
               <p className="text-sm text-amber-400 w-full">
-                {t("minParticipantsHint", {
-                  required: MIN_TOURNAMENT_PARTICIPANTS,
-                  current: entryCount,
-                })}
+                {type === "SOLO"
+                  ? t("soloMinParticipantsHint", {
+                      required: MIN_SOLO_PLAYERS,
+                      teams: MIN_TOURNAMENT_PARTICIPANTS,
+                      current: entryCount,
+                      teamSize: SOLO_TEAM_SIZE,
+                    })
+                  : t("minParticipantsHint", {
+                      required: MIN_TOURNAMENT_PARTICIPANTS,
+                      current: entryCount,
+                    })}
               </p>
             )}
             <button
@@ -329,10 +354,15 @@ export function TournamentActions({
               className="btn btn-primary"
               title={
                 !canStartCheckIn
-                  ? t("minParticipantsRequired", {
-                      required: MIN_TOURNAMENT_PARTICIPANTS,
-                      current: entryCount,
-                    })
+                  ? type === "SOLO"
+                    ? t("minParticipantsRequired", {
+                        required: MIN_SOLO_PLAYERS,
+                        current: entryCount,
+                      })
+                    : t("minParticipantsRequired", {
+                        required: MIN_TOURNAMENT_PARTICIPANTS,
+                        current: entryCount,
+                      })
                   : undefined
               }
             >

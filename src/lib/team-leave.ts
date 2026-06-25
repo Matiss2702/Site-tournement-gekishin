@@ -12,6 +12,10 @@ export async function leaveTeam(teamId: string, userId: string) {
     return { error: "not_found" as const, status: 404 as const };
   }
 
+  if (team.tournamentId) {
+    return { error: "tournament_team_locked" as const, status: 409 as const };
+  }
+
   const membership = team.members.find((m) => m.userId === userId);
   if (!membership) {
     return { error: "not_member" as const, status: 404 as const };

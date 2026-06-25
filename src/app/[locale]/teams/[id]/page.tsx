@@ -24,7 +24,13 @@ export default async function TeamDetailPage({
       members: {
         include: {
           user: {
-            select: { id: true, username: true, displayName: true },
+            select: {
+              id: true,
+              username: true,
+              displayName: true,
+              discordId: true,
+              discordUsername: true,
+            },
           },
         },
         orderBy: [{ memberRole: "asc" }, { joinedAt: "asc" }],

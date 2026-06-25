@@ -1,16 +1,9 @@
 import { z } from "zod";
 import { PRIZE_CODES_PER_TEAM } from "@/lib/tournament-prize-config";
 import {
+  isValidSoloPlayerCapacity,
   isValidTournamentCapacity,
-  MIN_TOURNAMENT_CAPACITY,
 } from "@/lib/tournament-capacity";
-
-const tournamentCapacitySchema = z
-  .number()
-  .int()
-  .refine(isValidTournamentCapacity, {
-    message: "invalid_capacity",
-  });
 
 const USERNAME_PATTERN = /^[a-zA-Z0-9_ ]+$/;
 
@@ -48,8 +41,8 @@ export const tournamentSchema = z
     format: z
       .enum(["SINGLE_ELIMINATION", "DOUBLE_ELIMINATION"])
       .default("SINGLE_ELIMINATION"),
-    maxTeams: tournamentCapacitySchema.optional(),
-    maxPlayers: tournamentCapacitySchema.optional(),
+    maxTeams: z.number().int().optional(),
+    maxPlayers: z.number().int().optional(),
     startDate: z.string().datetime().optional().nullable(),
     endDate: z.string().datetime().optional().nullable(),
     prizeCodes: z
@@ -80,6 +73,28 @@ export const tournamentSchema = z
         path: ["maxPlayers"],
       });
     }
+    if (
+      data.type === "TEAM" &&
+      data.maxTeams != null &&
+      !isValidTournamentCapacity(data.maxTeams)
+    ) {
+      ctx.addIssue({
+        code: "custom",
+        message: "invalid_capacity",
+        path: ["maxTeams"],
+      });
+    }
+    if (
+      data.type === "SOLO" &&
+      data.maxPlayers != null &&
+      !isValidSoloPlayerCapacity(data.maxPlayers)
+    ) {
+      ctx.addIssue({
+        code: "custom",
+        message: "invalid_capacity",
+        path: ["maxPlayers"],
+      });
+    }
 
     const placements = data.prizeCodes.map((row) => row.placement);
     const codes = data.prizeCodes.map((row) => row.code);
@@ -92,6 +107,20 @@ export const tournamentSchema = z
     }
 
     if (data.type === "TEAM" && data.prizeCodes.length > 0) {
+      for (const placement of [1, 2, 3]) {
+        const count = placements.filter((p) => p === placement).length;
+        if (count > 0 && count !== PRIZE_CODES_PER_TEAM) {
+          ctx.addIssue({
+            code: "custom",
+            message: "prize_codes_per_placement",
+            path: ["prizeCodes"],
+          });
+          break;
+        }
+      }
+    }
+
+    if (data.type === "SOLO" && data.prizeCodes.length > 0) {
       for (const placement of [1, 2, 3]) {
         const count = placements.filter((p) => p === placement).length;
         if (count > 0 && count !== PRIZE_CODES_PER_TEAM) {

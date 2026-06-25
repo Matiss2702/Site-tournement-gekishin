@@ -10,7 +10,10 @@ import {
 import { SERIES_LENGTH_OPTIONS } from "@/lib/match-series";
 import {
   MIN_TOURNAMENT_CAPACITY,
+  MIN_SOLO_PLAYER_CAPACITY,
+  SOLO_PLAYER_CAPACITY_OPTIONS,
   TOURNAMENT_CAPACITY_OPTIONS,
+  isValidSoloPlayerCapacity,
   isValidTournamentCapacity,
 } from "@/lib/tournament-capacity";
 
@@ -74,37 +77,26 @@ export default function CreateTournamentPage() {
     type: "TEAM" as "SOLO" | "TEAM",
     format: "DOUBLE_ELIMINATION" as const,
     maxTeams: "8",
-    maxPlayers: "8",
+    maxPlayers: "32",
     startDate: "",
     endDate: "",
     prizeCodes: buildInitialPrizeForm(),
-    prizeCode1stSolo: "",
-    prizeCode2ndSolo: "",
-    prizeCode3rdSolo: "",
     roundSeriesLength: 1,
     semiSeriesLength: 1,
     finalSeriesLength: 1,
   });
 
   function buildPrizePayload() {
-    if (form.type === "TEAM") {
-      const prizeCodes: { placement: number; code: string }[] = [];
-      for (const placement of PRIZE_PLACEMENTS) {
-        const codes = form.prizeCodes[String(placement) as "1" | "2" | "3"]
-          .map((code) => code.trim())
-          .filter(Boolean);
-        for (const code of codes) {
-          prizeCodes.push({ placement, code });
-        }
+    const prizeCodes: { placement: number; code: string }[] = [];
+    for (const placement of PRIZE_PLACEMENTS) {
+      const codes = form.prizeCodes[String(placement) as "1" | "2" | "3"]
+        .map((code) => code.trim())
+        .filter(Boolean);
+      for (const code of codes) {
+        prizeCodes.push({ placement, code });
       }
-      return prizeCodes;
     }
-
-    return [
-      { placement: 1, code: form.prizeCode1stSolo.trim() },
-      { placement: 2, code: form.prizeCode2ndSolo.trim() },
-      { placement: 3, code: form.prizeCode3rdSolo.trim() },
-    ].filter((row) => row.code.length > 0);
+    return prizeCodes;
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -143,12 +135,23 @@ export default function CreateTournamentPage() {
       }
     } else {
       const maxPlayers = parseInt(form.maxPlayers, 10);
-      if (!isValidTournamentCapacity(maxPlayers)) {
-        setError(t("invalidCapacity", { min: MIN_TOURNAMENT_CAPACITY }));
+      if (!isValidSoloPlayerCapacity(maxPlayers)) {
+        setError(t("invalidSoloCapacity", { min: MIN_SOLO_PLAYER_CAPACITY }));
         setLoading(false);
         return;
       }
       payload.maxPlayers = maxPlayers;
+
+      for (const placement of PRIZE_PLACEMENTS) {
+        const codes = form.prizeCodes[String(placement) as "1" | "2" | "3"]
+          .map((code) => code.trim())
+          .filter(Boolean);
+        if (codes.length > 0 && codes.length !== PRIZE_CODES_PER_TEAM) {
+          setError(t("prizeCodesPerPlacement", { count: PRIZE_CODES_PER_TEAM }));
+          setLoading(false);
+          return;
+        }
+      }
     }
 
     if (form.startDate) {
@@ -345,7 +348,7 @@ export default function CreateTournamentPage() {
                 }
                 required
               >
-                {TOURNAMENT_CAPACITY_OPTIONS.map((n) => (
+                {SOLO_PLAYER_CAPACITY_OPTIONS.map((n) => (
                   <option key={n} value={n}>
                     {n}
                   </option>
@@ -368,67 +371,28 @@ export default function CreateTournamentPage() {
           <div>
             <h2 className="text-lg font-semibold">{t("prizeCodesTitle")}</h2>
             <p className="text-sm text-muted mt-1">
-              {form.type === "TEAM" ? t("prizeCodesHintTeam") : t("prizeCodesHint")}
+              {form.type === "TEAM" ? t("prizeCodesHintTeam") : t("prizeCodesHintSolo")}
             </p>
           </div>
 
-          {form.type === "TEAM" ? (
-            <div className="space-y-5">
-              {PRIZE_PLACEMENTS.map((placement) => (
-                <PrizeCodeFields
-                  key={placement}
-                  placement={placement}
-                  values={form.prizeCodes[String(placement) as "1" | "2" | "3"]}
-                  onChange={(next) =>
-                    setForm({
-                      ...form,
-                      prizeCodes: {
-                        ...form.prizeCodes,
-                        [String(placement)]: next,
-                      },
-                    })
-                  }
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 gap-4">
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  {t("prizePlacement.1")}
-                </label>
-                <input
-                  value={form.prizeCode1stSolo}
-                  onChange={(e) =>
-                    setForm({ ...form, prizeCode1stSolo: e.target.value })
-                  }
-                  placeholder="WQC5 XN32 4K3M JRY3"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  {t("prizePlacement.2")}
-                </label>
-                <input
-                  value={form.prizeCode2ndSolo}
-                  onChange={(e) =>
-                    setForm({ ...form, prizeCode2ndSolo: e.target.value })
-                  }
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  {t("prizePlacement.3")}
-                </label>
-                <input
-                  value={form.prizeCode3rdSolo}
-                  onChange={(e) =>
-                    setForm({ ...form, prizeCode3rdSolo: e.target.value })
-                  }
-                />
-              </div>
-            </div>
-          )}
+          <div className="space-y-5">
+            {PRIZE_PLACEMENTS.map((placement) => (
+              <PrizeCodeFields
+                key={placement}
+                placement={placement}
+                values={form.prizeCodes[String(placement) as "1" | "2" | "3"]}
+                onChange={(next) =>
+                  setForm({
+                    ...form,
+                    prizeCodes: {
+                      ...form.prizeCodes,
+                      [String(placement)]: next,
+                    },
+                  })
+                }
+              />
+            ))}
+          </div>
         </div>
 
         <button type="submit" disabled={loading} className="btn btn-primary w-full">

@@ -9,6 +9,9 @@ import {
   type CaptainDashboardItem,
 } from "@/lib/user-dashboard";
 import { TournamentStatusBadge } from "@/components/TournamentStatusBadge";
+import { DiscordLinkCard } from "@/components/DiscordLinkCard";
+import { isDiscordConfigured } from "@/lib/discord";
+import { Suspense } from "react";
 
 function outcomeLabel(
   item: CaptainDashboardItem,
@@ -48,7 +51,7 @@ export default async function DashboardPage({
   const tTournaments = await getTranslations("tournaments");
   const userId = session!.user.id;
 
-  const [myTeams, myTournaments, registeredTournaments, captainDrafts] =
+  const [myTeams, myTournaments, registeredTournaments, captainDrafts, dbUser] =
     await Promise.all([
       prisma.teamMember.findMany({
         where: { userId },
@@ -65,6 +68,10 @@ export default async function DashboardPage({
       }),
       getUserRegisteredTournaments(userId),
       getCaptainDrafts(userId),
+      prisma.user.findUnique({
+        where: { id: userId },
+        select: { discordUsername: true },
+      }),
     ]);
 
   return (
@@ -73,6 +80,14 @@ export default async function DashboardPage({
         {session!.user.name || session!.user.username}
       </h1>
       <p className="text-muted mb-8">@{session!.user.username}</p>
+
+      <Suspense fallback={null}>
+        <DiscordLinkCard
+          locale={locale}
+          discordUsername={dbUser?.discordUsername ?? null}
+          configured={isDiscordConfigured()}
+        />
+      </Suspense>
 
       {captainDrafts.length > 0 && (
         <section className="mb-10">
