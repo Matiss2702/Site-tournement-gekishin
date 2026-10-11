@@ -1,7 +1,8 @@
 import { BrevoClient } from "@getbrevo/brevo";
 import {
+  buildPasswordResetEmail,
+  buildPrizeCodeEmail,
   buildTeamInviteEmail,
-  buildTournamentInviteEmail,
 } from "@/lib/email-template";
 
 function getBrevoClient() {
@@ -59,15 +60,34 @@ export async function sendTeamInviteEmail(
   return sendEmail({ to, subject, htmlContent });
 }
 
-export async function sendTournamentInviteEmail(
+export async function sendPrizeCodeEmail(
   to: string,
   tournamentTitle: string,
-  inviteLink: string,
+  placementLabel: string,
+  code: string,
+  tournamentLink: string,
   locale: "en" | "fr" = "en"
 ) {
-  const { subject, htmlContent } = buildTournamentInviteEmail({
+  const { subject, htmlContent } = buildPrizeCodeEmail({
     tournamentTitle,
-    inviteLink,
+    placementLabel,
+    code,
+    tournamentLink,
+    locale,
+  });
+
+  return sendEmail({ to, subject, htmlContent });
+}
+
+export async function sendPasswordResetEmail(
+  to: string,
+  username: string,
+  resetLink: string,
+  locale: "en" | "fr" = "en"
+) {
+  const { subject, htmlContent } = buildPasswordResetEmail({
+    resetLink,
+    username,
     locale,
   });
 

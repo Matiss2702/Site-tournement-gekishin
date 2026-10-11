@@ -33,6 +33,16 @@ export const loginSchema = z.object({
   password: z.string().min(1),
 });
 
+export const forgotPasswordSchema = z.object({
+  email: z.string().trim().email(),
+  locale: z.enum(["en", "fr"]).default("en"),
+});
+
+export const resetPasswordSchema = z.object({
+  token: z.string().min(1),
+  password: z.string().min(8),
+});
+
 export const tournamentSchema = z
   .object({
     title: z.string().min(3).max(100),
@@ -43,7 +53,7 @@ export const tournamentSchema = z
       .default("SINGLE_ELIMINATION"),
     maxTeams: z.number().int().optional(),
     maxPlayers: z.number().int().optional(),
-    startDate: z.string().datetime().optional().nullable(),
+    startDate: z.string().datetime(),
     endDate: z.string().datetime().optional().nullable(),
     prizeCodes: z
       .array(
@@ -57,6 +67,7 @@ export const tournamentSchema = z
     roundSeriesLength: z.union([z.literal(1), z.literal(3), z.literal(5)]).default(1),
     semiSeriesLength: z.union([z.literal(1), z.literal(3), z.literal(5)]).default(1),
     finalSeriesLength: z.union([z.literal(1), z.literal(3), z.literal(5)]).default(1),
+    requestBandaiSupport: z.boolean().optional().default(false),
   })
   .superRefine((data, ctx) => {
     if (data.type === "TEAM" && data.maxTeams == null) {

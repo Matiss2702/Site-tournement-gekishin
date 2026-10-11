@@ -38,10 +38,6 @@ export function buildRandomRound1Pairings(participantIds: string[]): Round1Pairi
   return pairings;
 }
 
-export function countRound1Slots(pairingCount: number) {
-  return Math.max(pairingCount, 1);
-}
-
 export function getAssignedIds(
   matches: { team1Id: string | null; team2Id: string | null }[]
 ): Set<string> {
@@ -103,7 +99,16 @@ export type BracketDisplayMatch = {
 
 export type BracketDisplayRound = {
   round: number;
-  labelKey: "tour1" | "tour2" | "semifinal" | "quarterfinal" | "final" | "losersRound" | "grandFinal";
+  labelKey:
+    | "tour1"
+    | "tour2"
+    | "semifinal"
+    | "quarterfinal"
+    | "final"
+    | "winnersRound"
+    | "bracketSemifinal"
+    | "losersRound"
+    | "grandFinal";
   labelParams?: { n: number };
   matches: BracketDisplayMatch[];
 };
@@ -213,7 +218,8 @@ function matchMapByRound(
 
 export function buildWinnersRounds(
   participantCount: number,
-  allMatches: BracketDbMatch[]
+  allMatches: BracketDbMatch[],
+  doubleElimination = false
 ): BracketDisplayRound[] {
   const bracketSize = getBracketSize(participantCount);
   const totalRounds = getRoundCount(bracketSize);
@@ -223,7 +229,16 @@ export function buildWinnersRounds(
   for (let r = 1; r <= totalRounds; r++) {
     const matchCount = bracketSize / Math.pow(2, r);
     let labelKey: BracketDisplayRound["labelKey"] = "tour2";
-    if (r === 1) labelKey = "tour1";
+    let labelParams: BracketDisplayRound["labelParams"];
+    if (doubleElimination) {
+      // The winners bracket is not the end of a double elimination: its last
+      // round sends its winner to the grand final, so it is a semi-final.
+      if (r === totalRounds) labelKey = "bracketSemifinal";
+      else {
+        labelKey = "winnersRound";
+        labelParams = { n: r };
+      }
+    } else if (r === 1) labelKey = "tour1";
     else if (r === totalRounds) labelKey = "final";
     else if (matchCount === 2) labelKey = "semifinal";
     else if (matchCount === 4) labelKey = "quarterfinal";
@@ -232,7 +247,7 @@ export function buildWinnersRounds(
     for (let m = 1; m <= matchCount; m++) {
       matches.push(toDisplayMatch(byKey.get(`${r}:${m}`), r, m));
     }
-    rounds.push({ round: r, labelKey, matches });
+    rounds.push({ round: r, labelKey, labelParams, matches });
   }
 
   return rounds;
@@ -255,12 +270,12 @@ export function buildLosersRounds(
     for (let m = 1; m <= matchCount; m++) {
       matches.push(toDisplayMatch(byKey.get(`${-r}:${m}`), -r, m));
     }
-    rounds.push({
-      round: r,
-      labelKey: "losersRound",
-      labelParams: { n: r },
-      matches,
-    });
+    // The losers bracket's last round also feeds the grand final.
+    rounds.push(
+      r === lbRounds
+        ? { round: r, labelKey: "bracketSemifinal", matches }
+        : { round: r, labelKey: "losersRound", labelParams: { n: r }, matches }
+    );
   }
 
   return rounds;
@@ -281,25 +296,4 @@ export function buildGrandFinalRound(
     labelKey: "grandFinal",
     matches: [toDisplayMatch(gf, GRAND_FINAL_ROUND, 1)],
   };
-}
-
-/** @deprecated use buildWinnersRounds */
-export function buildBracketRounds(
-  participantCount: number,
-  round1Matches: Array<{
-    id: string;
-    round: number;
-    matchNumber: number;
-    status: string;
-    team1: BracketParticipant | null;
-    team2: BracketParticipant | null;
-  }>
-): BracketDisplayRound[] {
-  const asDb: BracketDbMatch[] = round1Matches.map((m) => ({
-    ...m,
-    score1: 0,
-    score2: 0,
-    winnerId: null,
-  }));
-  return buildWinnersRounds(participantCount, asDb);
 }

@@ -9,6 +9,10 @@ import {
   isValidSoloPlayerCount,
   SOLO_TEAM_SIZE,
 } from "@/lib/tournament-prize-config";
+import {
+  BANDAI_SUPPORT_TERMS_URL,
+  requiresBandaiConsent,
+} from "@/lib/bandai-support";
 
 interface TeamOption {
   id: string;
@@ -52,6 +56,11 @@ interface TournamentActionsProps {
   memberConflictBlocksJoin?: boolean;
   minTeamRosterSize?: number;
   entryCount?: number;
+  startDateReached?: boolean;
+  startDateLabel?: string | null;
+  bandaiSupportStatus?: string;
+  needsBandaiConsent?: boolean;
+  isPlatformAdmin?: boolean;
 }
 
 export function TournamentActions({
@@ -68,10 +77,18 @@ export function TournamentActions({
   memberConflictBlocksJoin = false,
   minTeamRosterSize = 4,
   entryCount = 0,
+  startDateReached = false,
+  startDateLabel = null,
+  bandaiSupportStatus = "NONE",
+  needsBandaiConsent = false,
+  isPlatformAdmin = false,
 }: TournamentActionsProps) {
   const t = useTranslations("tournaments");
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [adultConfirmed, setAdultConfirmed] = useState(false);
+  const [rulesAccepted, setRulesAccepted] = useState(false);
+  const bandaiConsentRequired = requiresBandaiConsent(bandaiSupportStatus);
   const initialTeamId =
     preferredTeamId && availableTeams.some((team) => team.id === preferredTeamId)
       ? preferredTeamId
@@ -84,6 +101,27 @@ export function TournamentActions({
     type === "SOLO"
       ? isValidSoloPlayerCount(entryCount)
       : entryCount >= MIN_TOURNAMENT_PARTICIPANTS;
+  const soloRemainder = entryCount % SOLO_TEAM_SIZE;
+  const checkInBlockedHint = canStartCheckIn
+    ? null
+    : type === "SOLO"
+      ? entryCount >= MIN_SOLO_PLAYERS && soloRemainder !== 0
+        ? t("soloPlayerCountNotMultiple", {
+            teamSize: SOLO_TEAM_SIZE,
+            current: entryCount,
+            remove: soloRemainder,
+            add: SOLO_TEAM_SIZE - soloRemainder,
+          })
+        : t("soloMinParticipantsHint", {
+            required: MIN_SOLO_PLAYERS,
+            teams: MIN_TOURNAMENT_PARTICIPANTS,
+            current: entryCount,
+            teamSize: SOLO_TEAM_SIZE,
+          })
+      : t("minParticipantsHint", {
+          required: MIN_TOURNAMENT_PARTICIPANTS,
+          current: entryCount,
+        });
 
   useEffect(() => {
     const preferred =
@@ -110,7 +148,24 @@ export function TournamentActions({
     setLoading(true);
     setMessage("");
 
-    const body: { action: string; teamId?: string } = { action: "join" };
+    if (bandaiConsentRequired && (!adultConfirmed || !rulesAccepted)) {
+      setMessage(
+        !adultConfirmed ? t("adultConfirmationRequired") : t("rulesAcceptanceRequired")
+      );
+      setLoading(false);
+      return;
+    }
+
+    const body: {
+      action: string;
+      teamId?: string;
+      adultConfirmed?: boolean;
+      rulesAccepted?: boolean;
+    } = { action: "join" };
+    if (bandaiConsentRequired) {
+      body.adultConfirmed = true;
+      body.rulesAccepted = true;
+    }
     if (type === "TEAM") {
       if (!selectedTeamId) {
         setMessage(t("joinSelectTeam"));
@@ -138,9 +193,13 @@ export function TournamentActions({
                 count: data.memberCount ?? 0,
                 required: data.required ?? minTeamRosterSize,
               })
-            : data.error === "member_conflict"
+              : data.error === "member_conflict"
               ? formatMemberConflictMessage(data.conflicts, t)
-              : data.error || t("joinFailed")
+              : data.error === "adult_confirmation_required"
+                ? t("adultConfirmationRequired")
+                : data.error === "rules_acceptance_required"
+                  ? t("rulesAcceptanceRequired")
+                  : data.error || t("joinFailed")
       );
     }
     setLoading(false);
@@ -227,6 +286,98 @@ export function TournamentActions({
     setLoading(false);
   }
 
+  async function handleConfirmBandai() {
+    if (!adultConfirmed || !rulesAccepted) {
+      setMessage(
+        !adultConfirmed ? t("adultConfirmationRequired") : t("rulesAcceptanceRequired")
+      );
+      return;
+    }
+    setLoading(true);
+    setMessage("");
+    const res = await fetch(`/api/tournaments/${tournamentId}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        action: "confirm_bandai",
+        adultConfirmed: true,
+        rulesAccepted: true,
+      }),
+    });
+    if (res.ok) {
+      setAdultConfirmed(false);
+      setRulesAccepted(false);
+      router.refresh();
+    } else {
+      const data = await res.json();
+      setMessage(
+        data.error === "adult_confirmation_required"
+          ? t("adultConfirmationRequired")
+          : data.error === "rules_acceptance_required"
+            ? t("rulesAcceptanceRequired")
+            : t("bandaiConsentFailed")
+      );
+    }
+    setLoading(false);
+  }
+
+  async function handleBandaiStatus(nextStatus: string) {
+    setLoading(true);
+    setMessage("");
+    const res = await fetch(`/api/tournaments/${tournamentId}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "set_bandai_support", status: nextStatus }),
+    });
+    if (!res.ok) {
+      setMessage(t("bandaiStatusForbidden"));
+    } else {
+      router.refresh();
+    }
+    setLoading(false);
+  }
+
+  function bandaiConsentFields() {
+    if (!bandaiConsentRequired) return null;
+    return (
+      <div className="w-full space-y-3 rounded-lg border border-card-border p-4">
+        <p className="text-sm text-muted">{t("bandaiConsentIntro")}</p>
+        <label className="flex items-start gap-3 text-sm">
+          <input
+            type="checkbox"
+            className="mt-1"
+            checked={adultConfirmed}
+            onChange={(e) => setAdultConfirmed(e.target.checked)}
+          />
+          <span>{t("adultConfirmationLabel")}</span>
+        </label>
+        <label className="flex items-start gap-3 text-sm">
+          <input
+            type="checkbox"
+            className="mt-1"
+            checked={rulesAccepted}
+            onChange={(e) => setRulesAccepted(e.target.checked)}
+          />
+          <span>
+            {t("rulesAcceptanceLabel")}{" "}
+            <a
+              href={BANDAI_SUPPORT_TERMS_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="underline"
+            >
+              {t("bandaiTermsLink")}
+            </a>
+            {" · "}
+            <a href="#tournament-rules" className="underline">
+              {t("rulesTitle")}
+            </a>
+          </span>
+        </label>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-2">
       <div className="flex gap-2 flex-wrap items-center">
@@ -246,6 +397,7 @@ export function TournamentActions({
             {type === "SOLO" && isLoggedIn && (
               <p className="text-sm text-muted w-full">{t("soloRegisterHint")}</p>
             )}
+            {isLoggedIn && bandaiConsentFields()}
             {!isLoggedIn ? (
               <Link href="/login" className="btn btn-primary">
                 {t("joinLogin")}
@@ -299,16 +451,28 @@ export function TournamentActions({
           </>
         )}
 
-        {status === "REGISTRATION" && alreadyJoined && !isOrganizer && (
-          <span className="badge bg-primary/20 text-primary">{t("joined")}</span>
+        {needsBandaiConsent && (
+          <div className="w-full space-y-3">
+            <p className="text-sm text-amber-300">{t("bandaiConsentPending")}</p>
+            {bandaiConsentFields()}
+            <button
+              type="button"
+              onClick={handleConfirmBandai}
+              disabled={loading}
+              className="btn btn-primary"
+            >
+              {loading ? "..." : t("confirmBandaiConsent")}
+            </button>
+          </div>
         )}
 
-        {status === "CHECK_IN" && alreadyJoined && !isOrganizer && (
-          <span className="badge bg-amber-500/15 text-amber-300">{t("checkInPhase")}</span>
+        {status === "REGISTRATION" && alreadyJoined && !isOrganizer && !needsBandaiConsent && (
+          <span className="badge bg-primary/20 text-primary">{t("joined")}</span>
         )}
 
         {isOrganizer && status === "DRAFT" && (
           <button
+            type="button"
             onClick={() => handleStatusChange("REGISTRATION")}
             disabled={loading}
             className="btn btn-primary"
@@ -316,6 +480,49 @@ export function TournamentActions({
             {t("openRegistration")}
           </button>
         )}
+
+        {isOrganizer && bandaiSupportStatus === "NONE" && (
+          <button
+            type="button"
+            onClick={() => handleBandaiStatus("PENDING")}
+            disabled={loading}
+            className="btn btn-secondary"
+          >
+            {t("markBandaiPending")}
+          </button>
+        )}
+        {isOrganizer && bandaiSupportStatus === "PENDING" && (
+          <button
+            type="button"
+            onClick={() => handleBandaiStatus("NONE")}
+            disabled={loading}
+            className="btn btn-secondary"
+          >
+            {t("withdrawBandaiRequest")}
+          </button>
+        )}
+        {isPlatformAdmin && bandaiSupportStatus !== "APPROVED" && (
+          <button
+            type="button"
+            onClick={() => handleBandaiStatus("APPROVED")}
+            disabled={loading}
+            className="btn btn-secondary"
+          >
+            {t("markBandaiApproved")}
+          </button>
+        )}
+        {isPlatformAdmin &&
+          bandaiSupportStatus !== "REJECTED" &&
+          bandaiSupportStatus !== "NONE" && (
+            <button
+              type="button"
+              onClick={() => handleBandaiStatus("REJECTED")}
+              disabled={loading}
+              className="btn btn-secondary"
+            >
+              {t("markBandaiRejected")}
+            </button>
+          )}
 
         {isOrganizer &&
           status !== "REGISTRATION" &&
@@ -333,38 +540,23 @@ export function TournamentActions({
 
         {isOrganizer && status === "REGISTRATION" && (
           <>
-            {!canStartCheckIn && (
+            {checkInBlockedHint && (
               <p className="text-sm text-amber-400 w-full">
-                {type === "SOLO"
-                  ? t("soloMinParticipantsHint", {
-                      required: MIN_SOLO_PLAYERS,
-                      teams: MIN_TOURNAMENT_PARTICIPANTS,
-                      current: entryCount,
-                      teamSize: SOLO_TEAM_SIZE,
-                    })
-                  : t("minParticipantsHint", {
-                      required: MIN_TOURNAMENT_PARTICIPANTS,
-                      current: entryCount,
-                    })}
+                {checkInBlockedHint}
+              </p>
+            )}
+            {!startDateReached && (
+              <p className="text-sm text-amber-400 w-full">
+                {startDateLabel
+                  ? t("tooEarlyToStart", { date: startDateLabel })
+                  : t("startDateMissing")}
               </p>
             )}
             <button
               onClick={handleStartCheckIn}
-              disabled={loading || !canStartCheckIn}
+              disabled={loading || !canStartCheckIn || !startDateReached}
               className="btn btn-primary"
-              title={
-                !canStartCheckIn
-                  ? type === "SOLO"
-                    ? t("minParticipantsRequired", {
-                        required: MIN_SOLO_PLAYERS,
-                        current: entryCount,
-                      })
-                    : t("minParticipantsRequired", {
-                        required: MIN_TOURNAMENT_PARTICIPANTS,
-                        current: entryCount,
-                      })
-                  : undefined
-              }
+              title={checkInBlockedHint ?? undefined}
             >
               {loading ? "..." : t("startCheckIn")}
             </button>

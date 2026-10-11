@@ -21,7 +21,9 @@ function getPool() {
   if (!globalForPrisma.pool) {
     const pool = new Pool({
       connectionString: getConnectionString(),
-      max: 5,
+      // The local `prisma dev` database only handles one connection at a time:
+      // set DATABASE_POOL_MAX=1 in development to avoid "connection closed" errors.
+      max: Number(process.env.DATABASE_POOL_MAX) || 5,
       idleTimeoutMillis: 30_000,
       connectionTimeoutMillis: 10_000,
     });

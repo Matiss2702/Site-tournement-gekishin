@@ -30,6 +30,16 @@ import {
   collectTeamsFromMatches,
   resolvePodiumEntry,
 } from "@/lib/tournament-results";
+import { findUserMatchChatId } from "@/lib/match-chat";
+import {
+  formatTournamentStart,
+  getTournamentStartBlock,
+} from "@/lib/tournament-start-date";
+import { MatchChat } from "@/components/MatchChat";
+import { TournamentPrizeCodesForm } from "@/components/TournamentPrizeCodesForm";
+import { BandaiSupportNotice } from "@/components/BandaiSupportNotice";
+import { consentIsComplete, requiresBandaiConsent } from "@/lib/bandai-support";
+import { getParticipantConsent, isPlatformAdmin } from "@/lib/bandai-consent";
 
 export default async function TournamentDetailPage({
   params,
@@ -88,9 +98,34 @@ export default async function TournamentDetailPage({
   const title = tournament.title;
   const description = tournament.description;
 
+  const startBlock = getTournamentStartBlock(tournament.startDate);
+  const startDateLabel = tournament.startDate
+    ? formatTournamentStart(tournament.startDate, locale)
+    : null;
+
   const isOrganizer = tournament.organizers.some(
     (o) => o.userId === session?.user?.id
   );
+  const platformAdmin = session?.user
+    ? await isPlatformAdmin(session.user.id)
+    : false;
+  const participantEntry = session?.user
+    ? findUserTournamentEntry(tournament.entries, session.user.id)
+    : undefined;
+  const bandaiConsent = session?.user
+    ? await getParticipantConsent(id, session.user.id)
+    : null;
+  const needsBandaiConsent =
+    !!participantEntry &&
+    requiresBandaiConsent(tournament.bandaiSupportStatus) &&
+    !consentIsComplete(bandaiConsent);
+  const organizerPrizeCodes = isOrganizer
+    ? await prisma.tournamentPrizeCode.findMany({
+        where: { tournamentId: id },
+        orderBy: [{ placement: "asc" }, { createdAt: "asc" }],
+        select: { placement: true, code: true, grantId: true },
+      })
+    : [];
 
   const registeredTeamIds = new Set(
     tournament.entries
@@ -98,7 +133,7 @@ export default async function TournamentDetailPage({
       .filter((teamId): teamId is string => !!teamId)
   );
 
-  let availableTeams: {
+  const availableTeams: {
     id: string;
     name: string;
     tag: string | null;
@@ -149,6 +184,10 @@ export default async function TournamentDetailPage({
     ? await getCaptainDraftForTournament(session.user.id, id)
     : null;
 
+  const matchChatId = session?.user
+    ? await findUserMatchChatId(id, session.user.id)
+    : null;
+
   const canManage = session?.user
     ? await canManageDraft(id, session.user.id)
     : false;
@@ -169,8 +208,16 @@ export default async function TournamentDetailPage({
   );
   const capacity =
     tournament.type === "TEAM" ? tournament.maxTeams : tournament.maxPlayers;
+  // Once a solo tournament's players are drawn into teams, entries are teams:
+  // count their members so the badge keeps showing players, not teams.
+  const playerCount = soloUsesTeams
+    ? tournament.entries.reduce(
+        (sum, entry) => sum + (entry.team?.members.length ?? (entry.userId ? 1 : 0)),
+        0
+      )
+    : entryCount;
   const registrationFull =
-    capacity != null && entryCount >= capacity;
+    capacity != null && playerCount >= capacity;
 
   const checkInSummary =
     tournament.status === "CHECK_IN"
@@ -275,14 +322,14 @@ export default async function TournamentDetailPage({
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-8">
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <h1 className="text-3xl font-bold">{title}</h1>
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div className="min-w-0">
+            <h1 className="text-2xl sm:text-3xl font-bold break-words">{title}</h1>
             <p className="text-muted mt-2">
               {t("organizer")}: {tournament.organizer.username}
             </p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2 sm:justify-end">
             <span className="badge bg-primary/20 text-primary">
               {tournament.type === "SOLO" ? t("solo") : t("team")}
             </span>
@@ -290,6 +337,21 @@ export default async function TournamentDetailPage({
               status={tournamentStatus}
               label={t(`statuses.${tournamentStatus}`)}
             />
+            {tournament.bandaiSupportStatus === "PENDING" && (
+              <span className="badge bg-card-border text-muted">
+                {t("bandaiStatusPending")}
+              </span>
+            )}
+            {tournament.bandaiSupportStatus === "APPROVED" && (
+              <span className="badge bg-sky-500/15 text-sky-300">
+                {t("bandaiStatusApproved")}
+              </span>
+            )}
+            {platformAdmin && tournament.bandaiSupportStatus === "REJECTED" && (
+              <span className="badge bg-accent/20 text-accent">
+                {t("bandaiStatusRejected")}
+              </span>
+            )}
             {capacity != null && (
               <span
                 className={`badge ${
@@ -300,12 +362,20 @@ export default async function TournamentDetailPage({
               >
                 {tournament.type === "TEAM"
                   ? t("teamsRegistered", { count: entryCount, max: capacity })
-                  : t("playersRegistered", { count: entryCount, max: capacity })}
+                  : t("playersRegistered", { count: playerCount, max: capacity })}
               </span>
             )}
           </div>
         </div>
-        <p className="mt-4 text-foreground/80">{description}</p>
+        <h2 id="tournament-rules" className="mt-6 text-lg font-semibold">
+          {t("rulesTitle")}
+        </h2>
+        <p className="mt-2 text-foreground/80 whitespace-pre-wrap">{description}</p>
+        {startDateLabel && (
+          <p className="mt-2 text-sm text-muted">
+            {t("scheduledStart", { date: startDateLabel })}
+          </p>
+        )}
         {tournament.type === "SOLO" && tournamentStatus === "REGISTRATION" && (
           <p className="mt-2 text-sm text-muted">{t("soloRegisterHint")}</p>
         )}
@@ -344,6 +414,11 @@ export default async function TournamentDetailPage({
           memberConflictBlocksJoin={memberConflictBlocksJoin}
           minTeamRosterSize={MIN_TEAM_ROSTER_SIZE}
           entryCount={entryCount}
+          startDateReached={startBlock.ok}
+          startDateLabel={startDateLabel}
+          bandaiSupportStatus={tournament.bandaiSupportStatus}
+          needsBandaiConsent={needsBandaiConsent}
+          isPlatformAdmin={platformAdmin}
         />
         {!showDraftSection && (
           <Link
@@ -356,6 +431,17 @@ export default async function TournamentDetailPage({
           </Link>
         )}
       </div>
+
+      {isOrganizer && (
+        <TournamentPrizeCodesForm
+          tournamentId={id}
+          codes={organizerPrizeCodes.map((row) => ({
+            placement: row.placement,
+            code: row.code,
+            granted: !!row.grantId,
+          }))}
+        />
+      )}
 
       {checkInSummary && (
         <TournamentCheckInPanel
@@ -379,6 +465,8 @@ export default async function TournamentDetailPage({
           waitingForCaptainCheckIn={waitingForCaptainCheckIn}
           teamCheckInConfirmed={teamCheckInConfirmed}
           isOrganizer={isOrganizer}
+          startDateReached={startBlock.ok}
+          startDateLabel={startDateLabel}
         />
       )}
 
@@ -394,6 +482,12 @@ export default async function TournamentDetailPage({
                 : null
             }
           />
+        </section>
+      )}
+
+      {matchChatId && (
+        <section className="mb-8">
+          <MatchChat tournamentId={id} matchId={matchChatId} />
         </section>
       )}
 
@@ -464,7 +558,11 @@ export default async function TournamentDetailPage({
           {canManage && (
             <>
               <p className="text-sm text-muted mb-4">{t("organizerDraftHint")}</p>
-              <MatchDraftsPanel tournamentId={id} canManage={canManage} />
+              <MatchDraftsPanel
+                key={tournamentStatus}
+                tournamentId={id}
+                canManage={canManage}
+              />
             </>
           )}
         </section>
@@ -543,6 +641,7 @@ export default async function TournamentDetailPage({
         </section>
         )}
       </div>
+      <BandaiSupportNotice status={tournament.bandaiSupportStatus} />
     </div>
   );
 }

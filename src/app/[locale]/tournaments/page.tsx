@@ -45,7 +45,7 @@ export default async function TournamentsPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-8">
         <h1 className="text-3xl font-bold">{t("title")}</h1>
         <Link href="/tournaments/create" className="btn btn-primary">
           {t("create")}
@@ -62,9 +62,9 @@ export default async function TournamentsPage() {
               href={`/tournaments/${tournament.id}`}
               className={`card hover:border-primary transition-colors ${tournamentCardClass(tournament.status)}`}
             >
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h2 className="text-lg font-semibold">{tournament.title}</h2>
+              <div className="flex flex-col-reverse sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
+                <div className="min-w-0">
+                  <h2 className="text-lg font-semibold break-words">{tournament.title}</h2>
                   <p className="text-sm text-muted mt-1">
                     {tournament.organizer.username} · {tournament._count.entries}{" "}
                     {t("participants")}
@@ -75,7 +75,7 @@ export default async function TournamentsPage() {
                     </p>
                   )}
                 </div>
-                <div className="flex flex-wrap gap-2 justify-end">
+                <div className="flex flex-wrap gap-2 sm:justify-end">
                   <span className="badge bg-primary/20 text-primary">
                     {tournament.type === "SOLO" ? t("solo") : t("team")}
                   </span>
@@ -83,6 +83,16 @@ export default async function TournamentsPage() {
                     status={tournament.status}
                     label={t(`statuses.${tournament.status}`)}
                   />
+                  {tournament.bandaiSupportStatus === "PENDING" && (
+                    <span className="badge bg-card-border text-muted">
+                      {t("bandaiStatusPending")}
+                    </span>
+                  )}
+                  {tournament.bandaiSupportStatus === "APPROVED" && (
+                    <span className="badge bg-sky-500/15 text-sky-300">
+                      {t("bandaiStatusApproved")}
+                    </span>
+                  )}
                 </div>
               </div>
             </Link>

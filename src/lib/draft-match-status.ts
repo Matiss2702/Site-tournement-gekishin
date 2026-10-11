@@ -1,21 +1,16 @@
 import { prisma } from "@/lib/prisma";
-import { HEROES } from "@/lib/heroes";
+import {
+  getHeroRoleMap,
+  buildHeroRoleMapFromActions,
+} from "@/lib/hero-repository";
 import { isPickPhaseCompleteForTeams } from "@/lib/draft";
 import { getDraftTeamIds } from "@/lib/draft-access";
-import type { GameRole } from "@/components/HeroCard";
 
-function buildHeroRoleMap(
+async function buildHeroRoleMap(
   actions: { heroName: string | null; gameRole: string | null }[]
 ) {
-  const heroRoleByName = new Map(
-    HEROES.map((h) => [h.nameEn, h.gameRole as GameRole])
-  );
-  for (const action of actions) {
-    if (action.heroName && action.gameRole) {
-      heroRoleByName.set(action.heroName, action.gameRole as GameRole);
-    }
-  }
-  return heroRoleByName;
+  const base = await getHeroRoleMap();
+  return buildHeroRoleMapFromActions(base, actions);
 }
 
 export async function isMatchDraftComplete(matchId: string) {
@@ -40,7 +35,7 @@ export async function isMatchDraftComplete(matchId: string) {
   if (actions.length === 0) return false;
 
   const teamIds = getDraftTeamIds(config);
-  const heroRoleByName = buildHeroRoleMap(actions);
+  const heroRoleByName = await buildHeroRoleMap(actions);
   return isPickPhaseCompleteForTeams(actions, heroRoleByName, teamIds);
 }
 
@@ -84,6 +79,7 @@ export async function getDraftCompleteMap(tournamentId: string) {
     }
   }
 
+  const baseRoles = await getHeroRoleMap();
   const result = new Map<string, boolean>();
 
   for (const config of configs) {
@@ -100,7 +96,7 @@ export async function getDraftCompleteMap(tournamentId: string) {
     }
 
     const teamIds = getDraftTeamIds(config);
-    const heroRoleByName = buildHeroRoleMap(actions);
+    const heroRoleByName = buildHeroRoleMapFromActions(baseRoles, actions);
     result.set(
       config.matchId,
       isPickPhaseCompleteForTeams(actions, heroRoleByName, teamIds)

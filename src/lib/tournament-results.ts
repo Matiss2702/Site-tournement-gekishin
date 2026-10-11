@@ -38,32 +38,6 @@ export function resolvePodiumEntry(
   return null;
 }
 
-export function formatTournamentParticipant(
-  participantId: string | null | undefined,
-  entries: EntryLike[],
-  teams?: TeamLike[]
-): string | null {
-  if (!participantId) return null;
-
-  for (const entry of entries) {
-    if (entry.teamId === participantId && entry.team) {
-      return formatTeamName(entry.team);
-    }
-    if (entry.userId === participantId && entry.user) {
-      return entry.user.username;
-    }
-  }
-
-  const team = teams?.find((row) => row.id === participantId);
-  if (team) return formatTeamName(team);
-
-  return null;
-}
-
-function formatTeamName(team: { name: string; tag: string | null }) {
-  return `${team.name}${team.tag ? ` [${team.tag}]` : ""}`;
-}
-
 export function collectTeamsFromMatches(
   matches: Array<{
     team1: TeamLike | null;

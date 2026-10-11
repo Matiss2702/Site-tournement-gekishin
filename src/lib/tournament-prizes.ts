@@ -1,5 +1,6 @@
 import type { Prisma } from "@/generated/prisma/client";
 import { prisma } from "@/lib/prisma";
+import { sendPrizeCodeEmail } from "@/lib/brevo";
 import { createNotification } from "@/lib/notifications";
 import {
   isTournamentDecisivelyComplete,
@@ -156,10 +157,12 @@ async function sendPrizeNotifications(
   tournament: Pick<TournamentForPrizes, "id" | "title">,
   pending: PendingPrizeNotification[]
 ) {
+  const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
+
   for (const row of pending) {
     const user = await prisma.user.findUnique({
       where: { id: row.userId },
-      select: { locale: true },
+      select: { locale: true, email: true },
     });
     const locale = user?.locale === "fr" ? "fr" : "en";
     const placeLabel = placementLabel(row.placement, locale);
@@ -173,6 +176,21 @@ async function sendPrizeNotifications(
       messageFr: `Vous avez obtenu la ${placeLabel} dans « ${tournament.title} ». Votre code personnel : ${row.code}`,
       link: `/tournaments/${tournament.id}`,
     });
+
+    if (!user?.email) continue;
+
+    try {
+      await sendPrizeCodeEmail(
+        user.email,
+        tournament.title,
+        placeLabel,
+        row.code,
+        `${baseUrl}/${locale}/tournaments/${tournament.id}`,
+        locale
+      );
+    } catch (error) {
+      console.error("[prize] Failed to email code:", error);
+    }
   }
 }
 
@@ -283,6 +301,47 @@ export async function syncTournamentCompletionIfReady(
   });
 
   return refreshed?.status ?? tournament.status;
+}
+
+export async function distributeOutstandingPrizes(tournamentId: string) {
+  const tournament = await prisma.tournament.findUnique({
+    where: { id: tournamentId },
+    include: {
+      prizeCodes: { orderBy: [{ placement: "asc" }, { createdAt: "asc" }] },
+      entries: { select: { userId: true, teamId: true } },
+      matches: {
+        select: {
+          round: true,
+          matchNumber: true,
+          status: true,
+          team1Id: true,
+          team2Id: true,
+          winnerId: true,
+        },
+      },
+    },
+  });
+
+  if (!tournament || tournament.status !== "COMPLETED") return 0;
+  if (!tournament.prizeCodes.some((code) => !code.grantId)) return 0;
+
+  const bracketSize = getBracketSize(tournament.entries.length);
+  const placements = resolveTournamentPlacements(
+    tournament.format,
+    bracketSize,
+    tournament.matches
+  );
+  if (!placements?.first) return 0;
+
+  const pending = await prisma.$transaction(async (tx) => {
+    return applyPrizeDistribution(tx, tournament, placements);
+  });
+
+  if (pending.length > 0) {
+    await sendPrizeNotifications(tournament, pending);
+  }
+
+  return pending.length;
 }
 
 export async function getUserTournamentPrize(

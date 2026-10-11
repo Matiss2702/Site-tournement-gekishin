@@ -16,7 +16,7 @@ const draftInclude = {
 } as const;
 
 export async function ensureMatchDraftTokens(matchId: string) {
-  let config = await prisma.draftConfig.findUnique({
+  const config = await prisma.draftConfig.findUnique({
     where: { matchId },
   });
 

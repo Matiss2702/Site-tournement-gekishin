@@ -28,12 +28,6 @@ export function getLosersMatchCount(bracketSize: number, lbRound: number) {
   return bracketSize / Math.pow(2, pairIndex + 2);
 }
 
-export function bracketSideFromRound(round: number): BracketSide {
-  if (round === GRAND_FINAL_ROUND) return "grand_final";
-  if (round < 0) return "losers";
-  return "winners";
-}
-
 export function computeWinnerDestination(
   round: number,
   matchNumber: number,

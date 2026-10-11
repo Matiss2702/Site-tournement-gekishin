@@ -18,9 +18,13 @@ export function isValidTournamentCapacity(
 export const MIN_SOLO_PLAYER_CAPACITY =
   MIN_TOURNAMENT_CAPACITY * SOLO_TEAM_SIZE;
 
-export const SOLO_PLAYER_CAPACITY_OPTIONS = TOURNAMENT_CAPACITY_OPTIONS.map(
-  (teams) => teams * SOLO_TEAM_SIZE
-) as readonly [32, 64, 128, 256, 512];
+export const SOLO_PLAYER_CAPACITY_OPTIONS = [
+  8 * SOLO_TEAM_SIZE,
+  16 * SOLO_TEAM_SIZE,
+  32 * SOLO_TEAM_SIZE,
+  64 * SOLO_TEAM_SIZE,
+  128 * SOLO_TEAM_SIZE,
+] as const;
 
 export type SoloPlayerCapacity =
   (typeof SOLO_PLAYER_CAPACITY_OPTIONS)[number];

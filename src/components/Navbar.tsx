@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { signOut, useSession } from "next-auth/react";
@@ -18,6 +19,14 @@ export function Navbar({ user: serverUser, unreadCount = 0 }: NavbarProps) {
   const pathname = usePathname();
   const locale = useLocale();
   const { data: session, status } = useSession();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuPath, setMenuPath] = useState(pathname);
+
+  // Close the mobile menu after navigating.
+  if (menuPath !== pathname) {
+    setMenuPath(pathname);
+    setMenuOpen(false);
+  }
 
   const user =
     status === "authenticated"
@@ -29,6 +38,8 @@ export function Navbar({ user: serverUser, unreadCount = 0 }: NavbarProps) {
   const links = [
     { href: "/tournaments", label: t("tournaments") },
     { href: "/teams", label: t("teams") },
+    { href: "/heroes", label: t("heroes") },
+    { href: "/how-it-works", label: t("howItWorks") },
     ...(user ? [{ href: "/dashboard", label: t("dashboard") }] : []),
   ];
 
@@ -59,7 +70,7 @@ export function Navbar({ user: serverUser, unreadCount = 0 }: NavbarProps) {
             </nav>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 sm:gap-4">
             <Link
               href={pathname}
               locale={toggleLocale}
@@ -84,7 +95,68 @@ export function Navbar({ user: serverUser, unreadCount = 0 }: NavbarProps) {
                     </span>
                   )}
                 </Link>
-                <Link href="/dashboard" className="text-sm font-medium">
+                <div className="hidden md:flex items-center gap-4">
+                  <Link href="/dashboard" className="text-sm font-medium">
+                    {user.username}
+                  </Link>
+                  <button
+                    onClick={() => signOut({ callbackUrl: `/${locale}` })}
+                    className="btn btn-secondary text-sm py-2 px-3"
+                  >
+                    {t("logout")}
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className="hidden md:flex items-center gap-4">
+                <Link href="/login" className="btn btn-secondary text-sm py-2 px-3">
+                  {t("login")}
+                </Link>
+                <Link href="/register" className="btn btn-primary text-sm py-2 px-3">
+                  {t("register")}
+                </Link>
+              </div>
+            )}
+
+            <button
+              type="button"
+              onClick={() => setMenuOpen((open) => !open)}
+              className="md:hidden -mr-2 p-2 text-muted hover:text-foreground"
+              aria-label={t("menu")}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
+            >
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                {menuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {menuOpen && (
+        <nav id="mobile-menu" className="md:hidden border-t border-card-border px-4 py-3 space-y-1">
+          {links.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`block rounded-lg px-3 py-2.5 text-base font-medium ${
+                pathname.startsWith(link.href)
+                  ? "bg-primary/10 text-primary"
+                  : "text-foreground hover:bg-card"
+              }`}
+            >
+              {link.label}
+            </Link>
+          ))}
+          <div className="border-t border-card-border pt-3 mt-2">
+            {user ? (
+              <div className="flex items-center justify-between gap-3 px-3">
+                <Link href="/dashboard" className="text-sm font-medium truncate">
                   {user.username}
                 </Link>
                 <button
@@ -93,20 +165,20 @@ export function Navbar({ user: serverUser, unreadCount = 0 }: NavbarProps) {
                 >
                   {t("logout")}
                 </button>
-              </>
+              </div>
             ) : (
-              <>
-                <Link href="/login" className="btn btn-secondary text-sm py-2 px-3">
+              <div className="grid grid-cols-2 gap-2">
+                <Link href="/login" className="btn btn-secondary text-sm py-2.5">
                   {t("login")}
                 </Link>
-                <Link href="/register" className="btn btn-primary text-sm py-2 px-3">
+                <Link href="/register" className="btn btn-primary text-sm py-2.5">
                   {t("register")}
                 </Link>
-              </>
+              </div>
             )}
           </div>
-        </div>
-      </div>
+        </nav>
+      )}
     </header>
   );
 }

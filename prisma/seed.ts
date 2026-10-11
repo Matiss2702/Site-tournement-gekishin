@@ -7,7 +7,6 @@ import {
   GameRole,
   TeamMemberRole,
 } from "../src/generated/prisma/client";
-import { HEROES } from "../src/lib/heroes";
 
 const SEED_PASSWORD = "Password123!";
 const SEED_USERNAME_PREFIX = "seed_";
@@ -92,16 +91,48 @@ async function clearSeedTeams() {
 }
 
 async function seedHeroes() {
-  await prisma.hero.deleteMany();
-  await prisma.hero.createMany({
-    data: HEROES.map(({ nameEn, nameFr, gameRole, imageUrl }) => ({
-      nameEn,
-      nameFr,
-      gameRole,
-      imageUrl,
-    })),
-  });
-  console.log(`Seeded ${HEROES.length} heroes`);
+  const { readFileSync } = await import("fs");
+  const { join } = await import("path");
+  const seedPath = join(__dirname, "data", "heroes-seed.json");
+  const heroes = JSON.parse(readFileSync(seedPath, "utf8")) as Array<{
+    id: string;
+    nameEn: string;
+    nameFr: string;
+    gameRole: GameRole;
+    imageUrl: string;
+    officialId: string;
+    summaryEn: string;
+    summaryFr: string;
+    skills: unknown;
+  }>;
+
+  for (const hero of heroes) {
+    await prisma.hero.upsert({
+      where: { nameEn: hero.nameEn },
+      create: {
+        id: hero.id,
+        nameEn: hero.nameEn,
+        nameFr: hero.nameFr,
+        gameRole: hero.gameRole,
+        imageUrl: hero.imageUrl,
+        officialId: hero.officialId,
+        summaryEn: hero.summaryEn,
+        summaryFr: hero.summaryFr,
+        skills: hero.skills as object[],
+      },
+      update: {
+        nameFr: hero.nameFr,
+        gameRole: hero.gameRole,
+        imageUrl: hero.imageUrl,
+        officialId: hero.officialId,
+        summaryEn: hero.summaryEn,
+        summaryFr: hero.summaryFr,
+        skills: hero.skills as object[],
+      },
+    });
+  }
+
+  console.log(`Seeded ${heroes.length} heroes with skills`);
 }
 
 async function seedTeams() {
@@ -157,12 +188,76 @@ async function seedTeams() {
   console.log(`Example user: ${SEED_USERNAME_PREFIX}t1_m1`);
 }
 
+async function seedPlatformAdmin() {
+  const username = process.env.ADMIN_USERNAME?.trim();
+  const email = process.env.ADMIN_EMAIL?.trim().toLowerCase();
+  const password = process.env.ADMIN_PASSWORD;
+  const displayName = process.env.ADMIN_DISPLAY_NAME?.trim() || "Bandai Namco";
+
+  if (!username && !email && !password) {
+    console.log(
+      "\nADMIN_USERNAME, ADMIN_EMAIL and ADMIN_PASSWORD are empty — platform admin skipped."
+    );
+    return;
+  }
+
+  if (!username || !email || !password) {
+    throw new Error(
+      "Set ADMIN_USERNAME, ADMIN_EMAIL and ADMIN_PASSWORD together in .env to create the platform admin."
+    );
+  }
+
+  if (username.startsWith(SEED_USERNAME_PREFIX)) {
+    throw new Error(
+      `ADMIN_USERNAME cannot start with "${SEED_USERNAME_PREFIX}" because those accounts are reset on every seed.`
+    );
+  }
+
+  if (password.length < 8) {
+    throw new Error("ADMIN_PASSWORD must be at least 8 characters.");
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 12);
+  const existing = await prisma.user.findFirst({
+    where: { OR: [{ username }, { email }] },
+  });
+
+  if (existing) {
+    await prisma.user.update({
+      where: { id: existing.id },
+      data: {
+        username,
+        email,
+        password: hashedPassword,
+        displayName,
+        role: "ADMIN",
+      },
+    });
+    console.log(`\nUpdated platform admin: ${username}`);
+    return;
+  }
+
+  await prisma.user.create({
+    data: {
+      username,
+      email,
+      password: hashedPassword,
+      displayName,
+      role: "ADMIN",
+      locale: "en",
+    },
+  });
+  console.log(`\nCreated platform admin: ${username}`);
+}
+
 async function main() {
   console.log("Seeding heroes...");
   await seedHeroes();
 
   console.log("\nSeeding teams (4–6 members each)...");
   await seedTeams();
+
+  await seedPlatformAdmin();
 }
 
 main()

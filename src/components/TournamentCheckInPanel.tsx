@@ -23,6 +23,8 @@ interface TournamentCheckInPanelProps {
   waitingForCaptainCheckIn: boolean;
   teamCheckInConfirmed: boolean;
   isOrganizer: boolean;
+  startDateReached?: boolean;
+  startDateLabel?: string | null;
 }
 
 export function TournamentCheckInPanel({
@@ -37,6 +39,8 @@ export function TournamentCheckInPanel({
   waitingForCaptainCheckIn,
   teamCheckInConfirmed,
   isOrganizer,
+  startDateReached = false,
+  startDateLabel = null,
 }: TournamentCheckInPanelProps) {
   const t = useTranslations("tournaments");
   const router = useRouter();
@@ -62,7 +66,9 @@ export function TournamentCheckInPanel({
           ? t("checkInClosed")
           : data.error === "not_participant"
             ? t("checkInNotParticipant")
-            : t("checkInFailed")
+            : data.error === "bandai_consent_required"
+              ? t("bandaiConsentRequired")
+              : t("checkInFailed")
       );
     }
     setLoading(false);
@@ -161,14 +167,20 @@ export function TournamentCheckInPanel({
           <p className="text-sm text-muted">{t("checkInCaptainOnly")}</p>
         )}
 
+        {isOrganizer && !startDateReached && (
+          <p className="text-sm text-amber-400 w-full">
+            {startDateLabel
+              ? t("tooEarlyToStart", { date: startDateLabel })
+              : t("startDateMissing")}
+          </p>
+        )}
+
         {isOrganizer && (
           <button
             type="button"
             onClick={handleStartTournament}
             disabled={
-              loading ||
-              !allCheckedIn ||
-              total < minParticipants
+              loading || !startDateReached || !allCheckedIn || total < minParticipants
             }
             className="btn btn-primary"
             title={

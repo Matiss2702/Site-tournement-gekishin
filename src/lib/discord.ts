@@ -131,7 +131,3 @@ export async function fetchDiscordUser(accessToken: string) {
     username: data.global_name?.trim() || data.username,
   };
 }
-
-export function discordProfileUrl(discordId: string) {
-  return `https://discord.com/users/${discordId}`;
-}

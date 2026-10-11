@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { canManageDraft } from "@/lib/tournament-auth";
 import { MatchDraftsPanel } from "@/components/MatchDraftsPanel";
+import { BackToTournamentLink } from "@/components/BackToTournamentLink";
 
 export default async function DraftPage({
   params,
@@ -27,6 +28,7 @@ export default async function DraftPage({
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
+      <BackToTournamentLink tournamentId={id} />
       <h1 className="text-3xl font-bold mb-2 italic tracking-tight">{t("title")}</h1>
       <p className="text-muted mb-2">{tournament.title}</p>
       <p className="text-sm text-muted mb-8">

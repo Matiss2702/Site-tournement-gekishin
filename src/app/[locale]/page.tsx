@@ -33,16 +33,16 @@ export default async function HomePage() {
 
         <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8">
           <FeatureCard
-            title="Solo & Team"
-            description="Create tournaments for individual players or full teams with flexible formats."
+            title={t("featureSoloTeamTitle")}
+            description={t("featureSoloTeamDesc")}
           />
           <FeatureCard
-            title="Draft System"
-            description="Full pick & ban draft with role bans for Tank, Support, and DPS."
+            title={t("featureDraftTitle")}
+            description={t("featureDraftDesc")}
           />
           <FeatureCard
-            title="Organizer Tools"
-            description="Score management, role bans, notifications, and team invitations via email."
+            title={t("featureOrganizerTitle")}
+            description={t("featureOrganizerDesc")}
           />
         </div>
       </div>

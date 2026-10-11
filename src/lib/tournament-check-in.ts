@@ -7,6 +7,9 @@ import {
   SOLO_TEAM_SIZE,
 } from "@/lib/tournament-prize-config";
 import { formRandomTeamsForSoloTournament } from "@/lib/tournament-random-teams";
+import { getTournamentStartBlock } from "@/lib/tournament-start-date";
+import { entryNeedsBandaiConsent } from "@/lib/bandai-consent";
+import { requiresBandaiConsent } from "@/lib/bandai-support";
 
 export async function getTournamentCheckInSummary(tournamentId: string) {
   const entries = await prisma.tournamentEntry.findMany({
@@ -44,6 +47,7 @@ export async function startTournamentCheckIn(tournamentId: string) {
       title: true,
       status: true,
       type: true,
+      startDate: true,
       entries: {
         include: {
           team: { select: { captainId: true } },
@@ -54,10 +58,15 @@ export async function startTournamentCheckIn(tournamentId: string) {
   });
 
   if (!tournament) {
-    return { ok: false as const, error: "not_found" };
+    return { ok: false as const, error: "not_found" as const };
   }
   if (tournament.status !== "REGISTRATION") {
-    return { ok: false as const, error: "invalid_status" };
+    return { ok: false as const, error: "invalid_status" as const };
+  }
+
+  const startBlock = getTournamentStartBlock(tournament.startDate);
+  if (!startBlock.ok) {
+    return startBlock;
   }
 
   const soloPlayers =
@@ -73,7 +82,7 @@ export async function startTournamentCheckIn(tournamentId: string) {
     tournament.type === "SOLO" ? soloPlayers.length : teamEntries.length;
 
   if (participantCount === 0) {
-    return { ok: false as const, error: "no_entries" };
+    return { ok: false as const, error: "no_entries" as const };
   }
 
   if (tournament.type === "SOLO") {
@@ -127,9 +136,9 @@ export async function startTournamentCheckIn(tournamentId: string) {
 
   const link = `/tournaments/${tournamentId}`;
 
-  await Promise.all(
-    [...notifyUserIds].map((userId) =>
-      createNotification({
+  for (const userId of notifyUserIds) {
+    try {
+      await createNotification({
         userId,
         type: "TOURNAMENT_CHECK_IN",
         titleEn: "Tournament check-in",
@@ -137,9 +146,11 @@ export async function startTournamentCheckIn(tournamentId: string) {
         messageEn: `Confirm your presence for "${tournament.title}".`,
         messageFr: `Confirmez votre présence pour « ${tournament.title} ».`,
         link,
-      })
-    )
-  );
+      });
+    } catch (error) {
+      console.error("[check-in] notification failed", error);
+    }
+  }
 
   return { ok: true as const };
 }
@@ -150,11 +161,11 @@ export async function confirmTournamentCheckIn(
 ) {
   const tournament = await prisma.tournament.findUnique({
     where: { id: tournamentId },
-    select: { status: true },
+    select: { status: true, bandaiSupportStatus: true },
   });
 
   if (!tournament || tournament.status !== "CHECK_IN") {
-    return { ok: false as const, error: "check_in_closed" };
+    return { ok: false as const, error: "check_in_closed" as const };
   }
 
   const entry = await prisma.tournamentEntry.findFirst({
@@ -165,7 +176,27 @@ export async function confirmTournamentCheckIn(
   });
 
   if (!entry) {
-    return { ok: false as const, error: "not_participant" };
+    return { ok: false as const, error: "not_participant" as const };
+  }
+
+  if (requiresBandaiConsent(tournament.bandaiSupportStatus)) {
+    const detailed = await prisma.tournamentEntry.findUnique({
+      where: { id: entry.id },
+      select: {
+        userId: true,
+        team: { select: { members: { select: { userId: true } } } },
+      },
+    });
+    if (
+      detailed &&
+      (await entryNeedsBandaiConsent(
+        tournamentId,
+        tournament.bandaiSupportStatus,
+        detailed
+      ))
+    ) {
+      return { ok: false as const, error: "bandai_consent_required" as const };
+    }
   }
 
   if (entry.checkedInAt) {

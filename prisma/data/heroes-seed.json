@@ -1,0 +1,2076 @@
+[
+  {
+    "id": "baby",
+    "nameEn": "Baby",
+    "nameFr": "Baby",
+    "gameRole": "TANK",
+    "imageUrl": "/baby.webp",
+    "officialId": "0010",
+    "summaryEn": "A parasite hero who manipulates both allies and enemies from the shadows. Inflict relentless pain and seize control of enemies' weakened bodies before they have a chance to strike back!",
+    "summaryFr": "Héros parasitaire capable de tirer profit de ses adversaires ou alliés.",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Possession (Enemies)",
+        "nameFr": "Possession (adversaire)",
+        "descriptionEn": "Possess a target enemy hero when you land a Finisher. You can use some of their Skills while they are possessed.\nPossession effect ends when the target respawns or when their HP is depleted.",
+        "descriptionFr": "Mettre K.O. un héros adverse avec un coup de grâce permet d'utiliser Possession pour le contrôler.\nLa possession prend fin au retour du héros adverse dans le combat ou lorsqu'il n'a plus de PV."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Finger Blitz Barrage",
+        "nameFr": "Pluie d'attaques éclair",
+        "descriptionEn": "Unleash an energy attack spread in a targeted direction. Enemies hit will be forcibly moved.\nCan move while using this Skill.",
+        "descriptionFr": "Lance une salve de boules énergétiques et repousse les adversaires.\nLe personnage peut se déplacer pendant l'attaque."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Energy Explosion",
+        "nameFr": "Explosions énergétiques",
+        "descriptionEn": "Unleash a continuous AoE attack centered around yourself. \nGain Strike Defense Up.\nApplies Movement Speed Down to enemies hit by the attack. And each time the attack hits an enemy hero, cooldown on Possession (Allies) will decrease.\nCan move while using this Skill.",
+        "descriptionFr": "Dégage sans relâche du ki autour du personnage.\nPendant l'attaque, s'octroie « Défense physique [+] ».\nInflige « Vitesse déplacement [-] » aux adversaires touchés et réduit le temps de recharge de « Possession (allié) » par héros ennemi touché.\nLe personnage peut se déplacer pendant l'attaque."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Possession (Allies) / Cover Fire",
+        "nameFr": "Possession (allié) / Tir de suppression",
+        "descriptionEn": "Possess a target ally. \nApplies Steal Life to the possessed ally hero. \nYour HP will replenish over time, and you can use Cover Fire to attack enemies.\nThe HP of the possessed ally will recover when Cover Fire hits an enemy.",
+        "descriptionFr": "Prend le contrôle d'un héros allié et lui octroie « Vol de PV ».\nAu bout d'un certain temps, il régénère ses propres PV et peut attaquer les ennemis avec « Tir de suppression ». \nSi cette attaque touche des héros ennemis, celle-ci restaure des PV au héros allié possédé."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Revenge Blast",
+        "nameFr": "Explosion vengeresse",
+        "descriptionEn": "Unleash a shockwave centered around yourself.\nYou will receive additional HP depending on the number of enemy heroes hit by the attack.\nIf the attack hits an enemy hero, the DMG of this Skill will increase the next time it is used.",
+        "descriptionFr": "Libère une vague énergétique autour de lui.\nSes PV augmentent selon le nombre de héros adverses touchés.\nEn touchant un adversaire, augmente les dégâts infligés lors de la prochaine activation de la technique."
+      }
+    ]
+  },
+  {
+    "id": "bardock",
+    "nameEn": "Bardock",
+    "nameFr": "Bardock",
+    "gameRole": "TANK",
+    "imageUrl": "/bardock.webp",
+    "officialId": "0030",
+    "summaryEn": "A hero who will quickly dash in to save comrades in a pinch. \nProtect allies by drawing in attacks and launching an explosive counterattack with your amassed power!",
+    "summaryFr": "Héros capable de voler au secours de ses alliés. \nProtégez vos alliés en attirant sur vous les attaques adverses, avant de faire exploser la force accumulée pour riposter !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Rebel Warrior",
+        "nameFr": "Guerrier rebelle",
+        "descriptionEn": "An ability that strengthens self based on attacks received. \nThe Revenge Gauge fills up each time DMG is taken, and DMG taken will be reduced based on gauge level.\nThe gauge gradually depletes if no DMG is taken for a set period.",
+        "descriptionFr": "Augmente la résistance en subissant des dégâts.\nSubir des dégâts augmente la « Jauge de revanche », et plus la jauge est élevée, moins le personnage subit de dégâts. \nLa jauge se vide progressivement après un temps passé sans subir de dégâts."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Rebellion Smash",
+        "nameFr": "Smash de rébellion",
+        "descriptionEn": "A guaranteed attack that sends targeted enemy and sends them flying.\nIf this enemy hits a wall or another foe, they will both receive extra DMG and have Movement Speed Down applied.",
+        "descriptionFr": "Frappe et projette à coup sûr l'adversaire ciblé.\nSi l'adversaire projeté heurte un autre adversaire ou un mur, inflige des dégâts supplémentaires et « Vitesse déplacement [-] » aux deux opposants."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Wild Roar",
+        "nameFr": "Rugissement sauvage",
+        "descriptionEn": "Invite enemy aggression while guarding and unleash counterattacks.\nGenerates a surrounding shockwave that applies Wrath to enemies it hits.\nThe more enemy heroes with Wrath applied to them, the more Extra HP gained.\nFurther surrounding shockwaves will be generated each time DMG is taken while guarding.\nCan move while guarding. Re-enter the same command, activate a different Skill, or perform a Vanishing Step to stop guarding.",
+        "descriptionFr": "Attire les attaques adverses tout en montant sa garde pour riposter.\nAu lancement, génère une onde de choc autour du personnage qui inflige « Courroux » aux adversaires touchés. Octroie au personnage des PV supplémentaires en fonction du nombre de héros adverses touchés par « Courroux ». \nPendant la posture de garde, génère une onde de choc autour du personnage à chaque fois qu'il subit des dégâts pour infliger des dégâts supplémentaires.\nIl est possible de se déplacer durant la garde. Réactiver la technique, effectuer une autre technique, une attaque spéciale ou une esquive éclair met fin à la garde."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Raging Charge",
+        "nameFr": "Ruée enragée",
+        "descriptionEn": "Move at high speed in a set direction to get to your allies.\nEnemy heroes or bosses in the movement path will be attacked with an uppercut, applying Movement Speed Down to them.\nAfter moving a set distance, enemies will be staggered by the attack. Stagger duration and DMG dealt by the uppercut increase the further you move.\nCan redirect while moving. Stops upon re-entering of the same command, or hitting a wall.",
+        "descriptionFr": "Sprinte dans la direction ciblée pour rejoindre un allié.\nLance un uppercut à tout héros adverse ou boss heurté. L'uppercut déséquilibre en plus les héros adverses touchés. Après avoir parcouru une certaine distance, l'uppercut inflige en plus « Vitesse déplacement [-] ».\nPlus la distance parcourue est importante, plus « Vitesse déplacement [-] » et le déséquilibre durent longtemps et plus l'uppercut inflige de dégâts. Le sprint peut être réorienté à tout moment.\nLe sprint prend fin quand vous réactivez la technique ou si vous touchez un mur."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Riot Javelin",
+        "nameFr": "Javelot de révolte",
+        "descriptionEn": "Fire an energy blast in a set direction.\nThe blast carries the enemy heroes it hits and explodes after a set amount of time has passed, or after hitting a wall.",
+        "descriptionFr": "Lance une boule énergétique dans la direction ciblée.\nElle attire à elle les héros adverses touchés pendant son déplacement, avant d'exploser après un temps ou au contact d'un mur."
+      },
+      {
+        "type": "TRANSFORM",
+        "nameEn": "Super Saiyan",
+        "nameFr": "Super Saiyan",
+        "descriptionEn": "Can transform at Level 7.\nBase HP / Armor / All Attack Up.\nThe Revenge Gauge amount gained from Rebel Warrior will increase, and gauge power-up effect time will be extended.",
+        "descriptionFr": "Transformation en Super Saiyan (disponible à partir du niveau 7).\nAugmente les PV de base, l'armure, toutes les attaques ainsi que l'effet de « Guerrier rebelle » et la durée de l'effet conféré par la « Jauge de revanche »."
+      }
+    ]
+  },
+  {
+    "id": "caulifla",
+    "nameEn": "Caulifla",
+    "nameFr": "Caulifla",
+    "gameRole": "TANK",
+    "imageUrl": "/caulifla.webp",
+    "officialId": "0016",
+    "summaryEn": "A dependable, big-sister hero who protects allies by provoking the enemy.",
+    "summaryFr": "Véritable protectrice, cette héroïne protège ses alliés en provoquant les adversaires.",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Bring It On",
+        "nameFr": "Sacrée dispute",
+        "descriptionEn": "Enemies you have Provoked will deal less DMG to you.",
+        "descriptionFr": "Réduit les dégâts provenant des adversaires à qui le personnage a infligé « Provoqué »."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Storm Kick",
+        "nameFr": "Coup de pied ouragan",
+        "descriptionEn": "Attack with a triple roundhouse kick. \nApplies Provoked to enemies you hit. \nIf the attack hits at close range, the duration of Provoked will be extended. \nCan move and change aim direction while using this Skill.",
+        "descriptionFr": "Lance 3 coups de pied circulaires d'affilée.\nInflige « Provoqué » aux adversaires et augmente la durée de « Provoqué » si le personnage touche un adversaire de près.\nPendant toute la durée de l'attaque, le personnage peut se déplacer et la réorienter."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Blaze Dive",
+        "nameFr": "Assaut ardent",
+        "descriptionEn": "Fire an explosive energy blast. Performs a follow-up attack to enemy heroes on hit.\nProvoked enemy heroes will take additional DMG.",
+        "descriptionFr": "Lance une boule énergétique explosive.\nSe jette sur l'adversaire touché par l'explosion.\nInflige davantage de dégâts aux adversaires sous l'état « Provoqué »."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Energy Release",
+        "nameFr": "Libération d'énergie",
+        "descriptionEn": "Release a field of energy around you.\nBlocks enemy energy attacks and prevents them from approaching.\nApplies Movement Speed Up to self after activation.",
+        "descriptionFr": "Dégage du ki autour du personnage et empêche les adversaires d'approcher.\nÀ la fin de l'attaque, s'octroie « Vitesse déplacement [+] »."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Crush Cannon",
+        "nameFr": "Crush Cannon",
+        "descriptionEn": "Release a large wave of energy, applying Provoked to any enemies it hits.\nCan move and change direction while using this Skill.",
+        "descriptionFr": "Lance dans la direction ciblée une multitude d'attaques énergétiques.\nInflige « Provoqué » aux adversaires touchés.\nPendant toute la durée de l'attaque, le personnage peut se déplacer et la réorienter."
+      },
+      {
+        "type": "TRANSFORM",
+        "nameEn": "Super Saiyan 2",
+        "nameFr": "Super Saiyan 2",
+        "descriptionEn": "Can transform at Level 7. \nRaises DMG reduction of the Passive, Bring it On.",
+        "descriptionFr": "Transformation disponible à partir du niveau 7.\nAugmente la réduction de dégâts subis octroyée par le passif « Sacrée dispute »."
+      }
+    ]
+  },
+  {
+    "id": "cell",
+    "nameEn": "Cell",
+    "nameFr": "Cell",
+    "gameRole": "TANK",
+    "imageUrl": "/cell.webp",
+    "officialId": "0018",
+    "summaryEn": "A hero who transforms and powers up into Perfect Form by absorbing Bioenergy from enemies!",
+    "summaryFr": "Héros qui absorbe l'énergie vitale de ses adversaires afin d'atteindre sa forme parfaite. Attirez l'ennemi, puis frappez-le dans le dos lorsqu'il s'enfuit pour absorber son énergie vitale !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Bioenergy",
+        "nameFr": "Énergie vitale",
+        "descriptionEn": "Base HP, armor, and all attack power increases the more Bioenergy you absorb.",
+        "descriptionFr": "Les PV de base, l'armure et tous les dégats infligés augmentent en fonction de la quantité d'énergie vitale absorbée."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Big Bang Crash",
+        "nameFr": "Big Bang Crash",
+        "descriptionEn": "Fire an energy blast. After the blast hits, it will explode after a set period and apply Movement Speed Down to enemies.",
+        "descriptionFr": "Lance une boule d'énergie. Une fois la cible touchée, le projectile explose après un certain temps et inflige « Vitesse de déplacement [-] »."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Raid Smash",
+        "nameFr": "Assaut de Cell",
+        "descriptionEn": "Warp to a target and deliver a strike attack.\nGrabs the target in a chokehold/Grabs hold of the target and staggers them if attacking from behind.",
+        "descriptionFr": "Se téléporte sur l'ennemi ciblé et le frappe.\nEn attaquant la cible par derrière, l'attaque se transforme en une prise d'étranglement qui déséquilibre l'ennemi."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Regeneration",
+        "nameFr": "Régénération",
+        "descriptionEn": "After charging up power, unleash an explosion around yourself and then regenerate.\nExplosion occurs when command is re-entered, or a set amount of time has passed. Applies Movement Speed Down to enemies hit from the front.\nRegenerates and heals HP after the explosion.\nAmount of HP healed increases based on how low HP is at the time of the explosion and the amount of DMG taken while charging up power.\nCan move while charging.\nAt Skill Level 3 (Super), removes debuffs when regenerating.",
+        "descriptionFr": "Après avoir accumulé de l'énergie, Cell provoque une explosion autour de lui, puis régénère ses forces.\nL'explosion se déclenche soit en réappuyant sur le bouton, soit après un certain temps. Inflige « Vitesse de déplacement [-] » aux ennemis touchés de face.\nAprès l'explosion, régénère des PV. La quantité de PV restaurée augmente plus les PV sont bas au moment de l'explosion, et plus les dégâts subis pendant la charge sont importants.\nPeut se déplacer pendant la charge.\nAu niveau Super de la technique, supprime également les malus subis lors de la régénération."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Energy Field",
+        "nameFr": "Champ d'énergie",
+        "descriptionEn": "Attack while surrounding yourself with a barrier. The barrier will block energy attacks from the outside, while you and any ally heroes within the barrier will gain Immune to Energy.",
+        "descriptionFr": "Cell dresse une barrière autour de lui tout en attaquant. Bloque les attaques de ki venant de l'extérieur de la barrière et confère l'effet « Insensible aux dégâts d'énergie » à soi-même et aux héros alliés se trouvant à l'intérieur."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Energy Field: Duel",
+        "nameFr": "Nouveau Cell Game",
+        "descriptionEn": "Attack while surrounding yourself with a barrier. The barrier will block energy attacks from the outside, while you and any ally heroes within the barrier will gain Immune to Energy. \nIf there are enemy heroes within the barrier when the barrier effect ends, a ring will appear and restrain the closest enemy hero.\nOther enemy heroes cannot enter the ring. Applies All Defense Up to self.",
+        "descriptionFr": "Cell dresse une barrière autour de lui tout en attaquant. Bloque les attaques de ki venant de l'extérieur de la barrière et confère l'effet « Insensible aux dégâts d'énergie » à soi-même et aux héros alliés se trouvant à l'intérieur.\nSi des ennemis sont encore présents dans la barrière lorsque celle-ci disparaît, un anneau apparaît et capture le héros ennemi le plus proche. \nLes autres héros ennemis ne peuvent pas rentrer dans l'anneau et Cell s'octroie « Défense physique et énergétique [+] »"
+      },
+      {
+        "type": "TRANSFORM",
+        "nameEn": "Perfect Form",
+        "nameFr": "Forme parfaite",
+        "descriptionEn": "Transform once Bioenergy reaches maximum. Base HP, Armor, and All Attack will increase.",
+        "descriptionFr": "Se transforme quand l'énergie vitale atteint son maximum. Les PV de base, l'armure et toutes les attaques augmentent."
+      }
+    ]
+  },
+  {
+    "id": "cooler",
+    "nameEn": "Cooler",
+    "nameFr": "Cooler",
+    "gameRole": "TANK",
+    "imageUrl": "/cooler.webp",
+    "officialId": "0013",
+    "summaryEn": "An offensive-type hero who nullifies enemy attacks.",
+    "summaryFr": "Héros offensif capable de neutraliser les attaques adverses avec ses techniques. Décuplez ses pouvoirs avec « Vengeance de l'empereur » pour anéantir tous vos opposants !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Imperial Retaliation",
+        "nameFr": "Vengeance de l'empereur",
+        "descriptionEn": "Gain Immune to All when activating Skills.\nWhen an enemy hero lands an attack while Immune to All, your next Skill will be enhanced with Retaliation status.\nWhile Retaliation is in effect, the next Skill used will be enhanced.",
+        "descriptionFr": "Lorsqu'il active une technique, s'octroie « Immunité totale ».\nSous « Immunité totale », si le personnage subit une attaque d'un héros adverse, il gagne « Vengeance », rendant sa prochaine technique plus puissante."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Destruction Ray",
+        "nameFr": "Laser destructeur",
+        "descriptionEn": "Fire a beam that deals Continuous Damage.",
+        "descriptionFr": "Lance un laser ardent.\nSous « Vengeance », génère une traînée de flammes qui inflige des « Dégâts périodiques » aux adversaires."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Death Stopper",
+        "nameFr": "Trompe-la-mort",
+        "descriptionEn": "Create an AoE around you that applies High Pressure and Movement Speed Down.\nApplies Stagger to dashing enemies.\nIf used while Retaliation status is active, the duration will be extended.",
+        "descriptionFr": "Manipule la gravité autour du personnage et crée une zone qui inflige « Haute pression » et « Vitesse déplacement [-] » à l'adversaire.\nDéséquilibres les héros ennemis sur son chemin lorsqu'il court.\nSous « Vengeance », la durée de l'attaque est augmentée."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Death Chaser",
+        "nameFr": "Traqueur mortel",
+        "descriptionEn": "Perform a lunging attack.\nIf used while Retaliation status is active, the enemy will be held and dragged, slammed against the ground, and Movement Speed Down will be applied.",
+        "descriptionFr": "Lance une ruée offensive.\nSous « Vengeance », traîne les adversaires pour les jeter au sol et leur infliger « Vitesse déplacement [-] »."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Atomic Supernova",
+        "nameFr": "Supernova atomique",
+        "descriptionEn": "Unleash an enormous energy ball. Enemies are pulled towards the center of the attack.\nIf Retaliation is active, the range enemies are pulled from will be increased.",
+        "descriptionFr": "Lance à l'endroit ciblé une boule énergétique qui attire les adversaires vers le centre de son explosion.\nSous « Vengeance », la zone d'effet est élargie."
+      },
+      {
+        "type": "TRANSFORM",
+        "nameEn": "Final Form",
+        "nameFr": "Forme finale",
+        "descriptionEn": "Can transform at Level 7. Imperial Retaliation will be enhanced, extending the duration of Retaliation status.",
+        "descriptionFr": "Transformation disponible à partir du niveau 7.\nRenforce « Vengeance de l'empereur » et augmente la durée de « Vengeance »."
+      }
+    ]
+  },
+  {
+    "id": "jiren",
+    "nameEn": "Jiren",
+    "nameFr": "Jiren",
+    "gameRole": "TANK",
+    "imageUrl": "/jiren.webp",
+    "officialId": "0040",
+    "summaryEn": "A hero of conviction who takes reduced DMG from the front, and grows stronger the longer he fights. \nUse the range and AoE of your Skills to dominate the battlefield and prove your righteousness!",
+    "summaryFr": "Un héros absolu qui réduit les dégâts subis de face et se renforce à mesure qu'un combat dure.\nApprenez à tirer parti de la portée et de la largeur de ses attaques pour dominer le champ de bataille et montrer à tous votre justice !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Strength Is Justice",
+        "nameFr": "La force est la seule justice",
+        "descriptionEn": "Gain increased strength with continued fighting. \nReduces frontal DMG while in combat. \nDMG reduction gradually increases the more he fights. \nDMG reduction decreases when receiving DMG from behind by an enemy hero.\nDMG reduction effects are nullified while obstructed. \nEnters a powered-up state when DMG reduction is maxed, applies Movement Speed Up to self, and Rush Attacks become powered-up attacks, effect ends after leaving combat.",
+        "descriptionFr": "Renforce le personnage à mesure qu'un combat contre un adversaire dure.\nEngager le combat contre un héros adverse réduit les dégâts venant de face.\nPlus une confrontation avec un héros adverse dure, plus la réduction des dégâts augmente.\nSubir des dégâts d'un héros adverse par l'arrière réduit la réduction des dégâts.\nLa réduction de dégâts est annulée tant que le personnage subit une entrave.\nLorsque la réduction des dégâts atteint son maximum, le personnage est renforcé, il se confère « Vitesse déplacement [+] » et ses attaques éclair sont renforcées.\nL'effet disparaît à la fin d'un combat."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Heat Ball Shot",
+        "nameFr": "Tir de boulets ardents",
+        "descriptionEn": "Fire a penetrating energy blast in a set direction. \nDeals more DMG the more DMG reduction he has from Strength Is Justice.\nAt Skill Level 3 (Super), number of blasts increases.",
+        "descriptionFr": "Lance des boules énergétiques transperçant les adversaires dans la direction ciblée.\nPlus la réduction de dégâts de « La force est la seule justice » est élevée, plus les dégâts augmentent.\nLance davantage de boules au niveau super de la technique."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Colossal Uppercut",
+        "nameFr": "Uppercut hyper puissant",
+        "descriptionEn": "Perform an uppercut in a set direction, generating a shockwave.\nWhile powered up by Strength Is Justice, applies Burning to enemies.\nEnemies struck by the uppercut will be launched upwards.\nCan move prior to performing the uppercut.",
+        "descriptionFr": "Effectue un uppercut qui provoque une onde de choc dans la direction ciblée.\nRenforcé par « La force est la seule justice », inflige « Brûlure » aux adversaires touchés.\nSi l'uppercut touche des adversaires directement, ils sont également envoyés dans les airs.\nDéplacement possible jusqu'au lancement de l'uppercut."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Maximum Impact",
+        "nameFr": "Impact maximal",
+        "descriptionEn": "Unleash an energy wave in a set direction.\nExtra HP is gradually gained, Strength Is Justice's DMG reduction increases, and can move/redirect in this stance.\nFire an energy wave on re-input or after a set amount of time.\nThe attack penetrates walls and enemies, applying Movement Speed Down.\nThe longer the time before firing, the greater the Movement Speed Down effect and DMG dealt.",
+        "descriptionFr": "Charge son poing pour lancer une vague d'énergie dans la direction ciblée.\nDurant la charge, obtient progressivement des PV supplémentaires et augmente le pourcentage de réduction des dégâts subis de « La force est la seule justice ».\nLe personnage peut se déplacer et se réorienter pendant la charge.\nLa vague d'énergie se lance après un certain temps ou à la relance, transperce les adversaires et les murs, et inflige « Vitesse déplacement [-] » aux adversaires touchés.\nPlus le temps de charge est long, plus l'effet de « Vitesse déplacement [-] » est puissant et plus les dégâts sont importants."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Omega Heatwall",
+        "nameFr": "Mur ardent Oméga",
+        "descriptionEn": "Burn everything down in a set direction and create a wall of flames.\nWall will expand sideways, pushing away and applying Burning to enemies as it moves.\nCertain skills cause enemies hit by the moving wall to be staggered.\nThe wall disappears after moving a certain distance.\nCan be learned after transforming.",
+        "descriptionFr": "Lance une attaque latérale qui créé un mur de flammes.\nLe mur avance et s'élargit progressivement tout en repoussant les adversaires et en leur infligeant « Brûlure ».\nLes ennemis qui se déplacent dans le mur avec certaines techniques sont également déséquilibrés.\nLe mur se déplace sur une certaine distance avant de disparaître.\nL'attaque peut être apprise après la transformation."
+      },
+      {
+        "type": "TRANSFORM",
+        "nameEn": "Full Power",
+        "nameFr": "Pleine puissance",
+        "descriptionEn": "Can transform at Level 7.\nBase HP / Armor / All Attack Up.",
+        "descriptionFr": "Disponible à partir du niveau 7.\nAugmente les PV de base, l'armure et toutes les attaques."
+      }
+    ]
+  },
+  {
+    "id": "vegeta-god",
+    "nameEn": "Vegeta (SSJ God)",
+    "nameFr": "Vegeta (SSJ God)",
+    "gameRole": "TANK",
+    "imageUrl": "/vegeta-god.webp",
+    "officialId": "0033",
+    "summaryEn": "A divine guardian who supports his team by drawing enemy attention on the frontlines.\nRaise your Red Fury in battle, create attack openings, and seize victory!",
+    "summaryFr": "Divinité protectrice de l'équipe, il s'occupe des adversaires en première ligne pour prendre l'avantage dans les combats de groupe !\nSon « Esprit combatif carmin » augmente en combat, alors créez des opportunités d'attaque et emparez-vous de la victoire !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Red Fury",
+        "nameFr": "Esprit combatif carmin",
+        "descriptionEn": "Gain buffs by increasing Red Fury.\nHitting enemy heroes with Rush Attacks and Skills (excluding Super Attacks) increases Fury.\nWhen maxed out, buffs to self are activated, and Skill cooldowns are reduced.\nWhile buffed, gradually recover Armor and apply Cooldown Reduction to yourself.\nThe power-up ends if you take DMG from enemy heroes or when Fury reaches 0.",
+        "descriptionFr": "Renforce le personnage en augmentant son « Esprit combatif carmin ».\nToucher un adversaire avec son attaque éclair ou ses techniques (hors attaque spéciale) augmente son Esprit combatif.\nUne fois au maximum, il se renforce et réduit le temps de recharge de ses techniques.\nDurant le renforcement, restaure progressivement l'armure du personnage et s'octroie « Temps de recharge [-] ».\nL'Esprit combatif diminue après un certain temps ou quand Vegeta subit des dégâts de la part d'un héros ennemi, et lorsqu'il atteint 0, le renforcement se dissipe."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Prominence Blow",
+        "nameFr": "Impact flamboyant",
+        "descriptionEn": "Charge forward in a set direction.\nApplies Steal Attack on hit to self and the enemy, stealing the enemy's attack power and adding it to your own.\nThe higher the enemy hero's attack power, the greater the effect.",
+        "descriptionFr": "Fonce dans la direction ciblée.\nS'octroie « Vol d'attaque » et inflige « Vol d'attaque » en touchant des adversaires.\nPlus l'attaque de l'adversaire est élevée, plus l'effet augmente."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Divine Zone",
+        "nameFr": "Zone divine",
+        "descriptionEn": "Unleash energy pulses into the surrounding, pulling in enemies several times.\nThe final wave has a stronger pull.\nActivating God Shine Attack while this Skill is active shortens the time until the stronger pull occurs.",
+        "descriptionFr": "Dégage du ki autour du personnage et attire les adversaires de manière répétée.\nLa force d'attraction du dernier coup est plus puissante.\nActiver « Attaque rayonnante divine » pendant cette technique réduit le temps nécessaire pour attirer fortement les ennemis."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Red Bind Shot",
+        "nameFr": "Tir constricteur carmin",
+        "descriptionEn": "Fire energy blasts at enemies within a set range.\nApplies Immobile to enemies on hit.\nEnergy blasts will pursue enemies for a set time, and disappear upon hitting a wall.\nThe number of possible targets increases with Skill level.",
+        "descriptionFr": "Lance une boule énergétique dans la zone visée.\nInflige « Immobilisé » aux adversaires touchés.\nLa boule d'énergie poursuit temporairement l'adversaire et disparait si elle heurte un mur.\nEn augmentant le niveau de la technique, le nombre d'adversaires pouvant être attaqués augmente."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "God Shine Attack",
+        "nameFr": "Attaque rayonnante divine",
+        "descriptionEn": "Warp to a set position in the sky and release an energy wave, staggering enemies with an explosion.\nCan be discovered by enemy heroes while attacking.\nIf used while buffed by Red Fury, Fury will not deplete.",
+        "descriptionFr": "Déplace le personnage au-dessus de l'endroit ciblé et lance une attaque énergétique dont l'explosion déséquilibre les adversaires.\nPeut être repéré par les adversaires pendant toute la durée de l'attaque.\nS'il active cette technique alors que le renforcement octroyé par « Esprit combatif carmin » est actif, la réduction d'Esprit combatif est désactivée."
+      }
+    ]
+  },
+  {
+    "id": "vegeta-ssj4",
+    "nameEn": "Vegeta (SSJ4)",
+    "nameFr": "Vegeta (SSJ4)",
+    "gameRole": "TANK",
+    "imageUrl": "/vegeta-ssj4.webp",
+    "officialId": "0026",
+    "summaryEn": "A stalwart hero who bolsters defenses while blocking enemy attacks. \nDrive back foes with Final Shine Attack and protect your team!",
+    "summaryFr": "Un héros résistant qui bloque les attaques adverses en renforçant sa défense. \nRepoussez les assauts ennemis avec « Attaque rayonnante finale » pour mettre vos alliés à couvert !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Solitary Guardian",
+        "nameFr": "Le Gardien solitaire",
+        "descriptionEn": "Applies Strike Defense Up to self when forcibly moving an enemy hero with a Skill (Barrier Wall excluded).",
+        "descriptionFr": "Déplacer de force un héros adverse avec une de ses techniques (hors « Rempart ») octroie « Défense physique [+] » au personnage."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Blast Jump",
+        "nameFr": "Saut fulgurant",
+        "descriptionEn": "Leap at a set position to strike down with a fist. \nIf this attack hits, it will pull enemies in.",
+        "descriptionFr": "Se jette sur l'endroit ciblé pour asséner\nun coup de poing et attirer les adversaires touchés."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Meteor Extrusion",
+        "nameFr": "Éruption de météores",
+        "descriptionEn": "Drive back enemies with a flying kick in a set direction. \nStaggers and deals extra DMG to enemies driven into a wall.\nThe attack will end upon hitting a wall.",
+        "descriptionFr": "Lance un coup de pied aérien qui repousse les adversaires dans la direction ciblée.\nProjeter les adversaires contre un mur les déséquilibre et leur inflige des dégâts supplémentaires.\nL'attaque s'arrête au contact d'un mur."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Barrier Wall",
+        "nameFr": "Rempart",
+        "descriptionEn": "Create a barrier in front and drive back enemies.\nYou can move/redirect while the barrier is active and block energy wave attacks (excludes AoE attacks).\nYou will gain the Unstoppable effect and extra HP.\nObtains a greater amount of extra HP the higher your maximum total HP.\nAttack ends when the command is re-entered while attacking or extra HP runs out.\nEnding it by re-entering the command will shorten this Skill's cooldown relative to how long the Skill was active.",
+        "descriptionFr": "Génère une barrière devant le personnage et repousse les adversaires.\nTant qu'elle est active, la barrière bloque les attaques énergétiques, permet au personnage de se déplacer et de se réorienter, et lui octroie « Inensible aux entraves » ainsi que des des PV supplémentaires.\nPlus les PV max sont élevés, plus la quantité de PV supplémentaires octroyée est importante.\nL'attaque s'arrête à la relance ou lorsque les PV supplémentaires sont épuisés.\nSi vous annulez la technique en la relançant, son temps de recharge est réduit en fonction de la durée d'activation de la barrière.\nPlus vous l'annulez rapidement, plus le temps de recharge est réduit."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Final Shine Attack",
+        "nameFr": "Attaque rayonnante finale",
+        "descriptionEn": "Fire an energy wave in a set direction and drive back enemies.\nCan redirect during attack. Re-enter the command to cancel.",
+        "descriptionFr": "Lance une attaque énergétique qui repousse les adversaires dans la direction ciblée.\nL'attaque peut être réorientée pendant toute sa durée, et elle s'arrête à la relance."
+      },
+      {
+        "type": "TRANSFORM",
+        "nameEn": "Super Saiyan 4",
+        "nameFr": "Super Saiyan 4",
+        "descriptionEn": "Can transform at Level 7.\nBase HP / All Attack / Solitary Guardian Effect Up.",
+        "descriptionFr": "Transformation possible à partir du niveau 7.\nAugmente les PV de base, toutes les attaques et l'effet de « Le Gardien solitaire »."
+      }
+    ]
+  },
+  {
+    "id": "vegetassj",
+    "nameEn": "Vegeta (SSJ)",
+    "nameFr": "Vegeta (SSJ)",
+    "gameRole": "TANK",
+    "imageUrl": "/vegetassj.webp",
+    "officialId": "0002",
+    "summaryEn": "An indomitable hero who fights using powerful abilities while recovering armor.",
+    "summaryFr": "Héros indomptable capable de restaurer son armure avec ses puissantes techniques.",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Prince's Pride",
+        "nameFr": "Fierté de prince",
+        "descriptionEn": "Gain a Reduce Cooldown effect when your HP is below a certain percentage.",
+        "descriptionFr": "Renforce le personnage en cas de danger.\nLorsque les PV sont inférieurs ou égaux à un certain seuil, octroie « Temps de recharge [-] » au personnage."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Energy Blast Volley",
+        "nameFr": "Salve énergétique",
+        "descriptionEn": "Fire multiple energy blasts. Recover armor when you hit enemies. When this Skill is at Level 3 (Super), it will cause an explosion that consumes nearby enemies. You can move and change direction while firing.",
+        "descriptionFr": "Lance une salve de boules énergétiques.\nÀ chaque adversaire touché, restaure l'armure du personnage.\nAu niveau Super, la technique génère des explosions infligeant des dégâts supplémentaires qui affectent les ennemis aux alentours.\nPendant toute la durée de l'attaque, le personnage peut se déplacer et la réorienter."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Photon Bomber",
+        "nameFr": "Bombardement de photons",
+        "descriptionEn": "Fire an energy blast and cause an explosion. Enemies are forcibly moved towards the center of the explosion. Energy blasts from enemy Rush Attacks will be destroyed if hit by the explosion.",
+        "descriptionFr": "Lance une boule énergétique qui attire les adversaires vers le centre de son explosion.\nFait disparaître les projectiles des attaques éclair des ennemis touchés."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Explosive Wave",
+        "nameFr": "Vague explosive",
+        "descriptionEn": "Generate an explosion centered around yourself. Forcibly moves enemies away and recovers armor upon hit.",
+        "descriptionFr": "Génère une explosion autour du personnage qui projette les adversaires.\nRestaure l'armure du personnage au contact d'un adversaire."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Big Bang Attack",
+        "nameFr": "Big Bang",
+        "descriptionEn": "Fire an energy blast that causes a massive explosion. Recovers your armor when it hits an enemy.",
+        "descriptionFr": "Lance à l'endroit ciblé une boule énergétique qui génère une énorme explosion.\nRestaure l'armure du personnage au contact d'un adversaire."
+      },
+      {
+        "type": "TRANSFORM",
+        "nameEn": "Super Saiyan",
+        "nameFr": "Super Saiyan",
+        "descriptionEn": "Can transform at Level 7. Raises base HP, armor, and all attack power.",
+        "descriptionFr": "Transformation disponible à partir du niveau 7.\nAugmente les PV de base, l'armure et l'attaque (tous)."
+      }
+    ]
+  },
+  {
+    "id": "zamasu",
+    "nameEn": "Zamasu",
+    "nameFr": "Zamasu",
+    "gameRole": "TANK",
+    "imageUrl": "/zamasu.webp",
+    "officialId": "0008",
+    "summaryEn": "A hero with immortality who fights while healing base HP using Body Regeneration.",
+    "summaryFr": "Héros invincible capable de restaurer ses PV de base tout en combattant grâce à sa « Régénération physique ». Domine le champ de bataille et balaie tout sur ton passage en accumulant de la puissance !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Body Regeneration",
+        "nameFr": "Régén. physique",
+        "descriptionEn": "Attack enemy NPCs and bosses with Skills (excluding Super Attacks) to charge the Regeneration Gauge. The Regeneration Gauge will deplete as it heals your base HP. \nIf the gauge is at a certain amount when you are knocked out, you will revive.",
+        "descriptionFr": "Augmente la « Jauge régén. » en touchant des adversaires (hors héros adverses) avec ses techniques (hors attaque spéciale), et consomme la jauge pour restaurer automatiquement ses PV de base.\nSi les PV de base tombent à 0 et que la jauge est au moins à un certain seuil, consomme toute la jauge pour le ressusciter et soigner le personnage."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Heavenly Arrow",
+        "nameFr": "Pluie de flèches divines",
+        "descriptionEn": "Fire energy blasts in succession. Enemy heroes hit will be afflicted with Movement Speed Down.\nYou can move and change direction while firing.",
+        "descriptionFr": "Lance une salve de boules énergétiques.\nInflige « Vitesse déplacement [-] » aux adversaires touchés.\nPendant toute la durée de l'attaque, le personnage peut se déplacer et la réorienter."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Divine Rush",
+        "nameFr": "Assaut divin",
+        "descriptionEn": "Lunge forward with a piercing attack. Enemy heroes hit by the attack are forcibly moved.",
+        "descriptionFr": "Fonce et transperce les héros ennemis avec sa lame et déplace de force ceux qu'il a touché."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Fierce God Slicer",
+        "nameFr": "Lame divine",
+        "descriptionEn": "Sweep the area around you with a horizontal slash. Continuous Damage will be applied to enemies hit by the attack.\nEnergy blades are unleashed outward along with the sweep.\nCan move while using this Skill.",
+        "descriptionFr": "Fauche les adversaires autour de lui.\nInflige des « dégâts périodiques » aux adversaires fauchés.\nLe personnage peut se déplacer pendant l'attaque."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Project Zero Mortals",
+        "nameFr": "Plan « zéro mortel »",
+        "descriptionEn": "Drop an energy blast down on yourself. \nGain Immune to All.\nA Movement Speed Down area is created at the point the energy blast impact, with the effect increasing more and more toward the center.",
+        "descriptionFr": "Lance une boule énergétique sur la position du personnage.\nPendant l'attaque, octroie « Immunité totale ».\nÀ l'impact, elle inflige « Vitesse déplacement [-] » aux adversaires dans la zone, dont les effets sont plus puissants à mesure qu'ils sont proches du centre."
+      }
+    ]
+  },
+  {
+    "id": "black-goku",
+    "nameEn": "Black Goku",
+    "nameFr": "Black Goku",
+    "gameRole": "SUPPORT",
+    "imageUrl": "/black-goku.webp",
+    "officialId": "0039",
+    "summaryEn": "A dark hero who fights by creating situations advantageous to him. \nWeaken enemies while restricting their movements, dominate the front lines, and build a utopia!",
+    "summaryFr": "Héros ténébreux qui se crée un terrain avantageux pour combattre. \nIl affaiblit ses adversaires et restreint leurs mouvements pour dominer le front et donner naissance à son utopie !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Path to the Divine",
+        "nameFr": "Chemin vers la divinité",
+        "descriptionEn": "Gain increased strength within a certain area.\nShortens Skill cooldowns (Super Attacks excluded) at set intervals when inside an area created by his or an allied hero's Skill that applies healing or status effects.",
+        "descriptionFr": "Renforce le personnage lorsqu'il se trouve dans certaines zones.\nLorsqu'il se trouve dans une zone de soin ou d'altération d'état créée par le personnage ou un héros allié, le temps de recharge de ses techniques (hors attaque spéciale) est réduit à intervalles réguliers."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Black Kamehameha",
+        "nameFr": "Black Kamehameha",
+        "descriptionEn": "Unleash an energy wave in a set direction. \nApplies Movement Speed Up to allied heroes hit, and Movement Speed Down and High Pressure to enemies.\nCreates an area that applies Movement Speed Up to self and allied heroes and Movement Speed Down and High Pressure to enemies inside it. \nThe more DMG he takes inside the area, the shorter the area's duration.",
+        "descriptionFr": "Lance une attaque énergétique dans la direction ciblée.\nConfère « Vitesse déplacement [+] » aux héros alliés touchés et inflige « Vitesse déplacement [-] » et « Haute pression » aux adversaires touchés.\nAprès l'activation, crée une zone qui confère « Vitesse déplacement [+] » au personnage et aux héros alliés, et inflige « Vitesse déplacement [-] » et « Haute pression » aux adversaires.\nLa durée de la zone diminue en fonction des dégâts subis par le personnage lorsqu'il se trouve à l'intérieur."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Black Break",
+        "nameFr": "Briseur noir",
+        "descriptionEn": "Dash in a set direction, then fire energy all around.\nCreates an area while energy is released, applying All Defense Up to self and allied heroes, and All Defense Down to enemies inside it.\nThe AoE will gradually increase based on the number of allied and enemy heroes hit.\nThe more DMG he takes inside the area, the shorter the area's duration.",
+        "descriptionFr": "Fonce dans la direction ciblée et attaque en libérant de l'énergie tout autour du personnage.\nCrée une zone en libérant l'énergie. La zone confère « Défense [+] (tous) » au personnage et aux héros alliés, et inflige « Défense [-] (tous) » aux adversaires.\nPlus le nombre de héros alliés et ennemis touchés est important, plus la zone s'élargit.\nLa durée de la zone diminue en fonction des dégâts subis par le personnage lorsqu'il se trouve à l'intérieur."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Black Bind",
+        "nameFr": "Étreinte noire",
+        "descriptionEn": "Envelop enemies in an energy wave at a set location and forcibly move them based on directional input. \nApplies Immune to All to self if inside one of his own areas. \nDuration increases if he or the target is inside his area. \nIf targets are in his areas after being forcibly moved, that area explodes, staggering and dealing extra DMG. \nExploded areas will disappear (excluding areas created by Black Power Ball). \nCan move while forcibly moving.",
+        "descriptionFr": "Entoure les adversaires dans la zone ciblée d'une attaque énergétique qui les déplace de force dans la direction indiquée.\nConfère « Immunité totale » au personnage quand il se trouve dans une zone qu'il a lui-même créée.\nLa durée des zones augmente si le personnage ou les adversaires ciblés s'y trouvent.\nAprès le déplacement forcé, si les adversaires ciblés se trouvent dans une zone créée par le personnage, la zone explose, déséquilibre les adversaires et leur inflige des dégâts supplémentaires.\nLes zones qui explosent se dissipent, excepté celles créées par « Boule d'énergie noire ».\nDéplacement possible durant le déplacement forcé des adversaires."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Black Power Ball",
+        "nameFr": "Boule d'énergie noire",
+        "descriptionEn": "Strike with an energy blast at a set location.\nCreates an area and applies Base HP/Armor Decrease to enemies within the AoE upon impact.",
+        "descriptionFr": "Propulse une boule énergétique à l'endroit ciblé.\nÀ l'impact, la boule énergétique créé une zone qui inflige « Baisse de PV/Armure » aux adversaires."
+      }
+    ]
+  },
+  {
+    "id": "buu-gentil",
+    "nameEn": "Good Buu",
+    "nameFr": "Buu (gentil)",
+    "gameRole": "SUPPORT",
+    "imageUrl": "/buu-gentil.webp",
+    "officialId": "0007",
+    "summaryEn": "A healer who restores team HP with Healing Ray.",
+    "summaryFr": "Expert en soins, capable de restaurer des PV avec son « Rayon curatif », d'entraver les adversaires en les transformant en sucreries, et de voler au secours des alliés en danger !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Majin Menace",
+        "nameFr": "Menace du Majin",
+        "descriptionEn": "Gain stock when healing yourself or allied heroes, or when you apply debuffs to enemy heroes. Rush Attacks consume stocks for a DMG boost.",
+        "descriptionFr": "Confère des charges en soignant les alliés ou soi-même ainsi qu'en infligeant des entraves aux héros ennemis.\nAugmente les dégâts de l'attaque éclair en utilisant ses charges."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Strangle Gum",
+        "nameFr": "Gomme étrangleuse",
+        "descriptionEn": "Throw an ensnaring gum.\nApplies All Attack Down and Movement Speed Down to enemies, and also causes their hitbox to expand.",
+        "descriptionFr": "Lance un chewing-gum.\nInflige « Attaque [-] (tous) » et « Vitesse déplacement [-] », et rend l'adversaire plus facile à toucher."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Healing Ray",
+        "nameFr": "Rayon curatif",
+        "descriptionEn": "Heal the HP of yourself and allies.\nThe healing effect increases the closer an ally is, and stops if they move too far away.\nHigher levels of this Skill allow you to heal more ally heroes at once.\nCan move while in use.",
+        "descriptionFr": "Se soigne et soigne les PV des héros alliés.\nPlus ils sont proches du personnage, plus ils reçoivent de PV, mais les soins s'arrêtent s'ils s'éloignent trop.\nEn augmentant le niveau de la technique, le nombre d'alliés pouvant être soignés augmente.\nPlus il y a d'alliés soignés, plus le personnage reçoit de PV.\nPeut se déplacer pendant que « Rayon curatif » est actif."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Ready, Go!",
+        "nameFr": "À fond les ballons",
+        "descriptionEn": "Attack while moving. Applies Strike Defense Up to yourself, and applies No Skills to any enemies you hit while forcibly moving them.\nYou can change direction while moving, or cancel by using the Skill again.",
+        "descriptionFr": "Attaque tout en se déplaçant.\nOctroie « Défense physique [+] » au personnage et déplace l'adversaire de force tout en lui infligeant « Tech./att. verrouillées ». Pendant toute sa durée, l'attaque peut être réorientée et elle s'arrête lorsqu'elle est activée une nouvelle fois."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Candy Ray",
+        "nameFr": "Rayon sucré",
+        "descriptionEn": "Fire a beam of light that turns enemy heroes into Candy, and creates an AoE that heals the HP of yourself and ally heroes.\nThe more enemy heroes you turn into Candy, the greater the healing effect.",
+        "descriptionFr": "Projette un rayon lumineux et transforme les héros adverses en « Sucreries ».\nGénère une zone de soin qui restaure les PV du personnage et des héros alliés.\nChaque héros ennemi transformé en « Sucrerie » présent dans la zone augmente la valeur des soins."
+      }
+    ]
+  },
+  {
+    "id": "c17",
+    "nameEn": "C-17",
+    "nameFr": "C-17",
+    "gameRole": "SUPPORT",
+    "imageUrl": "/c17.webp",
+    "officialId": "0019",
+    "summaryEn": "A loyal hero who fights while protecting allies with barriers! Take on anything with limitless energy as you lead your allies to victory!",
+    "summaryFr": "Un héros qui se bat tout en protégant ses alliés à l'aide de barrières protectrices. Combattez sur tous les fronts grâce à votre énergie infinie et menez votre équipe à la victoire !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Infinite Energy Reactor",
+        "nameFr": "Générateur d'énergie infinie",
+        "descriptionEn": "Use energy to reactivate your skills. Skills (excluding Super Attacks) can be activated while on cooldown. Energy used will be recovered over time. The more Skills that are on cooldown, the faster your energy will replenish.",
+        "descriptionFr": "Utilise de l'énergie pour relancer une technique. Il est possible de relancer une technique (sauf l'attaque spéciale) même pendant son temps de recharge.\nL'énergie consommée se régénère avec le temps. Plus il y a de techniques en cours de recharge, plus la vitesse de régénération de l'énergie augmente."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Barrier Ball",
+        "nameFr": "Sphère de barrage",
+        "descriptionEn": "Kick a barrier in a targeted direction. Enemies hit by the attack will have their damage, defense, and movement speed buffs converted to debuffs (effect diminishes over time).\nIf reactivated with Infinite Energy Reactor, the enemy will also receive additional damage based on the number of debuffs applied. At Skill Level 3 (Super), the number of barriers will increase.",
+        "descriptionFr": "Envoie une barrière dans la direction visée.\nLes ennemis touchés voient leurs bonus liés aux dégâts infligés/reçus et à la vitesse de déplacement transformés en malus de même effet dont la puissance diminue avec le temps.\nLorsque la technique est réactivée grâce au « Générateur d'énergie infinie », les dégâts infligés augmentent en fonction du nombre de types de malus infligés aux ennemis.\nAu niveau Super de la technique, le nombre de barrières augmente."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Barrier Knuckle",
+        "nameFr": "Frappe de barrage",
+        "descriptionEn": "Rush forward in a targeted direction and strike with barrier-clad fists. Enemies hit by the attack will be afflicted with Movement Speed Down (effect diminishes over time).\nIf reactivated with Infinite Energy Reactor, an additional stagger effect will be applied.",
+        "descriptionFr": "Fonçe dans la direction visée et frappe avec son poing entouré d'une barrière.\nLes ennemis touchés subissent une réduction de vitesse de déplacement dont l'intensité diminue avec le temps.\nLorsque la technique est réactivée grâce au « Générateur d'énergie infinie », ajoute un effet qui déséquilibre l'ennemi."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Android Barrier",
+        "nameFr": "Barrage cyborg",
+        "descriptionEn": "Form a barrier to protect yourself and ally heroes. You and any ally heroes nearby will gain extra HP.\n If reactivated with Infinite Energy Reactor, Movement Speed Up will also be applied (effect diminishes over time).",
+        "descriptionFr": "Forme une barrière qui protège les héros alliés et C-17. C-17 et les héros alliés proches reçoivent des PV supplémentaires.\nLorsque la technique est réactivée grâce au « Générateur d'énergie infinie », applique un bonus de vitesse de déplacement dont l'intensité diminue avec le temps."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Counter Barrier",
+        "nameFr": "Barrage de contre",
+        "descriptionEn": "Form a barrier to protect yourself and ally heroes while blowing up the surrounding area. You and any ally heroes nearby will gain extra HP.\nApplies No Healing EX to enemies hit by the attack. The less total HP you have, the more DMG dealt, and the more extra HP received.",
+        "descriptionFr": "Forme une barrière qui protège les héros alliés et C-17 en provoquant une explosion autour de lui. C-17 et les héros alliés proches reçoivent des PV supplémentaires.\nInflige « Soin impossible EX » aux ennemis touchés. Plus les PV de C-17 sont bas, plus les dégats infligés ainsi que les PV récupérés sont conséquents."
+      }
+    ]
+  },
+  {
+    "id": "freezer-1er",
+    "nameEn": "Frieza (1st Form)",
+    "nameFr": "Freezer (1re forme)",
+    "gameRole": "SUPPORT",
+    "imageUrl": "/freezer-1er.webp",
+    "officialId": "0011",
+    "summaryEn": "A leader hero who controls the battlefield by issuing orders to Zarbon and Dodoria.",
+    "summaryFr": "Héros stratège capable de prendre le contrôle du champ de bataille en donnant des ordres à Zarbon et Dodoria.",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Fearsome Emperor",
+        "nameFr": "Empereur effroyable",
+        "descriptionEn": "Prevents being interrupted by an attack during quick movement while also increasing speed.\nEffect will expire after being hit by an attack, but this effect can be used again after a certain amount of time.",
+        "descriptionFr": "Améliore la mobilité du personnage et\npermet de sprinter sans s'arrêter, même en cas de dégâts subis.\nL'effet s'interromp ensuite, mais il se réactive après un certain temps."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Show Them, Zarbon!",
+        "nameFr": "Zarbon, allez-y !",
+        "descriptionEn": "Position Zarbon, who will attack enemies in the area with energy blasts.\nPrioritizing targets in the middle of Rush Attacks, when his energy blast hits an enemy hero it applies Strike Defense Down.\nUse the Skill again to have Zarbon leave his position.",
+        "descriptionFr": "Déploie à l'endroit indiqué son sbire « Zarbon », qui attaque ses adversaires avec des boules énergétiques.\nIl vise en priorité les héros ennemis utilisant une attaque éclair, et inflige « Défense physique [-] » à ceux qu'il a touché.\nIl peut être rappelé en relançant la technique."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Crush Them, Dodoria!",
+        "nameFr": "Dodoria, tuez-les !",
+        "descriptionEn": "Position Dodoria, who will attack enemies in the area with lunge attacks.\nPrioritizing targets in the middle of Rush Attacks, when his lunge attack hits an enemy hero they are forcibly moved.\nUse the Skill again to have Dodoria leave his position.",
+        "descriptionFr": "Déploie à l'endroit indiqué son sbire « Dodoria », qui attaque en se ruant sur ses adversaires.\nIl vise en priorité les héros ennemis utilisant une attaque éclair, et peut repousser ceux qu'il a touché.\nIl peut être rappelé en relançant la technique."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Imperial Decree",
+        "nameFr": "Ordre de l'empereur",
+        "descriptionEn": "Grant you and ally heroes Movement Speed Up, and create an area that raises Zarbon and Dodoria's attack speed.\nIf ally heroes, Zarbon, or Dodoria are nearby when the Skill is activated, the effects will last longer.",
+        "descriptionFr": "Génère une zone de renforcement qui octroie « Vitesse déplacement [+] » aux alliés et aux sbires Zarbon et Dodoria, et qui augmente également la vitesse d'attaque des sbires déployés.\nPendant l'activation, si un héros allié ou un sbire déployé est présent, la durée de la zone sera prolongée."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Supernova",
+        "nameFr": "Supernova",
+        "descriptionEn": "Drop an enormous energy ball. Charging the attack increases the size of the energy blast, improving range.\nAll enemies in the Super Attack AoE will be afflicted with All Attack Down.",
+        "descriptionFr": "Lance dans la direction ciblée une boule énergétique titanesque.\nPlus l'attaque est chargée, plus la zone d'effet et la portée sont élevées.\nLa boule progresse et inflige « Attaque [-] (tous) » aux adversaires se trouvant dans la zone d'impact."
+      }
+    ]
+  },
+  {
+    "id": "freezer-final",
+    "nameEn": "Frieza (Final Form)",
+    "nameFr": "Freezer (forme finale)",
+    "gameRole": "SUPPORT",
+    "imageUrl": "/freezer-final.webp",
+    "officialId": "0035",
+    "summaryEn": "A dominator of the battlefield who limits enemy movement with wide-reaching walls.\nBlast enemies in the back as they run away in terror, then while they're weakened, send every last one off to Hell!",
+    "summaryFr": "Un maître du champ de bataille qui crée des murs sur une vaste zone pour limiter les déplacements de ses adversaires.\nFrappez les adversaires en fuite dans le dos, achevez les proies affaiblies, et donnez-leur à tous leur ticket pour l'enfer !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Hellbound",
+        "nameFr": "Ticket pour l'enfer",
+        "descriptionEn": "An ability that increases power against back-turned enemy heroes.\nIf positioned behind an enemy's back while attacking, they will receive additional DMG.",
+        "descriptionFr": "Renforce le personnage face aux héros qui lui tournent le dos.\nLorsqu'une attaque touche un héros adverse qui tourne le dos au personnage, elle inflige davantage de dégâts."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Death Beam",
+        "nameFr": "Rayon mortel",
+        "descriptionEn": "Fire a beam that penetrates walls in a targeted direction. \nDMG will be reduced from the second enemy hit onward.",
+        "descriptionFr": "Tire un rayon qui transperce les murs.\nS'il touche plusieurs adversaires, les dégâts infligés diminuent à partir de la deuxième cible touchée."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Psychokinetic Grasp",
+        "nameFr": "Emprise psychique",
+        "descriptionEn": "Seize control of space-time at a targeted location.\nApplies Immobile to enemies on hit.\nCan move while attacking.",
+        "descriptionFr": "Prend le contrôle de l'espace à l'endroit ciblé.\nInflige « Immobilisé » aux adversaires touchés.\nDéplacement possible pendant l'attaque."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Psychokinetic Rock",
+        "nameFr": "Verrou psychique",
+        "descriptionEn": "Drop rocks on the targeted location, creating a wall.\nThe wall can be destroyed with attacks, and will collapse upon re-inputting the Skill or after a set amount of time passes.\nWall durability and number of rocks increase with Skill level.\nAt Skill Level 3 (Super), rocks increase in size.\nCan move while attacking.",
+        "descriptionFr": "Fait tomber des rochers à l'endroit ciblé pour créer un mur.\nLe mur peut être détruit par les attaques, en relançant la technique ou après un certain temps.\nEn augmentant le niveau de la technique, le nombre de rochers et leur durabilité augmentent.\nAu niveau super de la technique, la taille des rochers augmente.\nDéplacement possible pendant l'attaque."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Earth Splitter",
+        "nameFr": "Tranche-Terre",
+        "descriptionEn": "Split the earth at a targeted location.\nCreates an energy wall that blows away enemies and deals DMG when touched.",
+        "descriptionFr": "Fend la terre à l'endroit ciblé.\nCrée un mur d'énergie qui repousse et inflige des dégâts aux adversaires qui le touchent."
+      }
+    ]
+  },
+  {
+    "id": "gohan-petit",
+    "nameEn": "Gohan (Kid)",
+    "nameFr": "Gohan (enfant)",
+    "gameRole": "SUPPORT",
+    "imageUrl": "/gohan-petit.webp",
+    "officialId": "0009",
+    "summaryEn": "A support hero who grows stronger with allies using Friendship Boost!",
+    "summaryFr": "Héros utilisant notamment « Boost d'amitié » pour renforcer et aider toute son équipe !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Friendship Boost",
+        "nameFr": "Boost d'amitié",
+        "descriptionEn": "Stay near an ally hero for a certain amount of time to gain All Defense Up and apply All Attack Up to the ally hero.",
+        "descriptionFr": "Renforce le personnage et les héros alliés.\nS'octroie « Défense [+] (tous) », et octroie « Attaque [+] (tous) » aux héros alliés."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Masenko",
+        "nameFr": "Masenko",
+        "descriptionEn": "Unleash an energy blast. Enemies hit by this attack will be forcibly moved.",
+        "descriptionFr": "Lance une attaque énergétique.\nDéplace de force les héros ennemis touchés."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Masenkyaku",
+        "nameFr": "Masenkyaku",
+        "descriptionEn": "Rush forward and unleash a roundhouse kick. Charging this attack will increase its range and DMG, and when fully charged, it will stagger enemies on hit. When not fully charged, it applies No Skills to enemies on hit.",
+        "descriptionFr": "Fonce pour infliger un coup de pied.\nPlus l'attaque est chargée, plus la portée et les dégâts infligés sont élevés.\nSi l'attaque est chargée au max, déséquilibre l'adversaire.\nSi elle n'est pas chargée au max, inflige « Tech./att. verrouillées » à l'adversaire."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Leave This to Me!",
+        "nameFr": "Je m'en charge !",
+        "descriptionEn": "Choose a single ally hero and warp to them. Applies Energy Defense Up to yourself and the chosen ally hero.\nAfter warping, create a barrier centered around yourself. Within the barrier, you and the ally hero additionally gain Energy Defense Up, while enemies are afflicted with Energy Defense Down.",
+        "descriptionFr": "Se téléporte sur un héros allié ciblé et génère une barrière.\nOctroie « Défense énergétique [+] » au personnage et au héros allié.\nCrée une barrière après s'être téléporté. Octroie « Défense énergétique [+] » au personnage et aux héros alliés présents dans la barrière, et inflige « Défense énergétique [-] » aux adversaires."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Exploding Rage",
+        "nameFr": "Explosion de colère",
+        "descriptionEn": "Unleash energy around yourself. Applies Strike Attack Up to ally heroes within the AoE for a limited time. Gain Strike Defense Up and increase the number of hits in your Rush Attack.",
+        "descriptionFr": "Libère de l'énergie dans une explosion de colère.\nPendant un certain temps, octroie « Attaque physique [+] » aux héros alliés dans la zone.\nS'octroie « Défense physique [+] » et augmente le nombre d'attaques éclair qu'il peut lancer."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Shattering Beam",
+        "nameFr": "Sphère démoniaque explosive",
+        "descriptionEn": "Can be used while Exploding Rage is active. Lunge forward with a kick, followed by firing a large, explosive blast on the targeted point.\nEnemies hit by the initial kick will be staggered.",
+        "descriptionFr": "Utilisable uniquement pendant « Explosion de colère ».\nFonce et donne un coup de pied qui émet une large explosion et qui déséquilibre les adversaires touchés."
+      }
+    ]
+  },
+  {
+    "id": "gohan-ultime",
+    "nameEn": "Gohan (Ultimate)",
+    "nameFr": "Gohan (ultime)",
+    "gameRole": "SUPPORT",
+    "imageUrl": "/gohan-ultime.webp",
+    "officialId": "0027",
+    "summaryEn": "A playmaker who separates his target from the pack, creating advantages for his allies.\nTake down isolated enemies one by one alongside your team!",
+    "summaryFr": "Un stratège capable d'isoler les ennemis de leur groupe pour créer une situation avantageuse pour son équipe.\nAvec vos alliés, éliminez les adversaires isolés un par un !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "You Can't Win...",
+        "nameFr": "Tu vas perdre...",
+        "descriptionEn": "Stagger and weaken an enemy hero.\nApplies a stack to an enemy hero on hit.\nWhen stacks are maxed out, target becomes a Break Target and any damage dealt staggers them, applying Physical Defense Down and Energy Defense Down.\nRush Attacks and Skills (Super Attacks excluded) have a moderate effect, with Super Attacks having a greater effect.",
+        "descriptionFr": "Déséquilibre un héros adverse pour l'affaiblir.\nToucher un héros adverse avec une technique augmente la charge.\nActive « Brise-cible » sur l'adversaire ayant un niveau de charge maximal.\nAttaquer ce même adversaire le déséquilibre et lui inflige « Défense physique [-] » et « Défense énergétique [-] ».\nEfficacité des effets dans l'ordre décroissant : attaque spéciale > techniques (hors attaque spéciale) et attaque éclair."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Jack Blast",
+        "nameFr": "Super explosion",
+        "descriptionEn": "Unleash a strike in a set direction.\nApplies a stack to enemy heroes on hit. Re-entering the command within a certain time window unleashes an energy wave, pushing away enemies and dealing extra DMG.\nApplies further stacks to enemy heroes struck.\nThe closer an enemy is, the further the pushback. Activating this Skill after Power Unleashed increases pushback even further, and applies Movement Speed Down to enemy heroes struck.",
+        "descriptionFr": "Lance une attaque physique dans la direction ciblée.\nToucher un héros adverse augmente la charge.\nSi le personnage relance cette technique assez vite, il effectue un Kikoha qui inflige des dégâts supplémentaires à sa cible en la repoussant et augmente encore la charge.\nPlus la cible est proche, plus le recul est important. Si la technique est associée à « Libération de puissance », la distance de recul est encore plus grande, et si un héros adverse est touché, lui inflige « Vitesse déplacement [-] »."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Rolling Hammer",
+        "nameFr": "Marteau rotatif",
+        "descriptionEn": "An unavoidable attack that warps to your target's location, and forcibly moves them in the direction you warped from.\nGenerates a shockwave on hit, dealing additional DMG to non-target enemies.\nApplies a stack to enemy heroes on hit.\nStaggers and deals extra DMG to targets knocked into a wall or other heroes.\nActivating this Skill after Potential Unleashed will send the target struck flying on hit, enemies struck by the shockwave will be forcibly moved, and extra DMG dealt to targets knocked into a wall or other heroes will be increased.",
+        "descriptionFr": "Téléporte le personnage sur la cible pour asséner à coup sûr une attaque qui la force à se déplacer vers la position initiale du personnage.\nÀ l'impact, génère une onde de choc qui inflige des dégâts supplémentaires aux adversaires (hors cible).\nSi la cible est un héros adverse, la charge augmente.\nSi la cible heurte un mur ou un autre héros, elle est déséquilibrée et subit des dégâts supplémentaires.\nAssociée à « Libération de puissance », projette la cible à l'impact, déplace de force les adversaires touchés par l'onde de choc, et augmente les dégâts supplémentaires subis par la cible lorsqu'elle heurte un mur ou un autre héros."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Power Unleashed",
+        "nameFr": "Libération de puissance",
+        "descriptionEn": "Unleash a shockwave around yourself, applying Flee to enemies.\nApplies a stack to enemy heroes on hit.\nWithin a set window after this Skill's activation, Jack Blast and Rolling Hammer will be enhanced and usable even mid-cooldown.\nThe first hit of other Skills activated following this will add further stacks to enemy heroes.",
+        "descriptionFr": "Génère une onde de choc autour du personnage.\nInflige « Repli » aux adversaires. Toucher un héros adverse augmente la charge.\nAprès avoir utilisé cette technique, le personnage peut temporairement lancer « Super explosion » et « Marteau rotatif » (même en cours de recharge) en version améliorée.\nSi le premier coup de la technique alors lancée touche un héros adverse, la charge augmente encore plus."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Mach Break",
+        "nameFr": "Supersonique",
+        "descriptionEn": "Warp to the target location and unleash a flurry of attacks while moving at high speed.\nThe first hit to enemy heroes applies a stack to them. Can move while attacking.\nGenerates a shockwave following the flurry, staggering enemy heroes with stacks, and applying Flee to enemies without stacks.",
+        "descriptionFr": "Se téléporte vers la position visée et enchaîne une série d'attaques rapides tout en se déplaçant à grande vitesse.\nSi le premier coup touche un héros adverse, la charge augmente. Déplacement possible pendant l'attaque.\nAprès l'attaque, génère une onde de choc qui déséquilibre les héros adverses possédant une charge, et qui inflige « Repli » aux héros adverses sans aucune charge."
+      }
+    ]
+  },
+  {
+    "id": "gotenks",
+    "nameEn": "Gotenks",
+    "nameFr": "Gotenks",
+    "gameRole": "SUPPORT",
+    "imageUrl": "/gotenks.webp",
+    "officialId": "0024",
+    "summaryEn": "A mischievous hero who uses ghosts to obstruct foes! \nFinish the fight with Super Ghost Kamikaze Attack and show them what you're really made of!",
+    "summaryFr": "Héros espiègle qui fait tourner ses adversaires en bourrique avec ses fantômes ! \nUtilisez ses techniques secrètes et donnez le coup de grâce avec « Super ghost kamikaze attack » !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Exaltation",
+        "nameFr": "Exaltation",
+        "descriptionEn": "Applies Movement Speed Up to self and nearby ally heroes when KOing or assisting against an enemy hero.",
+        "descriptionFr": "Mettre ou aider à mettre K.O. un héros adverse octroie « Vitesse déplacement [+] » à soi-même et aux héros alliés alentour."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Hyper Ultra Super Combo",
+        "nameFr": "Hyper ultra super combo",
+        "descriptionEn": "Warp to an enemy's location and perform a combo attack.\nApplies Strike Defense Up to self during the combo.\nAlso attacks enemies nearby, finishing by staggering them and warping back to where the Skill was activated.\nThe number of combo hits increases with Skill level.",
+        "descriptionFr": "Téléporte Gotenks sur l'adversaire ciblé, puis effectue un combo.\nS'octroie « Défense physique [+] »pendant le combo.\nAttaque les adversaires alentour, déséquilibre le dernier touché, puis ramène Gotenks à sa position initiale.\nEn augmentant le niveau de la technique, le nombre de coups du combo augmente."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Galactic Donut",
+        "nameFr": "Beignet galactique",
+        "descriptionEn": "Throw a donut-shaped ring at a set position that gathers enemies together.",
+        "descriptionFr": "Lance à l'endroit ciblé un anneau qui regroupe les adversaires."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Super Ghosts",
+        "nameFr": "Super Ghost",
+        "descriptionEn": "Summon ghosts to a set target.\n- Enemy or Dragon Shell: Will pursue target and explode on hit, applying Movement Speed Down.\n- Self or ally hero: Will follow target.\n- No Target: Will wait at set position. \nGhosts who are following or waiting will pursue enemy heroes who draw near.\nGhosts who are in pursuit or waiting will explode and disappear if hit by an enemy's attack or upon hitting a wall.",
+        "descriptionFr": "Invoque des fantômes sur la cible qui agissent différemment en fonction de celle-ci.\n・ Adversaire ou bouclier dragon : traquent la cible et explosent au contact en infligeant « Vitesse déplacement [-] ».\n・ Soi-même ou héros allié : suivent la cible.\n・ Aucune cible : attendent à l'endroit ciblé.\nLes fantômes qui suivent un allié, ou qui sont en attente, poursuivront tout héros adverse proche. Ils exploseront s'ils sont touchés par une attaque ennemie ou en cas de collision avec un mur."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Super Ghost Kamikaze Attack",
+        "nameFr": "Super ghost kamikaze attack",
+        "descriptionEn": "Send ghosts rushing toward a set position.\nGhosts pursue enemy heroes and apply No Skills/Attacks to enemies hit with their last strike.",
+        "descriptionFr": "Ordonne aux fantômes d'attaquer l'endroit indiqué.\nCes derniers traquent alors un héros adverse et lui infligent « Tech./att. verrouillées » avec leur dernier coup."
+      },
+      {
+        "type": "TRANSFORM",
+        "nameEn": "Super Saiyan",
+        "nameFr": "Super Saiyan",
+        "descriptionEn": "Can transform at Level 7.\nBase HP / All Attack Up.",
+        "descriptionFr": "Transformation disponible à partir du niveau 7.\nAugmente les PV de base et l'attaque (tous)."
+      }
+    ]
+  },
+  {
+    "id": "hit",
+    "nameEn": "Hit",
+    "nameFr": "Hit",
+    "gameRole": "SUPPORT",
+    "imageUrl": "/hit.webp",
+    "officialId": "0020",
+    "summaryEn": "A hitman who can blindside enemies with deadly attacks! Disorient your targets with Fear of Death, then approach sight unseen to quickly finish the job!",
+    "summaryFr": "Un tueur à gages qui assène des coups critiques dans l'angle mort des ennemis ! Infligez à la cible l'effet « Effroi de la mort », puis traquez et acculez l'ennemi à la vision réduite pour mener à bien la mission rapidement !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Fear of Death",
+        "nameFr": "Effroi de la mort",
+        "descriptionEn": "Apply a debuff that shrinks the target's field of view. Fear of Death will be applied when attacking an enemy hero who has not spotted you.\nStacking Fear of Death will apply Movement Speed Down to the enemy and they will receive additional DMG, while the cooldown for Dimensional Infiltration will also be shortened.",
+        "descriptionFr": "Réduit le champ de vision de la cible. « Effroi de la mort » est appliqué lorsque Hit attaque un héros adverse qui ne le voit pas.\nEn appliquant « Effroi de la mort » plusieurs fois, inflige « Vitesse de déplacement [-] » à l'ennemi, augmente les dégats infligés et réduit le temps de recharge d'Infiltration dimensionnelle."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Deathblow",
+        "nameFr": "Coup fatal",
+        "descriptionEn": "Fire an energy attack that penetrates enemies and walls.\nIf this is activated during Stealth or while in a bush, the effects of Stealth or the bush will remain.",
+        "descriptionFr": "Lance un rayon d'énergie qui traverse les ennemis et les murs. Reste camouflé lorsque l'attaque est lancée dans l'état « Furtivité » ou dans un buisson."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Vital Point Strike",
+        "nameFr": "Coup ciblé",
+        "descriptionEn": "A thrust attack. Generates a shockwave with the attack from Skill Level 2.\nStaggers enemy heroes who haven't discovered you when it hits.",
+        "descriptionFr": "Un coup d'estoc. Une fois la technique au niveau 2, elle génère une onde de choc en même temps.\nDéséquilibre les héros adverses touchés qui ne voient pas Hit au moment de l'attaque."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Dimensional Infiltration",
+        "nameFr": "Infiltration dimensionnelle",
+        "descriptionEn": "Warp to a set position and enter an alternate space-time, granting buffs.\nApplies Stealth and Movement Speed Up to self while in the alternate space-time.\nThese effects will be canceled if hit by an enemy attack or upon using a Rush Attack or Skill (Deathblow excluded).",
+        "descriptionFr": "Se cache dans une autre dimension pour se renforcer et se camoufler.\nQuand Hit est dans cette dimension, il s'octroie les effets « Furtivité » et « Vitesse de déplacement [+] ». \nCes effets sont annulés si une attaque éclair ou une technique (hormis « Coup fatal ») est utilisée, ou si Hit est touché par un ennemi."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Assassin's Domain",
+        "nameFr": "Domaine de l'assassin",
+        "descriptionEn": "Unleash murderous energy, granting you buffs.\nApplies Fear of Death, Movement Speed Down, and Obscured Vision to nearby enemies, and applies same effects as Dimensional Infiltration to self.\nIf the effects of Dimensional Infiltration are canceled, they will be reapplied so long as no actions are performed other than movement.",
+        "descriptionFr": "Libère une energie meurtrière pour augmenter sa puissance. Inflige aux ennemis proches les effets « Effroi de la mort », « Vitesse de déplacement [-] » et « Vision altérée ». Octroie les mêmes effets qu'Inflitration dimensionnelle.\nMême si les effets d'Inflitration dimensionnelle sont annulés, ils seront de nouveau appliqués tant qu'aucune action autre que le déplacement n'est effectuée."
+      }
+    ]
+  },
+  {
+    "id": "kid-buu",
+    "nameEn": "Kid Buu",
+    "nameFr": "Boo (petit)",
+    "gameRole": "SUPPORT",
+    "imageUrl": "/kid-buu.webp",
+    "officialId": "0034",
+    "summaryEn": "A wicked hero who scatters Parts around to weaken enemies.\nSpawn Clones from these Parts to harass enemies and dominate the battlefield!",
+    "summaryFr": "Héros maléfique qui disperse ses « Fragments » pour affaiblir les ennemis autour de lui.\nFaites naître des « Clones » à partir de « Fragments » et prenez le contrôle du champ de bataille tout en tourmentant vos adversaires !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Mystic Body",
+        "nameFr": "Corps mystique",
+        "descriptionEn": "Create Parts.\nEach time your base HP is reduced by a certain percentage of its max value, Parts will scatter around you.\nApplies Movement Speed Down to enemies in range of the Parts.",
+        "descriptionFr": "Génère des « Fragments ».\nÀ chaque fois que ses PV diminuent d'un certain pourcentage par rapport à ses PV max, des « Fragments » se dispersent autour de lui.\nLes adversaires proches des « Fragments » subissent « Vitesse déplacement [-] »."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Arm Ball",
+        "nameFr": "Bras-balle",
+        "descriptionEn": "Throw Parts at a targeted location.\nParts will scatter around the area of impact.\nThe amount scattered increases with Skill level.",
+        "descriptionFr": "Lance des « Fragments » vers l'endroit ciblé.\nÀ l'impact, les « Fragments » se dispersent autour du point de chute.\nEn augmentant le niveau de la technique, la quantité générée augmente."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Leg Hook",
+        "nameFr": "Croche-pied",
+        "descriptionEn": "Stretch your leg in a targeted direction, grabbing an enemy.\nIf the attack lands, the enemy is pulled in close and headbutted, staggering them and dealing additional DMG.\nIf there are Parts near the target, range is increased.",
+        "descriptionFr": "Étend sa jambe dans la direction ciblée pour saisir l'adversaire.\nSi l'attaque touche, attire la cible et la déséquilibre d'un coup de tête en infligeant des dégâts supplémentaires.\nSi des « Fragments » se trouvent dans la direction ciblée, la portée augmente."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Noisy Chest Drumming",
+        "nameFr": "Tambourinage assourdissant",
+        "descriptionEn": "Furiously beat your chest.\nUpon activation, gains extra HP.\nCan move while attacking and applies Movement Speed Down to enemies hit.\nIf there are any Parts within the AoE, they will transform into Clones and deal additional attacks.\nAoE and DMG increases based on how many Clones there are.\nAlso, Movement Speed Down effect strength and amount of additional HP gained will increase incrementally.\nThe attack ends on re-input, use of another Skill, or use of Vanishing Step.",
+        "descriptionFr": "Frappe sa poitrine et s'octroie des PV supplémentaires à l'activation.\nDéplacement possible durant l'attaque.\nInflige « Vitesse déplacement [-] » si l'attaque touche l'adversaire.\nLes « Fragments » présents dans la zone se transforment en « Clones » et lancent une attaque supplémentaire.\nPlus les « Clones » sont nombreux, plus la zone d'attaque s'étend, et plus les dégâts, l'effet de « Vitesse déplacement [-] » et le gain de PV supplémentaires augmentent.\nL'attaque s'arrête à la relance, à l'utilisation d'une technique, ou d'une esquive éclair."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Earth Breaker",
+        "nameFr": "Brise-terre",
+        "descriptionEn": "Drop down an energy blast upon a targeted location.\nOn activation, Parts in range will transform into Clones, grabbing nearby enemies and applying Movement Speed Down.\nOn detonation, a shockwave is generated applying All Defense Down to enemies.\nAlso on detonation, an area is created that deals additional DMG and applies All Attack Down to enemies.\nWill transform into Parts while this area exists, applying Immune to All to self.\nTransformation will end upon re-input, or after a set amount of time.",
+        "descriptionFr": "Lance une boule énergétique vers le sol à l'endroit ciblé.\nAu lancement, les « Fragments » présents dans la zone se transforment en « Clones », s'agrippent aux adversaire proches et leur infligent « Vitesse déplacement [-] ».\nÀ l'impact, déclenche une onde de choc qui inflige « Défense [-] (tous) » aux adversaires.\nAprès l'impact, génère une zone qui inflige des dégâts supplémentaires ainsi que « Attaque [-] (tous) ».\nPendant la génération de la zone, le personnage se transforme en « Fragments », peut se déplacer et s'octroie « Immunité totale ».\nLa transformation se dissipe à la relance ou au bout d'un certain temps."
+      }
+    ]
+  },
+  {
+    "id": "krillin",
+    "nameEn": "Krillin",
+    "nameFr": "Krilin",
+    "gameRole": "SUPPORT",
+    "imageUrl": "/krillin.webp",
+    "officialId": "0003",
+    "summaryEn": "A crafty hero who blinds foes with Solar Flare, and catches them off guard with hidden Energy Mines.",
+    "summaryFr": "Héros capable de priver les adversaires de leur champ de vision avec « Morsure du Soleil » et de les leurrer avec son « Piège énergétique » invisible.",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Technician",
+        "nameFr": "Virtuose",
+        "descriptionEn": "Applying Marked to enemies will immediately lower the cooldown on your Skills and Super Attack.",
+        "descriptionFr": "Infliger « Marqué » à un adversaire réduit le temps de recharge des techniques."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Energy Mine",
+        "nameFr": "Piège énergétique",
+        "descriptionEn": "Place an energy blast that becomes hidden after a set time.\nWhen an enemy hero comes in range, it will explode after a set time.\nShrink Field of View and Marked are applied to enemies hit by the explosion.",
+        "descriptionFr": "Place une boule énergétique qui devient invisible pour les adversaires après un certain temps.\nSi un héros ennemi entre dans son champ de détection, elle explose après un certain moment.\nElle inflige « Marqué » et « Champ de vision [-] » aux héros ennemis touchés."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Solar Flare",
+        "nameFr": "Morsure du Soleil",
+        "descriptionEn": "Unleash a powerful light. Applies Flash, Marking, and All Attack Down to enemies facing Krillin.",
+        "descriptionFr": "Émet une lumière éblouissante .\nInflige « Aveuglé », « Marqué » et « Attaque [-] (tous) » aux adversaires qui sont tournés vers Krillin."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Scattering Energy Wave",
+        "nameFr": "Vague d'énergie multiple",
+        "descriptionEn": "Fire a controllable energy blast. When it hits an enemy hero or object, or when the Skill is used again, it will disperse and drop, generating Smoke. The dispersed blasts will pursue any Marked enemies caught in the area.",
+        "descriptionFr": "Lance une boule énergétique contrôlable.\nAu contact d'un adversaire, d'un objet, ou à la relance, elle se divise en de multiples projectiles qui frappent le sol tout en générant de la fumée. Si un ennemi dans la zone est cible de « Marqué », les projectiles le poursuivent."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Destructo-Disc",
+        "nameFr": "Kienzan",
+        "descriptionEn": "Unleash multiple energy discs. They will penetrate enemy heroes and walls.\nIf an enemy hero is Marked, the attack will pursue them. And if an enemy hero with over 3 debuffs comes into contact with the center of a disc, they will receive extra DMG.",
+        "descriptionFr": "Lance un disque énergétique qui traverse les adversaires et les murs.\nCe disque poursuit la cible de « Marqué ».\nQuand le cœur du disque atteint des adversaires subissant 3 Malus (alt. d'état) ou plus, inflige davantage de dégâts."
+      }
+    ]
+  },
+  {
+    "id": "beerus",
+    "nameEn": "Beerus",
+    "nameFr": "Beerus",
+    "gameRole": "DPS",
+    "imageUrl": "/beerus.webp",
+    "officialId": "0038",
+    "summaryEn": "A God of Destruction who switches between short- and long-range Skills to overwhelm all. \nUse a Finisher or Super Attack to destroy anyone with a Mark of Destruction!",
+    "summaryFr": "Un dieu de la destruction efficace à courte et longue portée qui domine tout ce qui existe. \nDétruisez tous ceux qui sont sous l'effet de son « Sceau de la destruction » qui facilite les coups de grâce !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "I'll Destroy You",
+        "nameFr": "Je vais vous détruire",
+        "descriptionEn": "Increase the ease of landing Finishers on enemy heroes.\nTargets enemy heroes to whom he has applied Mark of Destruction or enemy heroes with Mark of Destruction that he hits with an attack.\nThe total HP threshold to land a Finisher is higher the more Mark of Destruction stacks there are.\nEnemies to whom he has applied Mark of Destruction will take DMG when they are at max stacks.",
+        "descriptionFr": "Facilite les coups de grâce.\nAffecte les héros sous l'effet de votre « Sceau de la destruction » et les héros sous l'effet d'un autre « Sceau de la destruction » qui subissent vos attaques.\nPlus la charge de « Sceau de la destruction » est élevée, plus le pourcentage de PV nécessaire pour activer un coup de grâce augmente.\nInflige des dégâts supplémentaires lorsque qu'un « Sceau de la destruction » que vous avez infligé atteint sa charge maximum."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Sphere of Destruction Shoot",
+        "nameFr": "Tir d'orbe destructeur",
+        "descriptionEn": "Kick a Sphere of Destruction at a set position.\nExplodes and applies Mark of Destruction to enemies upon impact.\nThe farther the point of impact, the larger the AoE explosion.\nCan move before impact.",
+        "descriptionFr": "Tire un orbe de destruction à l'endroit ciblé.\nÀ l'impact, il explose et inflige « Sceau de la destruction » aux adversaires.\nPlus la zone d'impact est éloignée, plus l'explosion est large.\nDéplacement possible avant l'impact."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Divine Blitz",
+        "nameFr": "Assaut divin",
+        "descriptionEn": "Unleash an aura and dash in a set direction.\nApplies Mark of Destruction to enemies hit.\nDMG dealt increases and dash will end upon hitting an enemy.",
+        "descriptionFr": "Se pare d'une aura de destruction et lance un assaut dans la direction ciblée.\nInflige « Sceau de la destruction » aux adversaires touchés.\nSi un adversaire entre en contact avec le personnage, les dégâts infligés augmentent et l'assaut prend fin."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Destruction Decree",
+        "nameFr": "Sentence de destruction",
+        "descriptionEn": "An unavoidable Skill marking a target in a set direction.\nApplies Movement Speed Up to self and Mark of Destruction to the enemy.\nWhen another Skill (excluding Super Attacks) hits a marked enemy,\nthe mark explodes, deals DMG, and ends that Skill's cooldown.\nDMG increases the more Mark of Destruction stacks the marked enemy has.\nThe mark wears off as time passes.",
+        "descriptionFr": "Marque les cibles dans la direction ciblée.\nEn plaçant ces marques, s'octroie « Vitesse déplacement [+] » et inflige « Sceau de la destruction » aux adversaires.\nToucher les adversaires marqués avec une autre technique (hors attaque spéciale) fait exploser la marque qui inflige des dégâts et réinitialise le temps de recharge de la technique l'ayant déclenchée.\nPlus l'adversaire marqué possédait de charge de « Sceau de la destruction », plus les dégâts infligés augmentent.\nLa marque disparaît après un certain temps."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Sphere of Destruction Barrage",
+        "nameFr": "Pluie d'orbes destructeurs",
+        "descriptionEn": "Target enemies in range with multiple, unavoidable Spheres of Destruction.\nApplies Marked to targets when activated.\nTargets remain active while within a certain proximity.\nIf affected by I'll Destroy You, targets will be KO'd if their HP falls below the Finisher HP threshold.\nThe number of maximum targets and number of blasts when there is only one target increase with Skill level.\nCan move while attacking.",
+        "descriptionFr": "Lance à coup sûr des orbes de destruction enchaînés sur les adversaires dans la zone ciblée.\nMarque les cibles à l'activation.\nLes cibles restent actives tant qu'elles restent à une certaine portée du personnage.\nSi les cibles sont sous l'effet de « Je vais vous détruire », elles sont mises K.O. en passant sous le pourcentage de PV permettant de réaliser un coup de grâce.\nEn augmentant le niveau de la technique, le nombre de cibles augmente, et le nombre d'orbes lancés augmente s'il n'y a qu'une seule cible.\nDéplacement possible pendant l'attaque"
+      }
+    ]
+  },
+  {
+    "id": "bojack",
+    "nameEn": "Bojack",
+    "nameFr": "Bojack",
+    "gameRole": "DPS",
+    "imageUrl": "/bojack.webp",
+    "officialId": "0015",
+    "summaryEn": "A hero who specializes in group tactics and dominates the field with powerful energy blasts and explosions.",
+    "summaryFr": "Héros combattant en groupe et dominant le champ de bataille avec ses puissantes boules énergétiques et attaques explosives.",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Galactic Assassin",
+        "nameFr": "Assassin galactique",
+        "descriptionEn": "If a Rush Attack is used against an enemy hero damaged by your Skills, your subordinates will perform a follow-up attack.",
+        "descriptionFr": "Si le personnage réussit une attaque éclair sur un héros adverse déjà atteint par une technique, ordonne aux sbires de lancer des attaques supplémentaires."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Galactic Buster",
+        "nameFr": "Buster galactique",
+        "descriptionEn": "Fire two energy blasts that explode on impact.",
+        "descriptionFr": "Lance deux boules énergétiques qui explosent à l'impact."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Cosmic Bloom",
+        "nameFr": "Floraison cosmique",
+        "descriptionEn": "Scatter energy orbs. They will explode when hit by an energy attack from an enemy or ally hero, or after a set amount of time passes. \nCan move and change direction after activating this Skill.",
+        "descriptionFr": "Dissémine de petites boules énergétiques.\nQuand une attaque énergétique entre en contact avec, ou après un certain temps, les boules explosent.\nPendant toute la durée de l'attaque, le personnage peut se déplacer et les réorienter."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Psycho Thread",
+        "nameFr": "Toile psychique",
+        "descriptionEn": "Call upon your subordinates and send out threads of energy.\nApplies Movement Speed Down and damages enemies within the AoE.\nA subordinate will retreat if damaged, but the number of them summoned increases according to the level of the Skill.\nAfter dealing Continuous Damage, additional explosions will occur based on the number of subordinates remaining.",
+        "descriptionFr": "Ordonne aux sbires de placer à l'endroit indiqué des fils énergétiques.\nInflige des dégâts et « Vitesse déplacement [-] » aux adversaires dans la zone.\nPlus le niveau de la technique est élevé, plus le nombre de sbires augmente, et après avoir infligé des dégâts périodiques, tous les sbires restants explosent."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Giga Grand Smasher",
+        "nameFr": "Gigalasers",
+        "descriptionEn": "Call upon your subordinates to fire 5 energy blasts as a team.\nAfter a set amount of time, the energy blasts will converge at the center.",
+        "descriptionFr": "Lance dans la direction ciblée 5 attaques énergétiques avec ses sbires.\nAu bout d'un certain temps, elles convergent en un seul point."
+      },
+      {
+        "type": "TRANSFORM",
+        "nameEn": "Full Power",
+        "nameFr": "Pleine puissance",
+        "descriptionEn": "Can transform at Level 7. \nFollow-up attacks from subordinates during Galactic Assassin will deal enhanced DMG.",
+        "descriptionFr": "Transformation disponible à partir du niveau 7.\nLes dégâts des attaques supplémentaires des sbires appelés par « Assassin galactique » augmentent."
+      }
+    ]
+  },
+  {
+    "id": "broly-dbz",
+    "nameEn": "Broly (DBZ)",
+    "nameFr": "Broly (DBZ)",
+    "gameRole": "DPS",
+    "imageUrl": "/broly-dbz.webp",
+    "officialId": "0028",
+    "summaryEn": "A raging hero who doles out despair with Fiendish Tenacity. \nLet misery fall upon foes near and far as you unleash overwhelming power upon them.\nThe bloodbath awaits!",
+    "summaryFr": "Héros furieux utilisant l'incroyable portée de son pouvoir dévastateur pour écraser ses adversaires.\nUtilisez « Ténacité infernale » pour semer le désespoir et écharper vos adversaires !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Fiendish Tenacity",
+        "nameFr": "Ténacité infernale",
+        "descriptionEn": "Increases enemy hero Despair Gauge when Skills land.\nGain Strike Defense Up against enemy heroes with any Despair Gauge filled, and Rush Attack DMG dealt increases with gauge level.\nThe more enemies a single attack hits, the more the gauge fills.\nThe gauge depletes when taking Rush Attack DMG from enemy heroes, or after not dealing DMG to them for a set period of time.",
+        "descriptionFr": "Renforce le personnage.\nRéussir une technique augmente la « Jauge désesp. » des héros adverses.\nAugmente la défense physique face aux héros adverses possédant une jauge.\nPlus la jauge est élevée, plus les dégâts infligés par l'attaque éclair sont importants.\nPlus une attaque touche d'adversaires, plus la jauge augmente.\nSubir les dégâts de l'attaque éclair d'un héros adverse possédant une jauge ou passer trop de temps sans infliger de dégâts réduit la jauge."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Gigantic Knuckle",
+        "nameFr": "Fracasse-terre",
+        "descriptionEn": "Pummel the ground and split the earth in a set direction.\nThe more the attack is charged, the greater the AoE.\nCan move/redirect while charging.\nIncreases the Despair Gauge of any enemy heroes hit.",
+        "descriptionFr": "Frappe le sol en fissurant la terre dans la direction ciblée.\nPlus l'attaque est chargée, plus la zone d'attaque est large.\nDéplacement et réorientation possibles durant la charge.\nToucher des héros adverses augmente leur « Jauge désesp. »."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Gigantic Stomp",
+        "nameFr": "Écrasement total",
+        "descriptionEn": "Leap up and stomp the ground at a targeted position.\nApplies Unstoppable to self during the attack.\nAny enemy hit by this Skill will be stomped on several times, and the Despair Gauge of enemy heroes hit will increase.\nCan move/redirect following the initial stomp.",
+        "descriptionFr": "Bondit, puis frappe le sol des pieds à l'endroit ciblé.\nPendant l'attaque, octroie « Insensible aux entraves » au personnage.\nToucher des adversaires permet de frapper le sol des pieds à plusieurs reprises, et toucher des héros adverses permet d'augmenter leur « Jauge désesp. ».\nÀ partir du second bond, le personnage peut se déplacer et changer de direction lors de la frappe."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Roar",
+        "nameFr": "Hurlement",
+        "descriptionEn": "Unleash a ferocious roar in a set direction.\nUpon activation, immediately removes the cooldown on all other Skills (Super Attack excluded).\nDMG dealt by the next activated Skill (Roar excluded) will be increased, and the Despair Gauge of enemy heroes hit will increase.\nCooldown on this Skill will increase in proportion to the amount of cooldown removed from other Skills.",
+        "descriptionFr": "Rugit dans la direction ciblée.\nAu lancement, met immédiatement fin au temps de recharge de toutes les autres techniques (hors attaque spéciale).\nAugmente les dégâts infligés par la prochaine technique (hors « Hurlement »). Toucher des héros adverses augmente leur « Jauge désesp. ».\nAjoute au temps de recharge de cette technique la part réduite des temps de recharge des autres techniques (hors attaque spéciale)."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Blaster Meteor",
+        "nameFr": "Météore explosif",
+        "descriptionEn": "Fire explosive energy blasts into the surroundings while cloaked in energy.\nCan move while attacking, and if enemies are nearby, energy blasts will target them and explode.\nApplies Movement Speed Down to enemies hit by the explosions.\nIncreases the Despair Gauge of enemy heroes hit by explosions or the cloak of energy.",
+        "descriptionFr": "Enveloppe le personnage d'énergie et lance des boules énergétiques explosives autour de lui.\nCes dernières ciblent les adversaires à proximité.\nLa dernière explosion inflige « Vitesse déplacement [-] » aux adversaires touchés.\nToucher un héros adverse avec l'énergie enveloppant le personnage ou une explosion augmente sa « Jauge désesp. ».\nDéplacement possible pendant l'attaque."
+      },
+      {
+        "type": "TRANSFORM",
+        "nameEn": "Legendary Super Saiyan",
+        "nameFr": "Super Saiyan légendaire",
+        "descriptionEn": "Can transform at Level 7.\nBase HP / All Attack Up.",
+        "descriptionFr": "Transformation disponible à partir du niveau 7.\nAugmente les PV de base et l'attaque (tous)."
+      }
+    ]
+  },
+  {
+    "id": "c18",
+    "nameEn": "C-18",
+    "nameFr": "C-18",
+    "gameRole": "DPS",
+    "imageUrl": "/c18.webp",
+    "officialId": "0006",
+    "summaryEn": "A physical hero who charges in and overwhelms enemies with absolute fury.",
+    "summaryFr": "Artiste martiale qui fond sur ses adversaires pour leur infliger des combos fulgurants !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Assault Rush",
+        "nameFr": "Ruée d'assaut",
+        "descriptionEn": "An Assault Target will be applied to an enemy hero for a set time after attacking them 4 times in a row, increasing your DMG against them.",
+        "descriptionFr": "En touchant 4 fois le même héros ennemi, lui inflige momentanément « Cible de l'assaut », et augmente les dégâts que C-18 lui inflige."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Destructo-Disc",
+        "nameFr": "Kienzan",
+        "descriptionEn": "Unleash an energy disc. The less total HP an enemy has, the more DMG it deals.\nIt will pursue an enemy hero if you successfully attacked them right before unleashing this Skill.",
+        "descriptionFr": "Lance un disque énergétique.\nSes dégâts augmentent à mesure que les PV du héros ennemi sont bas.\nLe Kienzan poursuivra sa cible si cette dernière vient d'être touchée par une attaque."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Lightning Step",
+        "nameFr": "Pas foudroyant",
+        "descriptionEn": "Unleash a charging kick. Applies No Skills to an enemy hero on hit.\nThe more stacks of Assault Rush applied to the target, the greater the DMG.",
+        "descriptionFr": "Fonce pour infliger un coup de pied.\nInflige aux héros ennemis touchés « Tech./att. verrouillées ».\nPlus le niveau de charge de son passif est élevé, plus les dégâts infligés augmentent."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Accel Dash",
+        "nameFr": "Accel Dash",
+        "descriptionEn": "Perform a lunging attack. If the attack hits an enemy, it can be used again immediately.\nThe number of times it can be reused depends on the level of the Skill.",
+        "descriptionFr": "Lance une ruée offensive.\nSi l'attaque touche un adversaire, elle peut à nouveau être utilisée.\nLe nombre d'utilisations possibles dépend du niveau de la technique."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Heart Breaker",
+        "nameFr": "Brise-cœur",
+        "descriptionEn": "Unleash a powerful punch that creates a shockwave and explosion on hit.\nThis attack deals additional DMG to enemies with an Assault Target.\nApplies Stagger to enemy heroes hit.\nDefeating enemy heroes or assisting ally heroes reduces the cooldown.",
+        "descriptionFr": "Lance un coup de poing virulent qui explose et inflige une onde de choc à l'impact.\nLes dégâts infligés augmentent si l'ennemi est « Cible de l'assaut ».\nInflige « Déséquilibre » aux héros ennemis touchés.\nLe temps de recharge diminue en mettant ou en aidant à mettre K.O. un héros adverse."
+      }
+    ]
+  },
+  {
+    "id": "dabra",
+    "nameEn": "Dabra",
+    "nameFr": "Dabra",
+    "gameRole": "DPS",
+    "imageUrl": "/dabra.webp",
+    "officialId": "0012",
+    "summaryEn": "A hero specializing in close-range combat who wields the power of petrification and fire-based magic.",
+    "summaryFr": "Héros doué pour le combat au corps à corps, qui maîtrise « Pétrification » et les sorts de feu. Attire tes adversaires dans le « Domaine du Roi des démons » et réduis ceux qui sont pétrifiés en poussière !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Demon's Domain",
+        "nameFr": "Domaine du Roi des démons",
+        "descriptionEn": "Fills the Petrification Gauge of enemy heroes within a certain proximity.\nWhen their Petrification Gauge is full, you can use a Rush Attack to Petrify them, stopping their movement and increasing your DMG against them.",
+        "descriptionFr": "Il peut augmenter la jauge de pétrification en s'approchant des héros adverses.\nLorsque la « jauge de pétrification » est au max, l'attaque éclair inflige « Pétrification ».\nLes héros adverses pétrifiés sont immobilisés pendant un certain temps, et ils subissent davantage de dégâts de la part de Dabra."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Doom's Ray",
+        "nameFr": "Rayon de la ruine",
+        "descriptionEn": "Blow away a targeted enemy.\nIf this attack hits an enemy hero it fills their Petrification Gauge.\nThe lower their Petrification Gauge is, the more Petrification will be applied.\nAlso generates an aftershock ahead of you.\nActivates quicker if used after Vanishing Step.",
+        "descriptionFr": "Fait exploser l'adversaire ciblé.\nToucher un héros adverse permet d'augmenter la « jauge de pétrification ».\nMoins elle est élevée au moment où l'attaque touche, plus elle augmente.\nUtiliser cette attaque après une esquive permet de l'activer plus rapidement."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Darkness Spear",
+        "nameFr": "Lance des ténèbres",
+        "descriptionEn": "Throw a volley of spears. Applies No Vanishing Step to the enemy heroes they hit.\nGain Movement Speed Up when approaching an enemy hero hit by this Skill.",
+        "descriptionFr": "Projette une lance.\nEmpale le héros adverse touché et lui inflige « Esq. éclair verrouillée ».\nOctroie « Vitesse déplacement [+] » au personnage quand il se dirige vers le héros adverse empalé."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Evil Flame",
+        "nameFr": "Flammes démoniaques",
+        "descriptionEn": "Spit flames. Applies Movement Speed Down to enemies hit. \nEnemy heroes hit will also be afflicted with Burning and their Petrification Gauge will be filled.\nCan move and change direction while using this Skill.",
+        "descriptionFr": "Crache des flammes.\nInflige « Vitesse déplacement [-] » aux adversaires touchés.\nInflige en plus « Brûlure » aux héros adverses, tout en augmentant la « jauge de pétrification ».\nPendant toute la durée de l'attaque, le personnage peut se déplacer et la réorienter."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Evil Blast",
+        "nameFr": "Explosion démoniaque",
+        "descriptionEn": "Unleash a powerful energy blast attack. Fills the Petrification Gauge of enemy heroes on hit.\nDMG increases near the center of the attack.",
+        "descriptionFr": "Lance une puissante boule énergétique explosive.\nToucher un héros adverse avec une explosion permet d'augmenter la « jauge de pétrification »."
+      }
+    ]
+  },
+  {
+    "id": "gamma",
+    "nameEn": "Gamma",
+    "nameFr": "Gamma",
+    "gameRole": "DPS",
+    "imageUrl": "/gamma.webp",
+    "officialId": "0022",
+    "summaryEn": "A (super)hero tag team, with Gamma 1 specializing in large-scale brawls and Gamma 2 in small-scale skirmishes!",
+    "summaryFr": "Un duo de super héros, avec Gamma 1, spécialisé dans les combats de groupe, et Gamma 2, expert des affrontements en petit comité !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Gamma Switch",
+        "nameFr": "Changement Gamma",
+        "descriptionEn": "Allows Gamma 1 & Gamma 2 to swap in battle.\nEach Gamma has their own base HP, Rush Attack, and movement speed.\nThe two will swap when certain Skills are used or when their base HP reaches 0.\nWhen on standby with 0 base HP, Gamma 1 or Gamma 2 can be revived by performing Special Pose or healing them at the spawn point.",
+        "descriptionFr": "Gamma 1 et Gamma 2 se relaient au combat.\nChacun possède ses propres PV, attaque éclair et vitesse de déplacement.\nLe changement s’effectue lorsqu’une technique spécifique est utilisée ou lorsque les PV de base de l'un des deux atteignent 0.\nLe Gamma en réserve dont les PV de base sont à 0 peut être réanimé en lançant une « Pose spéciale » ou en récupérant des PV depuis la base."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Gamma Strike",
+        "nameFr": "Attaque Gamma",
+        "descriptionEn": "As Gamma 2, dash forward and deliver a strike.\nThe skill can be reactivated immediately after use.\n If a third hit lands, it explodes and deals additional DMG.\n Cannot be activated when Gamma 2's base HP is 0.\n While under the effect of Special Pose, you gain additional HP upon activation and when the strike hits.",
+        "descriptionFr": "Gamma 2 fonce en avant pour porter un coup.\nCette technique peut être réutilisée immédiatement après son activation.\nSi le troisième coup touche, une explosion se déclenche et inflige des dégâts supplémentaires.\nNe peut pas être utilisée si les PV de base de Gamma 2 atteignent 0.\nOctroie des PV supplémentaires à l'activation et quand l'attaque touche lorsque « Pose spéciale » est active ."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Gamma Impact",
+        "nameFr": "Gamma Impact",
+        "descriptionEn": "As Gamma 1, deal a flying kick that causes a shockwave.\nGains extra HP upon activation and when the shockwave hits.\n Creates an explosion after the shockwave and deals more DMG at Skill Level 3 (Super).\n Cannot be activated when Gamma 1's base HP is 0.\n More DMG is dealt while Special Pose is in effect.",
+        "descriptionFr": "Gamma 1 effectue un coup de pied sauté, provoquant une onde de choc.\nOctroie des PV supplémentaires à l’activation et lorsque l’onde de choc touche.\nAu niveau de technique Super, une explosion se déclenche après l’onde de choc, infligeant des dégâts supplémentaires.\nNe peut pas être utilisée si les PV de base de Gamma 1 atteignent 0.\nLes dégats infligés sont augmentés lorsque « Pose spéciale » est active."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Gamma Blaster / Full Burst",
+        "nameFr": "Explosion Gamma",
+        "descriptionEn": "Use a ray gun to fire scattered shots in a set direction.\nCan move or redirect while attacking.\nMore DMG is dealt while Special Pose is in effect.",
+        "descriptionFr": "Vise dans la direction ciblée avec un pistolet laser et tire une volée de projectiles.\nDéplacement et réorientation possibles pendant l’attaque.\nLes dégats infligés sont augmentés lorsque « Pose spéciale » est active."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Special Pose",
+        "nameFr": "Pose spéciale",
+        "descriptionEn": "Create a surrounding explosion that staggers enemies while striking a hero's pose.\nHeals HP when activated and allows Gamma 1 & Gamma 2 to work in tandem for a set period.\n Combines their HP stats into one and transforms their Rush Attacks and Skills (Super Attacks excluded) into combination attacks.\n Can activate Core Breaker at Skill Level 3 (Super).",
+        "descriptionFr": "Les deux Gamma prennent la pose en déclenchant une explosion qui déséquilibre les ennemis autour d'eux.\nSoigne des PV à l'activation et permet à Gamma 1 et Gamma 2 d'agir simultanément pendant un certain temps.\nLeurs PV actuels sont combinés, et l'attaque éclair ainsi que les techniques (hors attaque spéciale) deviennent des techniques combinées.\nAu niveau de technique Super, permet d’utiliser le « Core Breaker »."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Core Breaker",
+        "nameFr": "Core Breaker",
+        "descriptionEn": "As Gamma 2, rush in for a last-ditch attack at a set position.\nCan only be activated once per battle during a Skill Level 3 (Super) Special Pose.\nDrains the base HP of Gamma 2 to 0 when activated and forces Gamma 1 to swap in.",
+        "descriptionFr": "Gamma 2 fonce et lance un assaut désespéré à l'emplacement ciblé.\nNe peut être utilisé qu'une fois par combat pendant une « Pose spéciale » au niveau de technique Super.\nÀ l'activation, les PV de base de Gamma 2 tombent à 0, ce qui force Gamma 1 à prendre sa place."
+      }
+    ]
+  },
+  {
+    "id": "godku",
+    "nameEn": "Goku (SSJ God)",
+    "nameFr": "Goku (SSJ God)",
+    "gameRole": "DPS",
+    "imageUrl": "/godku.webp",
+    "officialId": "0032",
+    "summaryEn": "A divine hero that can rain down damage across vast distances.\nRaise your Red Fury in battle and pressure your enemies with unrelenting attacks!",
+    "summaryFr": "Héros divin qui possède une portée sans égal tout en infligeant des dégâts de façon continue.\nEnchaînez les techniques pour augmenter son « Esprit combatif carmin » et acculez vos ennemis !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Red Fury",
+        "nameFr": "Esprit combatif carmin",
+        "descriptionEn": "Gain buffs by increasing Red Fury.\nHitting enemy heroes with Skills (excluding Dragon Enhance and Super Attacks) and Rush Attacks increases Fury, which then decreases over time while not in combat.\nWhen maxed out, buffs to self are activated, and Skill cooldowns are reduced.\nWhile buffed, DMG dealt with Skills is increased and Cooldown Reduction is applied to self.\nAlso while buffed, Fury will no longer increase, and the power-up ends when it reaches 0.",
+        "descriptionFr": "Renforce le personnage en augmentant son « Esprit combatif carmin ».\nToucher un adversaire avec son attaque éclair ou ses techniques (hors « Amplification du dragon » et attaque spéciale) augmente son esprit combatif qui diminue progressivement après la fin du combat.\nUne fois au maximum, il se renforce et réduit le temps de recharge de ses techniques.\nDurant le renforcement, il s'octroie « Temps de recharge [-] » et améliore ses techniques.\nPendant toute la durée du renforcement, l'esprit combatif ne peut pas augmenter et diminue progressivement. Lorsqu'il atteint 0, le renforcement se dissipe."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Arcane Shot",
+        "nameFr": "Tirs arcaniques",
+        "descriptionEn": "Fire energy blasts with both hands at a set position.\nThe further away the target, the more the energy blasts hone in.\nAt Skill Level 3 (Super), the number of energy blasts increases, and enemies hit by 2 or more blasts will be afflicted with Movement Speed Down.\nDMG is increased while buffed by Red Fury.",
+        "descriptionFr": "Lance des boules énergétiques avec ses deux mains à l'endroit ciblé.\nPlus la cible est loin du personnage, plus la trajectoire des boules converge.\nAu niveau super de la technique, davantage de boules sont lancées et\nréussir à toucher un même adversaire avec 2 boules ou plus lui inflige « Vitesse déplacement [-] ».\nDurant le renforcement conféré par « Esprit combatif carmin », les dégâts infligés augmentent."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "God Shoot",
+        "nameFr": "Tir divin",
+        "descriptionEn": "Continuously releases a linear beam of energy in a set direction.\nCan move/redirect while firing, and DMG will gradually increase over a set period of time after the attack begins.\nThe Skill ends and the increased DMG effect resets upon re-entering the command, using Vanishing Step, activating another Skill, or when the cooldown timer reaches 0.\nCan be continuously activated and DMG is increased while buffed by Red Fury.",
+        "descriptionFr": "Projette continuellement une attaque énergétique linéaire dans la direction ciblée.\nPendant toute la durée de l'attaque, le personnage peut se déplacer et la réorienter.\nLes dégâts augmentent progressivement jusqu'à un certain point lors de l'attaque.\nRelancer la technique, utiliser une esquive éclair, une autre technique, ou laisser le compteur descendre à 0 met fin à la technique et réinitialise l'effet de bonus de dégâts.\nDurant le renforcement conféré par « Esprit combatif carmin », cette technique peut être activée à tout moment et les dégâts qu'elle inflige augmentent."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Dragon Enhance",
+        "nameFr": "Amplification du dragon",
+        "descriptionEn": "Release a dragon of energy.\nWhile active, extends the range of Rush Attacks, gives Arcane Shot the ability to penetrate enemies, and gives God Shoot the ability to penetrate walls.\nThe closest enemy first struck by another Skill is inflicted with Burning, receiving additional damage.\nThe effect ends either when another Skill is used or when a set amount of time has passed.\nWhile buffed by Red Fury, the greater the Burning effect and the greater the additional DMG.",
+        "descriptionFr": "Libère un dragon d'énergie.\nDurant la libération, la portée de l'attaque éclair augmente.\nPermet à « Tirs arcaniques » de traverser les ennemis, et à « Tir divin » de traverser les murs.\nAprès libération, toucher des adversaires avec une autre technique inflige « Brûlure » ainsi que des dégâts supplémentaires à l'adversaire touché le plus proche.\nL'effet se dissipe quand le personnage lance une autre technique, ou lorsque le temps est écoulé.\nDurant le renforcement conféré par « Esprit combatif carmin », les dégâts supplémentaires et les effets de « Brûlure » augmentent."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "God Kamehameha",
+        "nameFr": "Kamehameha divin",
+        "descriptionEn": "Unleash a powerful energy wave from above a set position.\nBecomes findable by enemy heroes during the attack.\nAt Skill Level 3 (Super), range extends to the entire stage.\nDMG is increased while buffed by Red Fury.",
+        "descriptionFr": "Lance un assaut depuis les airs avec une attaque énergétique sur la position ciblée.\nPeut être repéré par les adversaires pendant toute la durée de l'attaque.\nAu niveau super de la technique, la portée de l'attaque s'étend à la carte entière.\nDurant le renforcement conféré par « Esprit combatif carmin », les dégâts infligés augmentent."
+      }
+    ]
+  },
+  {
+    "id": "goku-daima",
+    "nameEn": "Goku (Daima)",
+    "nameFr": "Goku (Daima)",
+    "gameRole": "DPS",
+    "imageUrl": "/goku-daima.webp",
+    "officialId": "0017",
+    "summaryEn": "A hero who skillfully keeps enemies at mid-range!",
+    "summaryFr": "Héros de moyenne portée dont l'esprit combatif est décuplé dans les combats acharnés ! Déchaîne la puissance du bâton magique aux côtés de Pansy et Glorio !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Battle Gear",
+        "nameFr": "Élan combatif",
+        "descriptionEn": "Strike DMG gradually increases while engaged in battle.\nFighting a hero with a higher level than yours will accelerate the DMG increase.",
+        "descriptionFr": "Pendant un combat, les dégâts physiques infligés augmentent progressivement.\nCes derniers augmentent plus vite face à un héros de niveau plus élevé que le votre."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Panzy: Wasabi Bomb",
+        "nameFr": "Panzy: Wasabi-Bombe",
+        "descriptionEn": "Panzy throws a bomb at a targeted location.\nThe bomb will explode after a set amount of time has passed.\nThe farther away the set location, the longer it will be until the explosion.\nYou can move the bomb by hitting it with a Rush Attack.\nEnemies caught in the explosion will suffer continuous damage.\nThe bomb will explode upon being hit by Power Pole Dance, and will unleash a larger explosion with increased AoE if hit by Lightning Bolt.",
+        "descriptionFr": "Panzy lance une bombe de Majilite à l'endroit désigné.\nLa bombe explose après un certain temps.\nPlus la position désignée est éloignée, plus le temps avant l'explosion est long.\nSi une Attaque éclair touche la bombe, celle-ci se déplace.\nLorsqu'elle explose, elle inflige des Dégâts périodiques aux ennemis touchés.\nSi « Bâton magique enjoué » touche la bombe, elle explose.\nSi « Glorio : foudre » touche la bombe, elle provoque une grande explosion et la zone d'effet est élargie."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Glorio: Lightning Bolt",
+        "nameFr": "Glorio : foudre",
+        "descriptionEn": "Glorio calls down lightning upon the nearest enemy or Wasabi Bomb in range.\nEnemies or bombs near the bolt will be struck by chain lightning, and the DMG inflicted will increase with each connective strike.",
+        "descriptionFr": "Glorio fait tomber la foudre sur l'ennemi le plus proche de lui ou sur « Panzy : bombe de Majilite ».\nLa foudre se propage en chaîne aux ennemis et aux bombes alentour, augmentant les dégâts infligés à chaque fois."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Power Pole Dance",
+        "nameFr": "Bâton magique enjoué",
+        "descriptionEn": "Sweep through the surrounding area with a Power Pole performance.\nDMG dealt increases the farther away enemies are.\nIf hit during this Skill, the first instance of DMG will be halved.\nGain Energy Defense Up and Movement Speed Up if hit by an energy attack, and gain Strike Defense Up and Movement Speed Up if hit by a strike attack.\nCan move while attacking. Activating a Rush Attack will cancel this Skill.",
+        "descriptionFr": "Lance une attaque circulaire autour du personnage en dansant avec le bâton magique.\nPlus l'adversaire est éloigné, plus les dégâts infligés sont élevés.\nRéduit de moitié les dégâts de la première attaque subie pendant la danse.\nSi le personnage subit une attaque énergétique, lui octroie Défense énergétique [+] et Vitesse de déplacement [+].\nSi le personnage subit une attaque physique, lui octroie Défense physique [+] et Vitesse de déplacement [+].\nDéplacement possible pendant l'attaque. Lancer une Attaque éclair l'interrompt."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Swift Spark",
+        "nameFr": "Assaut fulgurant",
+        "descriptionEn": "Transform into a Super Saiyan and dash toward a target position, unleashing a barrage of high-speed attacks.\nGain Immune to All from the start of the transformation until the dash forward.\nFollowing the barrage, move a set distance based on directional input and deal additional DMG with an energy explosion.\nThe farther away your target, the more the AoE and movement range after the barrage increases.\nThe more damage taken while Immune to All, the more damage will be dealt by the final explosion.",
+        "descriptionFr": "Se transforme en Super Saiyan et fonce vers la position ciblée pour asséner une série de coups rapides.\nConfère Immunité totale entre la transformation et la charge.\nAprès l'enchaînement, se déplace sur une certaine distance dans la direction indiquée et provoque une explosion de ki qui inflige des dégâts supplémentaires.\nPlus la position ciblée est éloignée, plus la zone d'attaque s'élargit et plus la distance parcourue après l'enchaînement augmente.\nPlus les dégâts subis pendant l'Immunité totale sont élevés, plus l'explosion inflige de dégâts."
+      }
+    ]
+  },
+  {
+    "id": "goku-ssj3",
+    "nameEn": "Goku (SSJ3)",
+    "nameFr": "Goku (SSJ3)",
+    "gameRole": "DPS",
+    "imageUrl": "/goku-ssj3.webp",
+    "officialId": "0023",
+    "summaryEn": "A versatile hero who uses Instant Transmission to shake up foes with hit-and-run tactics. \nFire high-powered attacks from a distance and show off your Super Saiyan might!",
+    "summaryFr": "Héros polyvalent qui se joue de ses adversaires grâce à « Téléportation ». \nMontre de quoi est capable un Super Saiyan avec ses puissantes attaques à longue portée !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "If I Won't Do It, Who Will?!",
+        "nameFr": "J'ai pas le choix !",
+        "descriptionEn": "An ability that grants buffs in adverse situations.\nDeals more DMG to enemy heroes who have a higher percentage of HP than yourself.",
+        "descriptionFr": "Son Goku se renforce en cas de situation difficile.\nAugmente les dégâts infligés aux héros adverses ayant un pourcentage de PV plus élevé que lui-même."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Super Kamehameha",
+        "nameFr": "Super Kamehameha",
+        "descriptionEn": "Unleash an energy wave in a set direction.\nRange and duration increase the longer the attack is charged.\nDistance will not reduce DMG dealt if charged to max.\nCan move/redirect while charging, and can redirect while firing.",
+        "descriptionFr": "Lance une attaque énergétique dans la direction ciblée.\nPlus l'attaque est chargée, plus la portée et la durée sont grandes.\nSi l'attaque est chargée au maximum, la distance ne réduit plus les dégâts infligés.\nDéplacement et réorientation possibles durant la charge, et réorientation possible également pendant l'attaque."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Explosive Strike",
+        "nameFr": "Paume explosive",
+        "descriptionEn": "Quickly move to a set position in the sky above and store an energy blast in your fist before rushing at enemy.\nDeals more DMG the less HP the enemy has.\nRe-enter the command to quickly move back to the location the Skill was activated.",
+        "descriptionFr": "Se déplace rapidement au-dessus de l'endroit ciblé avant de charger l'adversaire avec une boule énergétique dans le creux de la main.\nMoins l'adversaire a de PV, plus les dégâts infligés sont élevés.\nRelancer la technique fait revenir rapidement le personnage à sa position initiale."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Instant Transmission",
+        "nameFr": "Téléportation",
+        "descriptionEn": "Teleport to a set target.\nAble to target discovered enemy/ally heroes.\nCooldown of this Skill is shortened if an enemy hero is targeted.\nBecomes Instant Transmission Kamehameha if Super Kamehameha is activated immediately after use, allowing for a fully charged Super Kamehameha.",
+        "descriptionFr": "Téléporte le personnage sur la cible (héros adverse à découvert ou héros allié).\nCibler un héros adverse réduit le temps de recharge de cette technique. Lancée juste après cette technique, « Super Kamehameha » devient « Kamehameha instantané », qui permet de lancer « Super Kamehameha » chargé au maximum."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Dragon Fist",
+        "nameFr": "Poing du Dragon",
+        "descriptionEn": "Release a dragon of energy from your fist in a set direction.\nCan be mastered while transformed.",
+        "descriptionFr": "Lance un dragon énergétique avec son poing dans la direction ciblée.\nL'attaque peut être apprise après la transformation."
+      },
+      {
+        "type": "TRANSFORM",
+        "nameEn": "Super Saiyan 3",
+        "nameFr": "Super Saiyan 3",
+        "descriptionEn": "Can transform at Level 7.\nBase HP / All Attack Up.\nDMG dealt by If I Won't Do It Who Will?! will increase.",
+        "descriptionFr": "Transformation disponible au niveau 7.\nLes PV, et toutes les stats d'attaque augmentent. Les dégâts de « J'ai pas le choix ! » augmentent également."
+      }
+    ]
+  },
+  {
+    "id": "gokussj",
+    "nameEn": "Goku (SSJ)",
+    "nameFr": "Goku (SSJ)",
+    "gameRole": "DPS",
+    "imageUrl": "/gokussj.webp",
+    "officialId": "0001",
+    "summaryEn": "An all-rounder who dives headfirst into enemy lines and fights with relentless determination.\nUse Kaioken at just the right time, then finish the fight with Spirit Bomb or Kamehameha!",
+    "summaryFr": "Un guerrier polyvalent qui, avec une ténacité farouche, combat en se ruant dans les rangs ennemis !\nUtilisez le « Kaioken » au bon moment, puis mettez un terme au combat avec le « Genkidama » et le « Kamehameha » !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Violent Rage",
+        "nameFr": "Furie violente",
+        "descriptionEn": "If an ally hero near you is KO'd by an enemy, that enemy becomes a Target of Anger.\nThis makes them findable anywhere for a set period and increases your DMG against them.",
+        "descriptionFr": "Lorsqu'un héros allié est mis K.O. par un héros ennemi à proximité, cet ennemi sera perçu en tant que « Cible de la colère ».\nAprès un certain temps, découvre la cible et augmente les dégâts infligés."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Kamehameha",
+        "nameFr": "Kamehameha",
+        "descriptionEn": "Fire a Kamehameha.\nWhen Kaioken is active, the duration and size of this attack increases, and Movement Speed Down will be applied to enemies it hits.",
+        "descriptionFr": "Déchaîne un Kamehameha.\nSuivi d'une activation du « Kaioken », la durée de l'attaque et sa portée sont rallongées, et inflige « Vitesse déplacement [-] » aux héros ennemis touchés."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Meteor Hammer",
+        "nameFr": "Marteau météore",
+        "descriptionEn": "Leap into the midst of your enemies and smash your fist down.\nWhen Kaioken is active, it generates a shockwave, and enemies hit by it will be Staggered.",
+        "descriptionFr": "Se jette sur l'endroit ciblé pour frapper le sol de ses poings.\nSuivi d'une activation du « Kaioken », l'attaque génère une onde de choc qui inflige « Déséquilibre » aux héros ennemis touchés."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Kaioken",
+        "nameFr": "Kaioken",
+        "descriptionEn": "Grants you Strike Attack Up, All Defense Up, and Movement Speed Up.\nActivating this on top of other Skills will power them up.",
+        "descriptionFr": "S'octroie « Attaque physique [+] », « Défense [+] (tous) » et « Vitesse déplacement [+] ».\nVous pouvez renforcer vos autres techniques en utilisant le Kaioken juste après elles."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Spirit Bomb",
+        "nameFr": "Genkidama",
+        "descriptionEn": "Unleash an orb of amassed spirit energy. DMG increases based on the number of remaining ally heroes.\nWhen Kaioken is active, an explosion will be triggered dealing even more DMG.",
+        "descriptionFr": "Déchaîne un Genkidama.\nPlus il y a de héros alliés vivants, plus les dégâts sont élevés.\nSuivi d'une activation du « Kaioken », la boule d'énergie explose, augmentant davantage les dégâts infligés."
+      },
+      {
+        "type": "TRANSFORM",
+        "nameEn": "Super Saiyan",
+        "nameFr": "Super Saiyan",
+        "descriptionEn": "Can transform at Level 7. The effect of Violent Rage will improve.",
+        "descriptionFr": "Transformation disponible à partir du niveau 7.\nAugmente les effets de « Furie violente »."
+      }
+    ]
+  },
+  {
+    "id": "kale",
+    "nameEn": "Kale",
+    "nameFr": "Kale",
+    "gameRole": "DPS",
+    "imageUrl": "/kale.webp",
+    "officialId": "0021",
+    "summaryEn": "A hero with two natures. Though normally supporting allies from the shadows, she will wreak havoc on the front lines when going berserk.",
+    "summaryFr": "Un héros à deux facettes : en temps normal, elle harcèle les ennemis derrière ses alliés, mais en mode berserker, elle sème le chaos en première ligne !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Courage for Comrades",
+        "nameFr": "Esprit chevaleresque",
+        "descriptionEn": "Boosts DMG dealt by Skills activated at an ally hero's position (Super Attacks excluded).",
+        "descriptionFr": "Utiliser des techniques (hors attaque spéciale) à proximité des héros alliés octroie un bonus de dégats infligés."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Blaster Shot",
+        "nameFr": "Tir explosif",
+        "descriptionEn": "Fire a barrage of energy blasts that explode upon impact.\nCan move while attacking.",
+        "descriptionFr": "Tire en rafale des boules de ki qui explosent à l'impact.\nDéplacement possible durant l'attaque."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Charge Force",
+        "nameFr": "Force chargée",
+        "descriptionEn": "Fire a long-range energy blast.\nDeals more DMG to enemies who are further away.\nAoE, range, and DMG dealt will increase the longer it is charged.\nCan move or redirect while charging.",
+        "descriptionFr": "Lance un rayon de ki à longue portée.\nPlus la cible est touchée de loin, plus les dégats augmentent.\nPlus l'attaque est chargée longtemps, plus la zone d'effet, la portée et les dégats sont augmentés.\nDéplacement et réorientation possibles durant la charge."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Energy Sphere",
+        "nameFr": "Sphère d'énergie",
+        "descriptionEn": "Fire a slow-moving energy blast that gradually grows in size.\nIf Charge Force hits the blast, it explodes in a horizontal direction. If Blaster Shot hits the blast, it explodes in a dome shape and deals extra DMG.",
+        "descriptionFr": "Lance une boule énergétique lente qui grossit progressivement.\nSi « Force chargée » touche le projectile, il explose horizontalement.\nSi « Tir explosif » touche le projectile, il explose en cercle et inflige des dégâts supplémentaires."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Broken Evolution",
+        "nameFr": "Brise évolution",
+        "descriptionEn": "Unleash volatile energy and generate a surrounding shockwave.\nTransform into Super Saiyan (Berserk) upon activation.\nGain No Attack Obstruction effect and extra HP.\nRush Attacks will change, and you will not be able to use Skills.\nVanishing Steps will change into a forward lunge with an attack that staggers enemies.",
+        "descriptionFr": "Kale se déchaîne et libère son ki, créant une onde de choc autour d'elle.\nÀ l'activation, elle se transforme en « Super Saiyan Berserker ».\nOctroie « Insensible aux entraves » et obtient des PV supplémentaires.\nRend les techniques indisponibles et modifie l’attaque éclair.\nL'esquive éclair se transforme en une attaque qui fonce vers l’avant et déséquilibre l’ennemi."
+      },
+      {
+        "type": "TRANSFORM",
+        "nameEn": "Super Saiyan (Berserk)",
+        "nameFr": "Super Saiyan Berserker",
+        "descriptionEn": "Activate Broken Evolution to transform. Effect is canceled after a set period or after extra HP is used up.",
+        "descriptionFr": "Se transforme en activant « Brise évolution ». L'effet s'arrête après un certain temps ou quand les PV supplémentaires sont perdus."
+      }
+    ]
+  },
+  {
+    "id": "kefla",
+    "nameEn": "Kefla",
+    "nameFr": "Kefla",
+    "gameRole": "DPS",
+    "imageUrl": "/kefla.webp",
+    "officialId": "0031",
+    "summaryEn": "An aggressive hero who uses Vanishing Steps to attack a large area.\nStrike as many foes as you can and set the battle alight!",
+    "summaryFr": "Héroïne agressive capable de couvrir une large zone grâce à sa maîtrise de l'esquive éclair.\nCombattez à fond en entraînant dans la danse une multitude d'adversaires !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "A Hard-Knuckled Fight",
+        "nameFr": "Je vais te tester !",
+        "descriptionEn": "Shortens the cooldown time of Vanishing Step when an attack lands.\nIncreases the damage dealt by Skills (excluding Super Attacks) after Vanishing Step is used.",
+        "descriptionFr": "Réduit le temps de recharge de l'esquive éclair en touchant avec une attaque.\nAugmente les dégâts infligés par la technique (hors attaque spéciale) lancée après une esquive éclair."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Blaster Ball",
+        "nameFr": "Boule explosive",
+        "descriptionEn": "Fires a barrage of energy blasts that causes an explosion at a set position. \nCan move, adjust targeted position, and use Vanishing Step while attacking.",
+        "descriptionFr": "Lance une salve de boules énergétiques explosives à l'endroit ciblé.\nPendant toute la durée de l'attaque, le personnage peut se déplacer, changer la position de la salve ou effectuer une esquive éclair."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Gigantic Breaker",
+        "nameFr": "Concasseur gigantesque",
+        "descriptionEn": "Fire an energy blast in a set direction.\nRange and speed of the blast increase the more the attack is charged.\nCan move, redirect, and use Vanishing Step while charging.\nCan be activated without charging and at maximum range while A Hard-Knuckled Fight is active.",
+        "descriptionFr": "Lance une boule énergetique dans la direction ciblée.\nPlus l'attaque est chargée, plus la portée et la vitesse de la boule sont élevées.\nPendant la charge de l'attaque, le personnage peut se déplacer, se réorienter ou effectuer une esquive éclair.\nLancer l'attaque pendant que l'effet de « Je vais te tester ! » est actif permet de la lancer à la portée maximale sans avoir à la charger."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Full Voltage",
+        "nameFr": "Voltage maximal",
+        "descriptionEn": "An attack that releases energy all around her.\nApplies Movement Speed Boost to self after the attack.\nIncreases damage dealt to all targets during a rush attack and applies Movement Speed Boost to self.\nThe more enemies hit, the greater the effect of Movement Speed Boost and the longer the duration of this Skill.",
+        "descriptionFr": "Dégage du ki autour du personnage.\nÀ la fin de l'attaque, s'octroie « Vitesse déplacement [+] ».\nLors d'une attaque éclair, augmente les dégâts infligés aux adversaires autres que la cible principale et s'octroie en plus « Vitesse déplacement [+] ». \nPlus le nombre d'adversaires touchés est important, plus l'effet de « Vitesse déplacement [+] » et la durée de cette technique augmentent."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Gigantic Twin Blast",
+        "nameFr": "Giga double explosion",
+        "descriptionEn": "Fires two energy attacks in a set direction.\nCan move, redirect, and use Vanishing Step while attacking.",
+        "descriptionFr": "Lance deux attaques énergétiques dans la direction ciblée.\nPendant toute la durée de l'attaque, le personnage peut se déplacer, réorienter l'attaque ou effectuer une esquive éclair."
+      },
+      {
+        "type": "TRANSFORM",
+        "nameEn": "Super Saiyan 2",
+        "nameFr": "Super Saiyan 2",
+        "descriptionEn": "Can transform at Level 7.\nBase HP / All Attack Up.",
+        "descriptionFr": "Transformation en Super Saiyan 2 (disponible à partir du niveau 7).\nAugmente les PV de base et améliore toutes les attaques."
+      }
+    ]
+  },
+  {
+    "id": "kidgoku",
+    "nameEn": "Kid Goku",
+    "nameFr": "Goku (enfant)",
+    "gameRole": "DPS",
+    "imageUrl": "/kidgoku.webp",
+    "officialId": "0036",
+    "summaryEn": "A clever hero who can unleash high DMG attacks from a distance.\nToy with enemies using quick movements, and pierce through them all at once using Great Ape Strike!",
+    "summaryFr": "Héros agile capable d'infliger de lourds dégâts tout en gardant ses distances avec l'ennemi.\nJouez-vous de vos adversaires grâce à sa vitesse, puis achevez-les d'un coup avec « Impact du gorille » !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Kintoun Dash",
+        "nameFr": "Propulsion Kinto-un",
+        "descriptionEn": "Enables a follow up dash after activating a Skill.\nA movement input as the Skill ends triggers a dash in that direction for a set distance.",
+        "descriptionFr": "Permet de se déplacer rapidement après avoir utilisé une technique.\nSe déplacer juste après l'activation d'une technique permet de se propulser rapidement dans la direction choisie."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Kamehameha (Youth)",
+        "nameFr": "Kamehameha (enfant)",
+        "descriptionEn": "Fire an energy wave with a rounded edge in a set direction, generating a shockwave.\nThe rounded edge of the wave deals higher DMG upon contact.",
+        "descriptionFr": "Lance un rayon d'énergie au bout arrondi qui déclenche une onde de choc dans la direction ciblée.\nLe bout du rayon inflige encore plus de dégâts."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Nyoibo Extend",
+        "nameFr": "Bâton magique",
+        "descriptionEn": "Extends the Nyoibo in a set direction, piercing through enemies.",
+        "descriptionFr": "Fait grandir son bâton magique et l'utilise pour transpercer ses ennemis."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Rock-Paper-Scissors",
+        "nameFr": "Pierre, papier, ciseaux",
+        "descriptionEn": "Dash toward an enemy and strike.\nRe-enter the command to reactivate the skill.\nThrows out rock upon initial activation, scissors upon re-input, and paper with the next re-input, changing in that order.\nRock: Applies All Defense Down to enemies hit.\nScissors: Applies All Defense Down and Shrink Field of View to enemies hit.\nPaper: Changes to an AoE attack, applying All Defense Down to enemies hit.\nStacking All Defense Down extends the effect's duration.",
+        "descriptionFr": "Fonce sur l'ennemi ciblé et lui inflige des dégâts physiques.\nCette technique peut être relancée en appuyant à nouveau.\nL'attaque est d'abord pierre, puis devient ciseaux et enfin papier quand la technique est réactivée.\nLa pierre inflige Défense [-] (tous).\nLes ciseaux infligent Défense [-] (tous) et Champ de vision [-].\nLa feuille devient une attaque de zone et inflige Défense [-] (tous).\nLa durée de Défense [-] (tous) est réinitialisée à chaque application."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Great Ape Strike",
+        "nameFr": "Impact du gorille",
+        "descriptionEn": "Charges forward in a set direction.\nCan be redirected until just before the charge.\nAt Skill Level 2 and Skill Level 3 (Super), deal increased DMG to nearby enemies hit.",
+        "descriptionFr": "Fonce et attaque dans la direction ciblée.\nPeut être réorientée jusqu'au début de la ruée.\nÀ partir du niveau 2 de la technique, inflige des dégâts supplémentaires aux ennemis proches de soi."
+      }
+    ]
+  },
+  {
+    "id": "piccolo",
+    "nameEn": "Piccolo",
+    "nameFr": "Piccolo",
+    "gameRole": "DPS",
+    "imageUrl": "/piccolo.webp",
+    "officialId": "0005",
+    "summaryEn": "A tactical hero who uses elastic arms and energy blast traps to control the flow of battle.",
+    "summaryFr": "Fin stratège, ce héros utilise ses bras extensibles et ses pièges énergétiques pour combattre tout en restant à bonne distance.",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Opening Move Toward Victory",
+        "nameFr": "Préparatifs de victoire",
+        "descriptionEn": "Attacking enemies with a Rush Attack will instantly lower cooldown on Skills.",
+        "descriptionFr": "Effectuer une attaque éclair sur un adversaire réduit immédiatemnt le temps de recharge des techniques."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Light Grenade",
+        "nameFr": "Grenade lumière",
+        "descriptionEn": "Fire a powerful energy blast. At Skill Level 2, an explosion will occur at the point of impact. DMG and AoE of explosion increases the further away a target is.",
+        "descriptionFr": "Lance une puissante boule énergétique.\nEn augmentant le niveau de la technique, la boule explose à l'impact.\nPlus les adversaires sont éloignés du personnage, plus les dégâts sont élevés."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Hellzone Trap",
+        "nameFr": "Sphères flottantes démoniaques",
+        "descriptionEn": "Launch a field of energy orbs into the air. \nFloating orbs will target approaching enemies. If the Skill is used again or a certain amount of time passes, any remaining orbs will drop to the ground.\nOrbs explode upon contact, applying Movement Speed Down to enemies hit by the explosion.",
+        "descriptionFr": "Génère une multitude de boules énergétiques dans les airs.\nÀ la relance de l'attaque ou à l'entrée des adversaires dans la zone d'effet, les boules tombent au sol.\nÀ l'impact, elles explosent et infligent Vitesse déplacement [-] aux adversaires."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Demon Whip",
+        "nameFr": "Poigne élastique",
+        "descriptionEn": "Stretch out an arm and immediately move to any enemy, ally hero, or wall that you touch.\nAfter moving, your next Rush Attack will release a powerful energy blast and your DMG will increase.",
+        "descriptionFr": "Allonge le bras pour se déplacer, et\npermet au personnage de rejoindre un adversaire, un héros allié ou un mur.\nEn lançant une attaque éclair après cette technique, celle-ci devient une attaque améliorée qui inflige davantage de dégâts."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Special Beam Cannon",
+        "nameFr": "Makankosappo",
+        "descriptionEn": "A beam of energy that penetrates enemies and walls. Holding down the attack button will expend stocks. The more stocks used, the higher the DMG and range.",
+        "descriptionFr": "Lance un faisceau énergétique perçant les ennemis et les murs.\nMaintenir la touche de lancement pemet de consommer davantage de charges, et les dégâts infligés ainsi que la portée augmentent en fonction du nombre de charges consommées."
+      }
+    ]
+  },
+  {
+    "id": "toppo",
+    "nameEn": "Toppo",
+    "nameFr": "Toppo",
+    "gameRole": "DPS",
+    "imageUrl": "/toppo.webp",
+    "officialId": "0025",
+    "summaryEn": "A God of Destruction who deals constant damage through branding enemies with the Mark of Destruction.\nSeize victory for your team by denying enemies their escape and steadily whittling away their strength!",
+    "summaryFr": "Un Dieu de la destruction qui inflige des dégâts continus à ses adversaires grâce à son « Sceau de la destruction ». \nEmpêchez la fuite de vos adversaires et réduisez progressivement leurs forces pour faire gagner votre équipe !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "I Won't Be Fighting for Justice Any Longer...",
+        "nameFr": "Résolution de fer",
+        "descriptionEn": "Applies Movement Speed Up to self when moving towards enemies with the Mark of Destruction.\nThe effect is greater the more Mark of Destruction stacks there are.",
+        "descriptionFr": "S'octroie « Vitesse déplacement [+] » quand Toppo se dirige vers un adversaire marqué par « Sceau de la destruction ». \nPlus le niveau de charge de « Sceau de la destruction » est élevé, plus la vitesse de déplacement est augmentée."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Destructive Flash",
+        "nameFr": "Flash ravageur",
+        "descriptionEn": "Fire a barrage of energy blasts in a set direction.\nApplies Mark of Destruction to enemies hit. Can move while attacking.",
+        "descriptionFr": "Lance dans la direction ciblée une salve de boules énergétiques.\nInflige « Sceau de la destruction » aux adversaires touchés. Déplacement possible pendant l'attaque."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Demolition Tornado",
+        "nameFr": "Tornade dévastatrice",
+        "descriptionEn": "Rapidly rotate to deal a series of strike attacks to the surrounding area.\nApplies Mark of Destruction to enemies hit and deals more DMG the more Mark of Destruction stacks there are. Can move while attacking.",
+        "descriptionFr": "Tournoie en enchaînant des attaques physiques de proximité.\nInflige « Sceau de la destruction » aux adversaires touchés.\nPlus le niveau de charge de « Sceau de la destruction » est élevé, plus les dégâts infligés augmentent.\nDéplacement possible pendant l'attaque."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Sphere of Destruction: Tempered",
+        "nameFr": "Orbe destructeur condensé",
+        "descriptionEn": "Assume a fighting stance and unleash an unavoidable energy blast against nearby enemies who attack during it. Applies Mark of Destruction to enemies hit.\nGains extra HP as well as Energy Defense Up in this stance.\nThe more you are attacked while in this stance, the more DMG dealt.",
+        "descriptionFr": "Le personnage prend une posture offensive et frappe à coup sûr, avec une boule énergétique, les adversaires autour de lui l'ayant attaqué pendant cette action. Inflige « Sceau de la destruction » aux adversaires touchés.\nPendant la prise de posture, il s'octroie des PV supplémentaires, « Défense énergétique [+] » et peut également se déplacer. Plus il subit d'attaques pendant sa prise de posture, plus les dégâts infligés augmentent."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Massive Sphere of Destruction",
+        "nameFr": "Mégaorbe destructeur",
+        "descriptionEn": "Unleash a sphere filled with destructive energy at a set position.\nThe sphere contracts on impact, finishing with an explosion that deals extra DMG.\nIf the enemy has a Mark of Destruction when hit by the explosion, the entire Mark of Destruction stack will be consumed to deal extra DMG. \nDeals more extra DMG the more stacks there are.",
+        "descriptionFr": "Lance à l'endroit ciblé une boule d'énergie destructrice.\n Au contact, la boule explose et inflige des dégâts supplémentaires.\n Si l'explosion touche un adversaire marqué par « Sceau de la destruction », inflige des dégâts supplémentaires en consommant toutes les charges de « Sceau de la destruction ». Plus le niveau de charge est élevé, plus les dégâts supplémentaires augmentent."
+      }
+    ]
+  },
+  {
+    "id": "trunks-ssj",
+    "nameEn": "Trunks (SSJ)",
+    "nameFr": "Trunks (SSJ)",
+    "gameRole": "DPS",
+    "imageUrl": "/trunks-ssj.webp",
+    "officialId": "0004",
+    "summaryEn": "A hero who cuts down enemies in an instant by reactivating Skills with Overcharge!",
+    "summaryFr": "Virtuose de l'embuscade qui peut réactiver ses techniques avec « Surcharge » et terrasser ses adversaires de son épée.",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Overcharge",
+        "nameFr": "Surcharge",
+        "descriptionEn": "Skills on cooldown can be reactivated immediately upon defeating, or assisting an ally in defeating, an enemy, God of Destruction, or boss.",
+        "descriptionFr": "Lorsque vous mettez K.O. ou aidez à mettre K.O. un héros ennemi ou un boss, ou quand vous participez à détruire un dieu de la destruction ennemi, réinitialise les temps de recharge de vos techniques, vous permettant des les utiliser à nouveau."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Burst Sword",
+        "nameFr": "Taillade explosive",
+        "descriptionEn": "Unleash a powerful sword thrust. DMG is further increased against enemies whose HP is below a certain percentage.",
+        "descriptionFr": "Lance dans la direction ciblée une violente attaque de la pointe de l'épée.\nInflige davantage de dégâts aux adversaires dont les PV sont inférieurs ou égaux à un certain seuil."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Vanish Strike",
+        "nameFr": "Entaille fulgurante",
+        "descriptionEn": "Warp to the target location and perform a slashing attack with your sword. Can warp past walls.",
+        "descriptionFr": "Se téléporte à l'endroit ciblé puis inflige une taillade.\nVous pouvez vous téléporter à travers les murs."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Burning Attack",
+        "nameFr": "Burning Attack",
+        "descriptionEn": "Fire an energy blast. Explodes at the point of impact and generates Smoke.",
+        "descriptionFr": "Lance une boule énergétique qui génère de la fumée à l'impact."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Shining Slash",
+        "nameFr": "Lumière tranchante",
+        "descriptionEn": "An attack that combines slashes with an energy wave. Gain Movement Speed Up afterwards. Can change direction while attacking.",
+        "descriptionFr": "Lance une attaque énergétique combinée à une taillade.\nS'octroie « Vitesse déplacement [+] » à la fin de l'attaque.\nPendant toute la durée de l'attaque, le personnage peut se déplacer et la réorienter."
+      },
+      {
+        "type": "TRANSFORM",
+        "nameEn": "Super Saiyan",
+        "nameFr": "Super Saiyan",
+        "descriptionEn": "Can transform at Level 7. Raises base HP and all attack power.",
+        "descriptionFr": "Transformation disponible à partir du niveau 7.\nAugmente les PV de base et l'attaque (tous)."
+      }
+    ]
+  },
+  {
+    "id": "uub",
+    "nameEn": "Uub",
+    "nameFr": "Oob",
+    "gameRole": "DPS",
+    "imageUrl": "/uub.webp",
+    "officialId": "0014",
+    "summaryEn": "A long-range hero who controls Ki in the form of a Cyclone.",
+    "summaryFr": "Héros qui combat à distance et transforme le ki en « Cyclone » pour attaquer. Accumulez patiemment du « Cyclone » avant de l'utiliser dans une attaque massive pour terrasser vos adversaires !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Cyclone Stream",
+        "nameFr": "Vague cyclonique",
+        "descriptionEn": "Gain Cyclone when you activate certain Skills or your Super Attack.\nExpend Cyclone when performing a Rush Attack to gain an additional attack.\nCyclone will gradually deplete over time.",
+        "descriptionFr": "Obtient un certain nombre de « Cyclone » en utilisant certaines techniques et l'attaque spéciale.\nPendant une attaque éclair, il consomme le « Cyclone » pour effectuer des attaques supplémentaires.\n« Cyclone » diminue progressivement au bout d'un certain temps après obtention ou consommation."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Rage Barrage",
+        "nameFr": "Déluge de rage",
+        "descriptionEn": "Fire multiple energy blasts that fan out in a targeted direction.\nGain Cyclone on activation, and gains additional Cyclone upon hitting enemies.\nCan move while using this Skill.",
+        "descriptionFr": "Lance des boules énergétiques qui se déploient en éventail.\nAu lancement, obtient du « Cyclone ». Toucher des ennemis lui permet d'en obtenir plus. \nPeut se déplacer pendant que « Déluge de rage » est actif."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Brutal Buster",
+        "nameFr": "Explosion interne",
+        "descriptionEn": "Generate a shockwave around yourself. For a set time, Rush Attack speed will increase, and the range of Rush Attack and Skill 3 will increase.\nYou will gain the Unstoppable effect.",
+        "descriptionFr": "Dégage du ki autour de lui.\nAugmente la vitesse et la portée de l'attaque éclair et de Tirs traqueurs.\nDe plus, s'octroie « Insensible aux entraves »."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Shooting Chaser",
+        "nameFr": "Tirs traqueurs",
+        "descriptionEn": "After dashing in a certain direction, fire energy blasts at enemies in the area.\nGain Cyclone upon hitting enemies.",
+        "descriptionFr": "Fonce dans la direction ciblée et frappe les adversaires alentour avec des boules énergétiques.\nToucher un adversaire permet d'obtenir du « Cyclone »."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Cyclone Burst",
+        "nameFr": "Explosion cyclonique",
+        "descriptionEn": "Expend all stored Cyclone to unleash a huge energy attack in a certain direction.\nDMG increases based on Cyclone amount at activation.\nGain Cyclone upon hitting enemies.\nEnemy heroes below a certain amount of HP when hit, will be inflicted with Candy status.",
+        "descriptionFr": "Utilise tout le « Cyclone » et lance une attaque énergétique dans la direction ciblée.\nLes dégâts augmentent en fonction de la quantité de « Cyclone » possédé.\nDu « Cyclone » peut être obtenu en touchant un adversaire.\nSi les PV des héros adverses touchés sont sous un certain seuil, inflige « Sucrerie »."
+      }
+    ]
+  },
+  {
+    "id": "vegeto-ssj",
+    "nameEn": "Vegito (SSJ)",
+    "nameFr": "Vegeto (SSJ)",
+    "gameRole": "DPS",
+    "imageUrl": "/vegeto-ssj.webp",
+    "officialId": "0029",
+    "summaryEn": "The ultimate fusion (merged) warrior, he rains down chaos with his high mobility and wide-ranging Skills.\nTake the battlefield by storm with his lightning speed!",
+    "summaryFr": "Guerrier fusionné ultime pouvant attaquer de nombreuses cibles avec sa mobilité élevée et ses techniques à large zone d'effet.\nParcourez le champ de bataille à vitesse grand V pour dominer vos adversaires !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Shining Fusion (Merged Warrior)",
+        "nameFr": "Fusion éclair",
+        "descriptionEn": "Deals extra energy damage and gains extra HP when skills or powered-up attacks hit two or more enemies at the same time.\nThe more enemies hit, the more extra HP gained.\nThe cooldown time for this ability is shortened when Skills or powered-up attacks hit an enemy. \nThe more enemies hit, the more the cooldown time is reduced.",
+        "descriptionFr": "Renforce le personnage.\nSi le personnage touche plusieurs adversaires en même temps avec une technique ou une attaque améliorée, il inflige des dégâts supplémentaires de type Kikoha et obtient des PV supplémentaires en fonction du nombre d'adversaires touchés.\nLe temps de recharge de cette technique diminue en fonction du nombre d'adversaires que le personnage atteint avec une technique ou une attaque améliorée."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Spirit Sword",
+        "nameFr": "Épée spirituelle",
+        "descriptionEn": "Use a sword to slash at the surrounding area.\nCooldown time is reduced on enemy hit.\nHitting an enemy hero reduces the cooldown time by a greater amount.\nCombine with Flash Dodge to be able to move during activation.",
+        "descriptionFr": "Lance une taillade de l'épée autour du personnage.\nToucher un adversaire permet de réduire le temps de recharge.\nToucher un héros adverse réduit encore plus le temps de recharge.\nAssociée à « Flash éclair », la technique peut être lancée pendant le déplacement."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Flash Dodge",
+        "nameFr": "Flash éclair",
+        "descriptionEn": "Take off in pursuit of a targeted enemy.\nRe-enter the command while using the Skill to reactivate it.\nIf you target a previously untargeted enemy hero during reactivation, the input limit and timespan for reactivation will increase.",
+        "descriptionFr": "Poursuit et attaque l'adversaire ciblé.\nCette technique peut être relancée en appuyant à nouveau.\nSi le personnage cible alors un autre héros adverse, le nombre et la fenêtre de lancers augmentent."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Finger Shot",
+        "nameFr": "Tir digital",
+        "descriptionEn": "Lock onto nearby enemies and fire explosive energy blasts.\nApplies Movement Speed Down to enemies hit by the explosion.\nActivate Flash Dodge to remain locked on while moving.",
+        "descriptionFr": "Verrouille le ciblage sur un adversaire autour du personnage pour lui lancer une boule d'énergie explosive.\nÀ l'impact, l'explosion inflige « Vitesse déplacement [-] ».\nUtiliser « Flash éclair » pendant un verrouillage de cible permet d'utiliser ce même verrouillage pendant un déplacement."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Spirit Excalibur",
+        "nameFr": "Excalibur spirituelle",
+        "descriptionEn": "Cut a cross-shaped slash at a set position.\nPowers self up after attack and increases the speed of Rush Attacks.\nAlso, Skill cooldowns (Super Attacks excluded) will instantly end/shorten.\nWhile powered-up, Skills (Super Attacks excluded) and powered-up attacks fill the Intensity Gauge upon hitting enemies.\nThe Super Attack can be reactivated when the gauge is full.\nThe gauge gradually depletes over time, and power-ups are removed when the gauge reaches 0 or is not filled to the maximum amount after a set amount of time has passed.",
+        "descriptionFr": "Lance une taillade en forme de croix à l'endroit ciblé.\nAprès l'attaque, augmente la « Jauge de tension » du personnage et le renforce.\nDurant le renforcement, réduit ou met fin au temps de recharge des techniques (hors attaque spéciale).\nAugmente la vitesse de l'attaque éclair.\nSi le personnage touche un héros adverse avec une technique (hors attaque spéciale) ou une attaque améliorée, la jauge augmente.\nUne fois pleine, l'attaque spéciale peut être réutilisée. La jauge diminue avec le temps.\nQuand elle tombe à zéro ou après un certain temps sans avoir été remplie au max, le renforcement se dissipe."
+      },
+      {
+        "type": "TRANSFORM",
+        "nameEn": "Super Vegito",
+        "nameFr": "Super Vegito",
+        "descriptionEn": "Can transform at any time.\nBase HP / All Attack Up\nEXP earned from enemy NPCs is normally low, but EXP required to reach the next level is earned upon transformation, leveling up by 1.",
+        "descriptionFr": "Transformation en Super Vegito (disponible à tout moment).\nAugmente les PV de base et toutes les attaques.\nLes PNJ ennemis lui octroient peu d'expérience, mais il acquiert l'expérience nécessaire pour passer au niveau suivant et son niveau augmente de 1 lorsqu'il se transforme."
+      }
+    ]
+  },
+  {
+    "id": "vegeta-blue",
+    "nameEn": "Vegeta (SSB)",
+    "nameFr": "Vegeta (SSB)",
+    "gameRole": "DPS",
+    "imageUrl": "/vegeta-blue.webp",
+    "officialId": "0042",
+    "summaryEn": "A divine Super Saiyan who can unleash a cascade of attacks from long-range. Maintain distance with Skills, and shower enemies with energy blasts using Final Flash!",
+    "summaryFr": "Super Saiyan divin qui déchaîne des attaques implacables à distance. Maintenez l’ennemi en respect avec vos techniques tout en gardant vos distances, puis submergez-le de boules d’énergie avec « Final Flash » !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Indomitable Stance",
+        "nameFr": "Posture indomptable",
+        "descriptionEn": "Gain increased strength from frontal DMG.\nUpon Skill use (Super Attacks excluded), increases all defenses against frontal DMG for a set amount of time.",
+        "descriptionFr": "Renforce le personnage contre les dégâts venant de face.\nActiver une technique (hors attaque spéciale) octroie temporairement « Défense [+] (tous) » contre les dégâts venant de face."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Energy Blast",
+        "nameFr": "Boules énergétiques",
+        "descriptionEn": "An energy blast attack.\nDeals more DMG the lower HP is upon firing.",
+        "descriptionFr": "Lance des boules énergétiques.\nPlus les PV totaux du personnage sont bas à l'activation, plus les dégâts sont importants."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Blast Bomb",
+        "nameFr": "Bombe explosive",
+        "descriptionEn": "Throw an energy blast at a set position.\nExplodes on impact, generating smoke.\nThe explosion site causes DMG to those entering, with the zone disappearing after a set amount of time.",
+        "descriptionFr": "Lance à l'endroit ciblé une boule énergétique qui génère de la fumée à l'impact.\nAprès l'explosion, génère une zone de dégâts sur la zone d'impact qui disparaît après un certain temps."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Final Flash",
+        "nameFr": "Final Flash",
+        "descriptionEn": "Fire an energy wave spread in a set direction.\nCharging the attack will narrow the blast arc and increase DMG.\nTime between activation and energy wave firing will be reduced in increments the longer the attack is charged.",
+        "descriptionFr": "Lance une attaque énergétique de forme conique, dans la direction ciblée.\nPlus l’attaque est chargée, plus l’angle du cône se resserre.\nEn contrepartie, les dégâts infligés augmentent et le délai entre l’activation et le lancement diminue par paliers."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Blue Spirit Cannon",
+        "nameFr": "Canon spirituel Azur",
+        "descriptionEn": "Unleash a surrounding shockwave, firing successive blasts at distant positions, that explode on impact.\nEach energy blast triggers Indomitable Stance and explodes on impact, dealing additional DMG.\nReduces cooldown each time an explosion hits an enemy.\nCan use other Skills, actions (excluding movement/Rush Attacks), or aim while firing. Ends when using a Skill (excluding Blast Bomb), Vanishing Step, re-input, or after a set amount of time passes.",
+        "descriptionFr": "Génère une onde de choc autour du personnage et lance des boules énergétiques à l'endroit ciblé.\nImpossible de cibler une zone proche de soi, mais il est possible d'utiliser d'autres techniques pendant l'activation de celle-ci.\nÀ chaque fois que des boules énergétiques sont lancées, l'effet de « Posture indomptable » s'active.\nLes boules explosent à l'impact et infligent des dégâts supplémentaires.\nChaque explosion touchant un adversaire réduit le temps de recharge de cette technique."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Galick Gun",
+        "nameFr": "Canon Garric",
+        "descriptionEn": "Unleash an energy wave in a set direction.\nDeals more DMG to enemy heroes hit while using Super Attacks.\nWhile active, unleashes an energy field that prevents enemies from approaching.\nCan move/redirect while attacking.",
+        "descriptionFr": "Lance une attaque énergétique dans la direction ciblée.\nSi elle touche des héros adverses qui utilisent une attaque spéciale, elle leur inflige des dégâts supplémentaires.\nPendant l'activation, dégage du ki autour du personnage pour empêcher les adversaires d'approcher.\nRéorientation possible durant l'attaque."
+      }
+    ]
+  },
+  {
+    "id": "gogeta",
+    "nameEn": "Super Gogeta",
+    "nameFr": "Super Gogeta",
+    "gameRole": "SUPPORT",
+    "imageUrl": "/gogeta.webp",
+    "officialId": "0041",
+    "summaryEn": "An unrivaled warrior who uses refined Skills to obstruct foes and create attack openings. Overwhelm enemies in close-range combat, and vanquish evil with illuminating Finishers!",
+    "summaryFr": "Guerrier invincible dont les techniques raffinées entravent les ennemis et créent un terrain favorable. Dominez vos adversaires au corps à corps et purifiez le mal avec un coup de grâce de lumière !",
+    "skills": [
+      {
+        "type": "PASSIVE",
+        "nameEn": "Honed Senses",
+        "nameFr": "Sens aiguisés",
+        "descriptionEn": "An ability that enhances Rush Attacks.\nEvading enemy attacks just before they land with Vanishing Step turns Rush Attacks into powered-up attacks.",
+        "descriptionFr": "Améliore les attaques éclair.\nSon attaque éclair est renforcée quand il esquive de justesse une attaque ennemie avec une esquive éclair."
+      },
+      {
+        "type": "RUSH",
+        "nameEn": "Rush Attack",
+        "nameFr": "Attaque éclair",
+        "descriptionEn": "A physical attack.\nWhile Honed Senses is active, changes to powered-up energy blasts with increased range and DMG, and applies a debuff (status effect) to enemies hit.\nThe debuff varies based on the type of attack or Skill you evade that triggers Honed Senses.\n・Strike Attack: Applies Strike Defense Down.\n・Energy Wave: Applies Energy Defense Down.\n・Guaranteed Attack: Applies All Defense Down.",
+        "descriptionFr": "Attaque martiale.\nSous l’effet de « Sens aiguisés », se transforme en attaque énergétique renforcée à la portée et aux dégâts augmentés qui inflige des malus aux ennemis touchés.\nLes malus infligés changent en fonction de l'attaque ou technique esquivée :\n・Attaque physique : inflige « Défense physique [-] »\n・Attaque énergétique : inflige « Défense énergétique [-] »\n・Coup sûr : inflige « Défense [-] (tous) »"
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Soul Strike",
+        "nameFr": "Pied spirituel",
+        "descriptionEn": "Kick up to 3 times in a set direction.\nCan be reactivated upon hitting an enemy (up to 2 times).\nThe kick changes with each reactivation.\nThe first and second kick apply Strike Attack Down to enemies hit, while the third launches them upward.",
+        "descriptionFr": "Lance jusqu'à 3 coups de pied dans la direction ciblée.\nToucher un ennemi permet de réactiver la technique (jusqu'à 2 fois).\nL'attaque change à chaque réactivation.\nLes deux premiers coups infligent « Attaque physique [-] » aux ennemis touchés.\nLe troisième coup peut envoyer voler les ennemis dans les airs."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Punisher Drive",
+        "nameFr": "Élan punitif",
+        "descriptionEn": "Fire shockwave punches in a set direction.\nTargets one of the enemies hit, then moves behind them, dealing additional DMG with consecutive guaranteed attacks.\nWhile moving, creates a surrounding forcefield that applies High Pressure to enemies inside.\nStaggers any dashing enemies who touch the forcefield.",
+        "descriptionFr": "Envoie des poings spirituels dans la direction ciblée.\nCible l'un des ennemis touchés avant de se déplacer derrière lui pour asséner un enchaînement de coups infligeant des dégâts supplémentaires.\nDurant le déplacement, une zone infligeant « Haute pression » aux ennemis est créée autour de Gogeta.\nLa zone peut déséquilibrer les ennemis qui la touche en sprintant."
+      },
+      {
+        "type": "SKILL",
+        "nameEn": "Spirit Flare",
+        "nameFr": "Brasier spirituel",
+        "descriptionEn": "Continuously release energy all around.\nApplies Energy Attack Down to enemies hit by the release.\nApplies No Skills/Attacks to enemies hit by the powerful, final blast.\nCan be used while attacking.",
+        "descriptionFr": "Dégage sans relâche du ki autour du personnage.\nLe ki relâché inflige « Attaque énergétique [-] » aux ennemis.\nLa dernière vague de ki est plus puissante et inflige « Tech./att. verrouillées » aux ennemis touchés.\nDéplacement possible pendant l'attaque."
+      },
+      {
+        "type": "SUPER",
+        "nameEn": "Soul Punisher",
+        "nameFr": "Jugement des âmes",
+        "descriptionEn": "Throw photons at a set location, causing a shockwave.\nCreates a luminous zone on impact where his Rush Attacks and powered-up attacks deal additional DMG, and applies Punished at set intervals to enemy heroes inside it.\nPunished enemy heroes take DMG after a set period upon leaving the zone, and Finisher KOs against those enemy heroes will play a special cutscene.\nMore Punished stacks increase DMG dealt upon leaving the zone and the total HP threshold to land a Finisher.",
+        "descriptionFr": "Envoie des éclats de lumière qui déclenchent une onde de choc à l'endroit ciblé.\nCrée une zone de lumière à l’impact.\nLorsque vous vous trouvez dans la zone, les dégâts de vos attaques éclair normales et renforcées augmentent.\nInflige « Punition » aux héros adverses dans la zone à intervalles réguliers.\nLes héros adverses sous l'effet de « Punition » subissent des dégâts en quittant la zone.\nInfliger un coup de grâce à un héros adverse sous l'effet de « Punition » joue une animation spéciale."
+      }
+    ]
+  }
+]

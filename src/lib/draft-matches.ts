@@ -54,13 +54,6 @@ export function getCurrentDraftRound(matches: DraftableMatch[]): number | null {
   return null;
 }
 
-export function formatDraftRoundLabel(round: number) {
-  if (round === 0) return "grandFinal";
-  if (round < 0) return `losersRound:${Math.abs(round)}`;
-  if (round === 1) return "tour1";
-  return `round:${round}`;
-}
-
 export async function ensureMatchDraft(
   client: Tx | typeof prisma,
   params: {
@@ -170,6 +163,9 @@ export async function launchDraftsForRound(
   );
 
   let launched = 0;
+  const { buildShuffledHeroOrder } = await import("@/lib/draft-hero-order");
+  const { listHeroes } = await import("@/lib/hero-repository");
+  const heroes = await listHeroes();
 
   await prisma.$transaction(async (tx) => {
     for (const match of roundMatches) {
@@ -181,12 +177,23 @@ export async function launchDraftsForRound(
       });
       if (!config || config.isActive) continue;
 
+      const heroOrderJson = buildShuffledHeroOrder(
+        heroes.map((h) => ({
+          nameEn: h.nameEn,
+          gameRole: h.gameRole as import("@/components/HeroCard").GameRole,
+        }))
+      );
+
       await tx.draftConfig.update({
         where: { id: config.id },
         data: {
           isActive: true,
           currentPhase: "HERO_BAN",
           currentTurn: 0,
+          banTimeSeconds: 45,
+          turnStartedAt: new Date(),
+          heroOrderJson,
+          draftCompletedAt: null,
         },
       });
       launched++;

@@ -21,7 +21,7 @@ export default async function TeamsPage({
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-8">
         <h1 className="text-3xl font-bold">{t("myTeamsTitle")}</h1>
         <Link href="/teams/create" className="btn btn-primary">
           {t("create")}

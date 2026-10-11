@@ -210,33 +210,97 @@ export function buildTeamInviteEmail({
   return { subject, htmlContent };
 }
 
-export function buildTournamentInviteEmail({
+export function buildPrizeCodeEmail({
   tournamentTitle,
-  inviteLink,
+  placementLabel,
+  code,
+  tournamentLink,
   locale,
 }: {
   tournamentTitle: string;
-  inviteLink: string;
+  placementLabel: string;
+  code: string;
+  tournamentLink: string;
   locale: EmailLocale;
 }) {
   const isEn = locale === "en";
-  const title = isEn ? "Tournament invitation" : "Invitation au tournoi";
+  const title = isEn ? "Your prize code" : "Votre code récompense";
   const subject = isEn
-    ? `Tournament invitation: ${tournamentTitle}`
-    : `Invitation au tournoi : ${tournamentTitle}`;
+    ? `Your prize code — ${tournamentTitle}`
+    : `Votre code récompense — ${tournamentTitle}`;
 
   const bodyHtml = isEn
-    ? `<p style="margin:0;">You have been invited to participate in <strong style="color:${BRAND.primaryHover};">${escapeHtml(tournamentTitle)}</strong>.</p>`
-    : `<p style="margin:0;">Vous avez été invité à participer à <strong style="color:${BRAND.primaryHover};">${escapeHtml(tournamentTitle)}</strong>.</p>`;
+    ? `
+      <p style="margin:0 0 16px;">
+        You finished <strong style="color:${BRAND.primaryHover};">${escapeHtml(placementLabel)}</strong>
+        in <strong style="color:${BRAND.foreground};">${escapeHtml(tournamentTitle)}</strong>.
+      </p>
+      <p style="margin:0 0 8px;color:${BRAND.muted};">Your personal code:</p>
+      <p style="margin:0;padding:14px 16px;background:${BRAND.background};border:1px solid ${BRAND.cardBorder};border-radius:8px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:18px;font-weight:700;letter-spacing:0.04em;color:${BRAND.accent};">
+        ${escapeHtml(code)}
+      </p>
+    `
+    : `
+      <p style="margin:0 0 16px;">
+        Vous avez obtenu la <strong style="color:${BRAND.primaryHover};">${escapeHtml(placementLabel)}</strong>
+        dans <strong style="color:${BRAND.foreground};">${escapeHtml(tournamentTitle)}</strong>.
+      </p>
+      <p style="margin:0 0 8px;color:${BRAND.muted};">Votre code personnel :</p>
+      <p style="margin:0;padding:14px 16px;background:${BRAND.background};border:1px solid ${BRAND.cardBorder};border-radius:8px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:18px;font-weight:700;letter-spacing:0.04em;color:${BRAND.accent};">
+        ${escapeHtml(code)}
+      </p>
+    `;
 
   const htmlContent = buildEmailLayout({
     locale,
     title,
-    preheader: tournamentTitle,
+    preheader: code,
     bodyHtml,
     ctaLabel: isEn ? "View tournament" : "Voir le tournoi",
-    ctaHref: inviteLink,
-    linkFallback: inviteLink,
+    ctaHref: tournamentLink,
+    linkFallback: tournamentLink,
+  });
+
+  return { subject, htmlContent };
+}
+
+export function buildPasswordResetEmail({
+  resetLink,
+  username,
+  locale,
+}: {
+  resetLink: string;
+  username: string;
+  locale: EmailLocale;
+}) {
+  const isEn = locale === "en";
+  const title = isEn ? "Reset your password" : "Réinitialisez votre mot de passe";
+  const subject = isEn
+    ? "Reset your Gekishin password"
+    : "Réinitialisation de votre mot de passe Gekishin";
+
+  const bodyHtml = isEn
+    ? `
+      <p style="margin:0 0 16px;">Hi <strong>${escapeHtml(username)}</strong>,</p>
+      <p style="margin:0 0 16px;">We received a request to reset the password of your Gekishin account. Click the button below to choose a new one.</p>
+      <p style="margin:0;color:${BRAND.muted};">This link expires in 1 hour and can only be used once. If you did not ask for it, you can ignore this email: your password will not change.</p>
+    `
+    : `
+      <p style="margin:0 0 16px;">Bonjour <strong>${escapeHtml(username)}</strong>,</p>
+      <p style="margin:0 0 16px;">Nous avons reçu une demande de réinitialisation du mot de passe de votre compte Gekishin. Cliquez sur le bouton ci-dessous pour en choisir un nouveau.</p>
+      <p style="margin:0;color:${BRAND.muted};">Ce lien expire dans 1 heure et ne fonctionne qu'une fois. Si vous n'êtes pas à l'origine de cette demande, ignorez cet email : votre mot de passe ne changera pas.</p>
+    `;
+
+  const htmlContent = buildEmailLayout({
+    locale,
+    title,
+    preheader: isEn
+      ? "Choose a new password for your Gekishin account"
+      : "Choisissez un nouveau mot de passe pour votre compte Gekishin",
+    bodyHtml,
+    ctaLabel: isEn ? "Reset my password" : "Réinitialiser mon mot de passe",
+    ctaHref: resetLink,
+    linkFallback: resetLink,
   });
 
   return { subject, htmlContent };

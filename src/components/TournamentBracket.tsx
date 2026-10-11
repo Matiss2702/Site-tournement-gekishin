@@ -69,8 +69,13 @@ export function TournamentBracket({
   const bracketSize = getBracketSize(participants.length);
 
   const bracketRounds = useMemo(
-    () => buildWinnersRounds(participants.length, matches),
-    [participants.length, matches]
+    () =>
+      buildWinnersRounds(
+        participants.length,
+        matches,
+        format === "DOUBLE_ELIMINATION"
+      ),
+    [format, participants.length, matches]
   );
 
   const losersRounds = useMemo(() => {
@@ -541,11 +546,9 @@ export function TournamentBracket({
               return (
                 <div key={`${variant}-${displayRound}`} className="challonge-col">
                   <div className="challonge-col-title">
-                    {round.labelKey === "losersRound" && round.labelParams
-                      ? t("losersRound", round.labelParams)
-                      : round.labelKey === "grandFinal"
-                        ? t("grandFinal")
-                        : t(round.labelKey)}
+                    {round.labelParams
+                      ? t(round.labelKey, round.labelParams)
+                      : t(round.labelKey)}
                   </div>
                   <div
                     className="challonge-col-body"

@@ -43,6 +43,14 @@ input, select, textarea {
   width: 100%;
 }
 
+input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  padding: 0;
+  accent-color: var(--primary);
+  flex-shrink: 0;
+}
+
 input:focus, select:focus, textarea:focus {
   outline: 2px solid var(--primary);
   outline-offset: 1px;
@@ -94,6 +102,7 @@ input:focus, select:focus, textarea:focus {
 .badge {
   display: inline-flex;
   align-items: center;
+  white-space: nowrap;
   padding: 0.25rem 0.625rem;
   border-radius: 9999px;
   font-size: 0.75rem;
@@ -678,6 +687,12 @@ input:focus, select:focus, textarea:focus {
   padding: 1.5rem;
 }
 
+@media (max-width: 640px) {
+  .draft-arena {
+    padding: 0.875rem;
+  }
+}
+
 .draft-phase-bar {
   display: flex;
   flex-wrap: wrap;
@@ -761,15 +776,16 @@ input:focus, select:focus, textarea:focus {
   background: color-mix(in srgb, var(--filter-color, #38bdf8) 20%, #0f172a);
 }
 
+/* Two cards per row even on phones, so a draft never needs a long scroll. */
 .hero-card-grid {
   display: grid;
-  grid-template-columns: repeat(1, minmax(0, 1fr));
-  gap: 0.625rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
 }
 
 @media (min-width: 640px) {
   .hero-card-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.625rem;
   }
 }
 
@@ -810,29 +826,135 @@ input:focus, select:focus, textarea:focus {
 
 .hero-card-banner {
   z-index: 0;
+  transition: opacity 0.3s;
 }
 
-.hero-card-banner-name {
-  position: relative;
+.hero-card-banner-hover {
+  opacity: 0;
+}
+
+.hero-card-interactive:hover .hero-card-banner-normal,
+.hero-card-interactive:focus-visible .hero-card-banner-normal,
+.hero-card-selected .hero-card-banner-normal {
+  opacity: 0;
+}
+
+.hero-card-interactive:hover .hero-card-banner-hover,
+.hero-card-interactive:focus-visible .hero-card-banner-hover,
+.hero-card-selected .hero-card-banner-hover {
+  opacity: 1;
+}
+
+/* Official-style card: the artwork already contains the frame + role icon. */
+.hero-card--official {
+  padding: 0;
+  background: transparent;
+  clip-path: none;
+  aspect-ratio: 427 / 116;
+  container-type: inline-size;
+  filter: drop-shadow(0 2px 2px rgba(47, 35, 55, 0.85));
+  transition: transform 0.25s, filter 0.3s;
+}
+
+.hero-card--official .hero-card-inner {
+  position: absolute;
+  inset: 0;
+  display: block;
+  min-height: 0;
+  overflow: visible;
+  background: transparent;
+  clip-path: none;
+}
+
+.hero-card--official .hero-card-inner::before {
+  display: none;
+}
+
+.hero-card--official .hero-card-banner-name {
+  position: absolute;
+  inset: 0;
   z-index: 2;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  flex: 1;
-  min-width: 0;
-  max-width: 55%;
-  padding: 0.75rem 0.5rem 0.75rem 2rem;
+  align-items: flex-start;
+  padding: 0 44% 0 16%;
+  pointer-events: none;
 }
 
-.hero-card-banner-name .hero-card-name {
-  font-size: 0.875rem;
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8), 0 0 8px rgba(255, 255, 255, 0.5);
-  color: #111;
+.hero-card-official-name {
+  margin: 0;
+  font-family: var(--font-geist-sans), "Noto Sans JP", "Noto Sans", system-ui, sans-serif;
+  font-weight: 900;
+  font-size: clamp(0.72rem, 5.9cqw, 1.5rem);
+  line-height: 1.2;
+  color: #fff;
+  letter-spacing: -0.005em;
+  transform: matrix(0.92, 0, -0.07, 1, 0, 0);
+  transform-origin: left center;
+  text-shadow:
+    0 0 0.5px #342046, 0 0 1px #342046, 0 0 1.5px #342046, 0 0 2px #342046,
+    0 0 2.5px #342046, 0 0 3px #342046,
+    -1px -1px 0 #342046, 1px -1px 0 #342046, -1px 1px 0 #342046, 1px 1px 0 #342046,
+    1.5px 1.5px 0.1px #342046;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-.hero-card-banner-name .hero-card-subtitle {
-  color: #333;
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+.hero-card-official-subtitle {
+  margin-top: 0.15em;
+  font-size: clamp(0.55rem, 3.4cqw, 0.8rem);
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 0 1px #342046, 0 0 2px #342046, 1px 1px 0 #342046;
+  transform: matrix(0.92, 0, -0.07, 1, 0, 0);
+  transform-origin: left center;
+}
+
+.hero-card--official.hero-card-interactive:hover,
+.hero-card--official.hero-card-selected {
+  transform: scale(1.02);
+  box-shadow: none;
+  filter:
+    drop-shadow(0 2px 2px rgba(47, 35, 55, 0.85))
+    drop-shadow(0 0 2px var(--hero-glow))
+    drop-shadow(0 0 5px var(--hero-glow));
+}
+
+.hero-card--official.hero-card-banned {
+  filter: drop-shadow(0 2px 2px rgba(47, 35, 55, 0.85)) grayscale(0.85) brightness(0.55);
+}
+
+.hero-card--official.hero-card-banned .hero-card-inner::after {
+  clip-path: polygon(
+    4% 0%, 100% 0%, 100% 72%, 96% 100%, 0% 100%, 0% 28%
+  );
+}
+
+.hero-card--official.hero-card-picked {
+  box-shadow: none;
+  filter:
+    drop-shadow(0 2px 2px rgba(47, 35, 55, 0.85))
+    drop-shadow(0 0 4px rgba(34, 197, 94, 0.7));
+}
+
+.hero-card--official .hero-card-overlay-ban {
+  background: transparent;
+  /* Keep the hero name (left side) readable on small cards. */
+  justify-content: flex-end;
+  padding-right: 10cqw;
+}
+
+.hero-card--official .hero-card-stamp {
+  padding: 0.15em 0.8em;
+  font-size: clamp(0.6rem, 5cqw, 1.125rem);
+  border-width: 2px;
+}
+
+.hero-card--official .hero-card-team-badge {
+  font-size: clamp(0.5rem, 2.6cqw, 0.625rem);
 }
 
 .hero-card-inner:has(.hero-card-banner)::before {
@@ -1196,6 +1318,21 @@ input:focus, select:focus, textarea:focus {
 .ban-confirm-preview {
   width: 12rem;
   flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  .ban-confirm-bar {
+    gap: 0.625rem;
+    padding: 0.75rem 0.875rem calc(0.75rem + env(safe-area-inset-bottom));
+  }
+
+  .ban-confirm-preview {
+    width: 7.5rem;
+  }
+
+  .ban-confirm-bar .ban-confirm-text {
+    font-size: 0.95rem;
+  }
 }
 
 .ban-confirm-text {

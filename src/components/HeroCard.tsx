@@ -79,6 +79,9 @@ export function HeroCard({
   const isInteractive = state === "available" && !!onClick;
   const isBanned = state === "banned";
   const isPicked = state === "picked";
+  const normalImageUrl = imageUrl
+    ? imageUrl.replace(/\.webp$/i, "-normal.webp")
+    : null;
 
   return (
     <button
@@ -87,6 +90,7 @@ export function HeroCard({
       disabled={!isInteractive}
       className={[
         "hero-card group relative w-full text-left",
+        imageUrl && "hero-card--official",
         isInteractive && "hero-card-interactive cursor-pointer",
         selected && "hero-card-selected",
         isBanned && "hero-card-banned",
@@ -108,15 +112,24 @@ export function HeroCard({
         {imageUrl ? (
           <>
             <Image
+              src={normalImageUrl ?? imageUrl}
+              alt=""
+              fill
+              className="hero-card-banner hero-card-banner-normal object-contain object-center"
+              sizes="(max-width: 640px) 100vw, 33vw"
+            />
+            <Image
               src={imageUrl}
               alt=""
               fill
-              className="hero-card-banner object-cover object-center"
+              className="hero-card-banner hero-card-banner-hover object-contain object-center"
               sizes="(max-width: 640px) 100vw, 33vw"
             />
             <div className="hero-card-banner-name">
-              <span className="hero-card-name">{name}</span>
-              {subtitle && <span className="hero-card-subtitle">{subtitle}</span>}
+              <p className="hero-card-official-name">{name}</p>
+              {subtitle && (
+                <span className="hero-card-official-subtitle">{subtitle}</span>
+              )}
             </div>
           </>
         ) : (

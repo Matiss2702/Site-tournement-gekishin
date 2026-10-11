@@ -70,6 +70,7 @@ export default function CreateTournamentPage() {
   const t = useTranslations("tournaments");
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [prizeOpen, setPrizeOpen] = useState(false);
   const [error, setError] = useState("");
   const [form, setForm] = useState({
     title: "",
@@ -84,7 +85,10 @@ export default function CreateTournamentPage() {
     roundSeriesLength: 1,
     semiSeriesLength: 1,
     finalSeriesLength: 1,
+    requestBandaiSupport: false,
   });
+  // Double elimination has no semi-finals: only the grand final is a final.
+  const isDoubleElimination = form.format === "DOUBLE_ELIMINATION";
 
   function buildPrizePayload() {
     const prizeCodes: { placement: number; code: string }[] = [];
@@ -112,6 +116,7 @@ export default function CreateTournamentPage() {
       roundSeriesLength: form.roundSeriesLength,
       semiSeriesLength: form.semiSeriesLength,
       finalSeriesLength: form.finalSeriesLength,
+      requestBandaiSupport: form.requestBandaiSupport,
     };
 
     if (form.type === "TEAM") {
@@ -154,9 +159,12 @@ export default function CreateTournamentPage() {
       }
     }
 
-    if (form.startDate) {
-      payload.startDate = new Date(form.startDate).toISOString();
+    if (!form.startDate) {
+      setError(t("startDateRequired"));
+      setLoading(false);
+      return;
     }
+    payload.startDate = new Date(form.startDate).toISOString();
     if (form.endDate) {
       payload.endDate = new Date(form.endDate).toISOString();
     }
@@ -204,7 +212,8 @@ export default function CreateTournamentPage() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-1">{t("descriptionLabel")}</label>
+          <label className="block text-sm font-medium mb-1">{t("rulesTitle")}</label>
+          <p className="text-xs text-muted mb-2">{t("rulesHint")}</p>
           <textarea
             rows={4}
             value={form.description}
@@ -213,6 +222,18 @@ export default function CreateTournamentPage() {
             minLength={3}
           />
         </div>
+
+        <label className="flex items-start gap-3 text-sm">
+          <input
+            type="checkbox"
+            className="mt-1"
+            checked={form.requestBandaiSupport}
+            onChange={(e) =>
+              setForm({ ...form, requestBandaiSupport: e.target.checked })
+            }
+          />
+          <span>{t("requestBandaiSupport")}</span>
+        </label>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
@@ -253,7 +274,11 @@ export default function CreateTournamentPage() {
             {t("seriesConfigTitle")}
           </h2>
           <p className="text-xs text-muted">{t("seriesConfigHint")}</p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div
+            className={`grid grid-cols-1 gap-4 ${
+              isDoubleElimination ? "sm:grid-cols-2" : "sm:grid-cols-3"
+            }`}
+          >
             <div>
               <label className="block text-sm font-medium mb-1">
                 {t("roundSeriesLength")}
@@ -274,6 +299,7 @@ export default function CreateTournamentPage() {
                 ))}
               </select>
             </div>
+            {!isDoubleElimination && (
             <div>
               <label className="block text-sm font-medium mb-1">
                 {t("semiSeriesLength")}
@@ -294,9 +320,12 @@ export default function CreateTournamentPage() {
                 ))}
               </select>
             </div>
+            )}
             <div>
               <label className="block text-sm font-medium mb-1">
-                {t("finalSeriesLength")}
+                {isDoubleElimination
+                  ? t("grandFinalSeriesLength")
+                  : t("finalSeriesLength")}
               </label>
               <select
                 value={form.finalSeriesLength}
@@ -368,31 +397,48 @@ export default function CreateTournamentPage() {
         </div>
 
         <div className="border-t border-card-border pt-4 space-y-4">
-          <div>
-            <h2 className="text-lg font-semibold">{t("prizeCodesTitle")}</h2>
-            <p className="text-sm text-muted mt-1">
-              {form.type === "TEAM" ? t("prizeCodesHintTeam") : t("prizeCodesHintSolo")}
-            </p>
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h2 className="text-lg font-semibold">{t("prizeCodesTitle")}</h2>
+              <p className="text-sm text-muted mt-1">
+                {form.type === "TEAM" ? t("prizeCodesHintTeam") : t("prizeCodesHintSolo")}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setPrizeOpen((open) => !open)}
+              className="btn btn-secondary"
+            >
+              {prizeOpen
+                ? t("hidePrizeCodes")
+                : Object.values(form.prizeCodes).some((slots) =>
+                    slots.some((code) => code.trim())
+                  )
+                  ? t("editPrizeCodes")
+                  : t("addPrizeCodes")}
+            </button>
           </div>
 
-          <div className="space-y-5">
-            {PRIZE_PLACEMENTS.map((placement) => (
-              <PrizeCodeFields
-                key={placement}
-                placement={placement}
-                values={form.prizeCodes[String(placement) as "1" | "2" | "3"]}
-                onChange={(next) =>
-                  setForm({
-                    ...form,
-                    prizeCodes: {
-                      ...form.prizeCodes,
-                      [String(placement)]: next,
-                    },
-                  })
-                }
-              />
-            ))}
-          </div>
+          {prizeOpen && (
+            <div className="space-y-5">
+              {PRIZE_PLACEMENTS.map((placement) => (
+                <PrizeCodeFields
+                  key={placement}
+                  placement={placement}
+                  values={form.prizeCodes[String(placement) as "1" | "2" | "3"]}
+                  onChange={(next) =>
+                    setForm({
+                      ...form,
+                      prizeCodes: {
+                        ...form.prizeCodes,
+                        [String(placement)]: next,
+                      },
+                    })
+                  }
+                />
+              ))}
+            </div>
+          )}
         </div>
 
         <button type="submit" disabled={loading} className="btn btn-primary w-full">

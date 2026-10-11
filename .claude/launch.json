@@ -1,0 +1,7 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "gekishin", "runtimeExecutable": "npm", "runtimeArgs": ["start"], "port": 3000 },
+    { "name": "gekishin-dev", "runtimeExecutable": "env", "runtimeArgs": ["DATABASE_POOL_MAX=1", "npm", "run", "dev"], "port": 3000 }
+  ]
+}

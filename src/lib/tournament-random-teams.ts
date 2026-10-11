@@ -113,10 +113,10 @@ export async function formRandomTeamsForSoloTournament(tournamentId: string) {
 
   const link = `/tournaments/${tournamentId}`;
 
-  await Promise.all(
-    teamAssignments.flatMap((assignment) =>
-      assignment.userIds.map((userId) =>
-        createNotification({
+  for (const assignment of teamAssignments) {
+    for (const userId of assignment.userIds) {
+      try {
+        await createNotification({
           userId,
           type: "TOURNAMENT_JOIN",
           titleEn: "Team assigned",
@@ -124,10 +124,12 @@ export async function formRandomTeamsForSoloTournament(tournamentId: string) {
           messageEn: `You were placed on ${assignment.teamName} for "${tournament.title}".`,
           messageFr: `Vous avez été placé dans ${assignment.teamName} pour « ${tournament.title} ».`,
           link,
-        })
-      )
-    )
-  );
+        });
+      } catch (error) {
+        console.error("[solo-teams] notification failed", error);
+      }
+    }
+  }
 
   return { ok: true as const, teamCount: teamAssignments.length };
 }

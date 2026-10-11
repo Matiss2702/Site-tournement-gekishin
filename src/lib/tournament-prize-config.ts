@@ -17,10 +17,6 @@ export function isValidSoloPlayerCount(count: number) {
   return count >= MIN_SOLO_PLAYERS && count % SOLO_TEAM_SIZE === 0;
 }
 
-export function soloPlayerCountToTeamCount(playerCount: number) {
-  return playerCount / SOLO_TEAM_SIZE;
-}
-
 /** Entries required to move CHECK_IN → IN_PROGRESS (teams on bracket). */
 export function getMinEntriesToStartTournament(
   type: "SOLO" | "TEAM",
@@ -34,15 +30,3 @@ export function getMinEntriesToStartTournament(
 export const PRIZE_PLACEMENTS = [1, 2, 3] as const;
 
 export type PrizePlacement = (typeof PRIZE_PLACEMENTS)[number];
-
-export function groupPrizeCodesByPlacement(
-  codes: { placement: number; code: string }[]
-) {
-  const grouped = new Map<number, string[]>();
-  for (const row of codes) {
-    const list = grouped.get(row.placement) ?? [];
-    list.push(row.code);
-    grouped.set(row.placement, list);
-  }
-  return grouped;
-}

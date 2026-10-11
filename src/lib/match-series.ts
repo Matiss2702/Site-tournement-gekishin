@@ -18,11 +18,17 @@ export function winsNeededForSeries(seriesLength: number) {
 }
 
 export function getMatchSeriesLength(ctx: MatchSeriesContext) {
-  const { round, format, bracketSize } = ctx;
+  const { round, bracketSize } = ctx;
   const wbRounds = getWinnersRoundCount(bracketSize);
 
   if (round === GRAND_FINAL_ROUND) {
     return ctx.finalSeriesLength;
+  }
+
+  // In double elimination the winners bracket final is not the tournament
+  // final: only the grand final uses the final series length.
+  if (ctx.format === "DOUBLE_ELIMINATION") {
+    return ctx.roundSeriesLength;
   }
 
   if (round > 0) {
@@ -61,8 +67,4 @@ export function validateSeriesScore(
   }
 
   return { ok: true };
-}
-
-export function formatSeriesLabel(seriesLength: number) {
-  return `BO${seriesLength}`;
 }

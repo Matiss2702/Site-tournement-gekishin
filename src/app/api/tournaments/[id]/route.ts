@@ -6,6 +6,17 @@ import { MIN_TEAM_ROSTER_SIZE, getMinEntriesToStartTournament } from "@/lib/tour
 import { initializeTournamentBracketIfEmpty } from "@/lib/tournament-bracket-init";
 import { assertTeamCanRegisterForTournament } from "@/lib/team-membership";
 import { canManageTournament } from "@/lib/tournament-auth";
+import { createEntryWithinCapacity } from "@/lib/tournament-registration";
+import {
+  assertBandaiConsentInput,
+  isAdminBandaiDecision,
+  organizerCanSetBandaiStatus,
+  requiresBandaiConsent,
+} from "@/lib/bandai-support";
+import {
+  isPlatformAdmin,
+  recordParticipantConsent,
+} from "@/lib/bandai-consent";
 import {
   assertAllParticipantsCheckedIn,
   confirmTournamentCheckIn,
@@ -177,6 +188,12 @@ export async function PATCH(
     }
   }
 
+  delete body.bandaiSupportStatus;
+  delete body.isAdultConfirmed;
+  delete body.adultConfirmedAt;
+  delete body.rulesAccepted;
+  delete body.rulesAcceptedAt;
+
   const tournament = await prisma.tournament.update({
     where: { id },
     data: body,
@@ -211,6 +228,49 @@ export async function POST(
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
+  if (action === "confirm_bandai") {
+    if (!requiresBandaiConsent(tournament.bandaiSupportStatus)) {
+      return NextResponse.json({ error: "bandai_consent_not_required" }, { status: 400 });
+    }
+    const consentCheck = assertBandaiConsentInput(tournament.bandaiSupportStatus, {
+      adultConfirmed: body.adultConfirmed,
+      rulesAccepted: body.rulesAccepted,
+    });
+    if (!consentCheck.ok) {
+      return NextResponse.json({ error: consentCheck.error }, { status: 400 });
+    }
+    const consent = await recordParticipantConsent(id, session.user.id);
+    return NextResponse.json({
+      ok: true,
+      adultConfirmedAt: consent?.adultConfirmedAt,
+      rulesAcceptedAt: consent?.rulesAcceptedAt,
+    });
+  }
+
+  if (action === "set_bandai_support") {
+    const nextStatus = body.status as string;
+    if (!["NONE", "PENDING", "APPROVED", "REJECTED"].includes(nextStatus)) {
+      return NextResponse.json({ error: "invalid_bandai_status" }, { status: 400 });
+    }
+
+    if (isAdminBandaiDecision(nextStatus)) {
+      if (!(await isPlatformAdmin(session.user.id))) {
+        return NextResponse.json({ error: "bandai_status_forbidden" }, { status: 403 });
+      }
+    } else if (
+      !(await canManageTournament(id, session.user.id)) ||
+      !organizerCanSetBandaiStatus(tournament.bandaiSupportStatus, nextStatus)
+    ) {
+      return NextResponse.json({ error: "bandai_status_forbidden" }, { status: 403 });
+    }
+
+    const updated = await prisma.tournament.update({
+      where: { id },
+      data: { bandaiSupportStatus: nextStatus as "NONE" | "PENDING" | "APPROVED" | "REJECTED" },
+    });
+    return NextResponse.json(updated);
+  }
+
   if (action === "join") {
     if (tournament.status !== "REGISTRATION") {
       return NextResponse.json(
@@ -224,6 +284,14 @@ export async function POST(
       return NextResponse.json({ error: "Already joined" }, { status: 409 });
     }
 
+    const consentCheck = assertBandaiConsentInput(tournament.bandaiSupportStatus, {
+      adultConfirmed: body.adultConfirmed,
+      rulesAccepted: body.rulesAccepted,
+    });
+    if (!consentCheck.ok) {
+      return NextResponse.json({ error: consentCheck.error }, { status: 400 });
+    }
+
     if (tournament.type === "SOLO") {
       if (
         tournament.maxPlayers &&
@@ -232,9 +300,16 @@ export async function POST(
         return NextResponse.json({ error: "Tournament full" }, { status: 400 });
       }
 
-      const entry = await prisma.tournamentEntry.create({
-        data: { tournamentId: id, userId: session.user.id },
+      const entry = await createEntryWithinCapacity(id, tournament.maxPlayers, {
+        userId: session.user.id,
       });
+      if (!entry) {
+        return NextResponse.json({ error: "Tournament full" }, { status: 400 });
+      }
+
+      if (requiresBandaiConsent(tournament.bandaiSupportStatus)) {
+        await recordParticipantConsent(id, session.user.id);
+      }
 
       await createNotification({
         userId: tournament.organizerId,
@@ -310,19 +385,16 @@ export async function POST(
         );
       }
 
-      const entry = await prisma.tournamentEntry.create({
-        data: { tournamentId: id, teamId: body.teamId },
+      const entry = await createEntryWithinCapacity(id, tournament.maxTeams, {
+        teamId: body.teamId,
       });
+      if (!entry) {
+        return NextResponse.json({ error: "Tournament full" }, { status: 400 });
+      }
 
-      await createNotification({
-        userId: tournament.organizerId,
-        type: "TOURNAMENT_JOIN",
-        titleEn: "New team registered",
-        titleFr: "Nouvelle équipe inscrite",
-        messageEn: `Team ${team.name} joined your tournament`,
-        messageFr: `L'équipe ${team.name} a rejoint votre tournoi`,
-        link: `/tournaments/${id}`,
-      });
+      if (requiresBandaiConsent(tournament.bandaiSupportStatus)) {
+        await recordParticipantConsent(id, session.user.id);
+      }
 
       return NextResponse.json(entry, { status: 201 });
     }
@@ -374,8 +446,7 @@ export async function POST(
   if (action === "confirm_check_in") {
     const result = await confirmTournamentCheckIn(id, session.user.id);
     if (!result.ok) {
-      const status = result.error === "not_participant" ? 403 : 400;
-      return NextResponse.json({ error: result.error }, { status });
+      return NextResponse.json({ error: result.error }, { status: 400 });
     }
 
     return NextResponse.json({ ok: true, already: result.already ?? false });

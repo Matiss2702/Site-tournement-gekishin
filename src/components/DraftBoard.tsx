@@ -16,6 +16,12 @@ import {
 } from "@/lib/draft";
 import { getPicksRemainingForActiveTeam } from "@/lib/draft-turn-order";
 import { getDraftTeamIds } from "@/lib/draft-access";
+import {
+  parseHeroOrderJson,
+  sortHeroesByOrder,
+  type HeroOrderByRole,
+} from "@/lib/draft-hero-order";
+import { MatchChat } from "./MatchChat";
 
 interface Hero {
   id: string;
@@ -60,6 +66,8 @@ interface DraftConfig {
   team1?: { id: string; name: string; tag?: string | null } | null;
   team2?: { id: string; name: string; tag?: string | null } | null;
   match?: { id: string; round: number; matchNumber: number; status: string } | null;
+  banTimeSeconds?: number;
+  turnStartedAt?: string | null;
 }
 
 type Phase = "HERO_BAN" | "HERO_PICK";
@@ -97,8 +105,11 @@ export function DraftBoard({
   const [config, setConfig] = useState<DraftConfig | null>(null);
   const [turn, setTurn] = useState<DraftTurn | null>(null);
   const [actions, setActions] = useState<DraftAction[]>([]);
-  const [entries, setEntries] = useState<{ team: { id: string; name: string; tag?: string | null } | null }[]>([]);
   const [heroes, setHeroes] = useState<Hero[]>([]);
+  const [heroOrder, setHeroOrder] = useState<HeroOrderByRole | null>(null);
+  const [banSecondsRemaining, setBanSecondsRemaining] = useState<number | null>(
+    null
+  );
   const [matchId, setMatchId] = useState(matchIdProp ?? "");
   const [loading, setLoading] = useState(false);
   const [selectedHero, setSelectedHero] = useState<Hero | null>(null);
@@ -141,7 +152,12 @@ export function DraftBoard({
       setConfig(data.config);
       setTurn(data.turn ?? null);
       setActions(data.actions);
-      if (data.entries) setEntries(data.entries);
+      setHeroOrder(parseHeroOrderJson(data.heroOrder ?? data.config?.heroOrderJson));
+      setBanSecondsRemaining(
+        typeof data.banSecondsRemaining === "number"
+          ? data.banSecondsRemaining
+          : null
+      );
       if (data.matchId) setMatchId(data.matchId);
       else if (data.config?.matchId) setMatchId(data.config.matchId);
     }
@@ -162,9 +178,25 @@ export function DraftBoard({
       mode === "captain" || mode === "spectator" || mode === "organizer";
 
     if (!shouldPoll) return;
-    const interval = setInterval(fetchDraft, 3000);
+    const interval = setInterval(fetchDraft, 1000);
     return () => clearInterval(interval);
   }, [mode, fetchDraft]);
+
+  useEffect(() => {
+    if (banSecondsRemaining == null || phase !== "HERO_BAN") return;
+    if (banSecondsRemaining <= 0) return;
+    const tick = window.setInterval(() => {
+      setBanSecondsRemaining((prev) =>
+        prev == null ? prev : Math.max(0, prev - 1)
+      );
+    }, 1000);
+    return () => window.clearInterval(tick);
+  }, [banSecondsRemaining, phase, turn?.phaseActionIndex]);
+
+  const orderedHeroes = useMemo(
+    () => sortHeroesByOrder(heroes, heroOrder),
+    [heroes, heroOrder]
+  );
 
   useEffect(() => {
     const el = logRef.current;
@@ -351,7 +383,7 @@ export function DraftBoard({
 
   function renderRoleSections(actionMode: "ban" | "pick", preview = false) {
     return ROLES.map((role) => {
-      const roleHeroes = heroes.filter((h) => h.gameRole === role);
+      const roleHeroes = orderedHeroes.filter((h) => h.gameRole === role);
       const isBan = actionMode === "ban";
       const count = isBan ? banCounts[role] : pickCounts[role];
       const quotaTotal = isBan ? getBansPerRole(role) : getPicksPerRole(role);
@@ -511,6 +543,17 @@ export function DraftBoard({
             {phase === "HERO_PICK" && (
               <span className="text-sm text-muted">{t("pickPhaseHint")}</span>
             )}
+            {phase === "HERO_BAN" && banSecondsRemaining != null && (
+              <span
+                className={`draft-phase-indicator ml-auto font-mono tabular-nums ${
+                  banSecondsRemaining <= 10
+                    ? "text-red-400 border-red-400/40"
+                    : "text-amber-300"
+                }`}
+              >
+                {t("banTimer", { seconds: banSecondsRemaining })}
+              </span>
+            )}
           </div>
 
           {renderRoleSections(phase === "HERO_BAN" ? "ban" : "pick")}
@@ -653,6 +696,12 @@ export function DraftBoard({
           )}
         </div>
       </div>
+
+      {mode === "captain" && matchId && (
+        <div className="mt-6">
+          <MatchChat tournamentId={tournamentId} matchId={matchId} />
+        </div>
+      )}
     </div>
   );
 }

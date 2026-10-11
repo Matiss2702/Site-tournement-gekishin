@@ -37,6 +37,13 @@ enum TournamentStatus {
   CANCELLED
 }
 
+enum BandaiSupportStatus {
+  NONE
+  PENDING
+  APPROVED
+  REJECTED
+}
+
 enum InviteStatus {
   PENDING
   ACCEPTED
@@ -105,6 +112,23 @@ model User {
   draftActions        DraftAction_[]      @relation("DraftActor")
   roleBans            RoleBan[]
   prizeGrants         TournamentPrizeGrant[]
+  matchChatMessages   MatchChatMessage[]
+  bandaiConsents      TournamentParticipantConsent[]
+  passwordResetTokens PasswordResetToken[]
+}
+
+/// One-time "forgot password" link. Only a SHA-256 hash of the token is stored.
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  userId    String
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model Notification {
@@ -145,6 +169,7 @@ model Team {
   matchesAsTeam2     Match[]           @relation("MatchTeam2")
   matchesWon         Match[]           @relation("MatchWinner")
   prizeGrants        TournamentPrizeGrant[]
+  chatMessages       MatchChatMessage[]
 
   @@index([captainId])
   @@index([tournamentId])
@@ -195,6 +220,7 @@ model Tournament {
   type          TournamentType
   format        TournamentFormat @default(SINGLE_ELIMINATION)
   status        TournamentStatus @default(DRAFT)
+  bandaiSupportStatus BandaiSupportStatus @default(NONE)
   organizerId   String
   maxTeams      Int?
   maxPlayers    Int?
@@ -217,6 +243,7 @@ model Tournament {
   prizeCodes   TournamentPrizeCode[]
   prizeGrants  TournamentPrizeGrant[]
   generatedTeams Team[] @relation("TournamentGeneratedTeams")
+  participantConsents TournamentParticipantConsent[]
 
   @@index([organizerId])
   @@index([status])
@@ -245,6 +272,10 @@ model TournamentEntry {
   losses       Int      @default(0)
   checkedInAt  DateTime?
   registeredAt DateTime @default(now())
+  isAdultConfirmed Boolean @default(false)
+  adultConfirmedAt DateTime?
+  rulesAccepted Boolean @default(false)
+  rulesAcceptedAt DateTime?
 
   tournament Tournament @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
   user       User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -253,6 +284,25 @@ model TournamentEntry {
   @@unique([tournamentId, userId])
   @@unique([tournamentId, teamId])
   @@index([tournamentId])
+}
+
+model TournamentParticipantConsent {
+  id               String    @id @default(cuid())
+  tournamentId     String
+  userId           String
+  isAdultConfirmed Boolean   @default(false)
+  adultConfirmedAt DateTime?
+  rulesAccepted    Boolean   @default(false)
+  rulesAcceptedAt  DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  tournament Tournament @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([tournamentId, userId])
+  @@index([tournamentId])
+  @@index([userId])
 }
 
 model Match {
@@ -274,8 +324,25 @@ model Match {
   team2      Team?      @relation("MatchTeam2", fields: [team2Id], references: [id])
   winner     Team?      @relation("MatchWinner", fields: [winnerId], references: [id])
   draftConfig DraftConfig?
+  chatMessages MatchChatMessage[]
 
   @@index([tournamentId])
+}
+
+model MatchChatMessage {
+  id        String   @id @default(cuid())
+  matchId   String
+  userId    String
+  teamId    String
+  body      String
+  createdAt DateTime @default(now())
+
+  match Match @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  team  Team  @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@index([matchId, createdAt])
+  @@index([userId])
 }
 
 model TournamentPrizeCode {
@@ -324,12 +391,15 @@ model DraftConfig {
   bansPerRole     Int    @default(1)
   heroBansPerTeam Int    @default(2)
   picksPerTeam    Int    @default(4)
-  banTimeSeconds  Int    @default(30)
+  banTimeSeconds  Int    @default(45)
   pickTimeSeconds Int    @default(60)
   currentPhase    DraftPhase @default(HERO_BAN)
   currentTurn     Int    @default(0)
   isActive        Boolean @default(false)
   draftCompletedAt DateTime?
+  turnStartedAt   DateTime?
+  /** Per-role hero nameEn order for this draft (shuffled at launch). */
+  heroOrderJson   Json?
 
   tournament Tournament @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
   match      Match?     @relation(fields: [matchId], references: [id], onDelete: Cascade)
@@ -377,11 +447,15 @@ model RoleBan {
 }
 
 model Hero {
-  id       String   @id @default(cuid())
-  nameEn   String
-  nameFr   String
-  gameRole GameRole
-  imageUrl String?
+  id         String   @id @default(cuid())
+  nameEn     String   @unique
+  nameFr     String
+  gameRole   GameRole
+  imageUrl   String?
+  officialId String?  @unique
+  summaryEn  String?
+  summaryFr  String?
+  skills     Json     @default("[]")
 
   @@index([gameRole])
 }

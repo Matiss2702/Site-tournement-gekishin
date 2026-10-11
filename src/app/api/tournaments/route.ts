@@ -42,11 +42,12 @@ export async function POST(request: NextRequest) {
         format: data.format,
         maxTeams: data.maxTeams,
         maxPlayers: data.maxPlayers,
-        startDate: data.startDate ? new Date(data.startDate) : null,
+        startDate: new Date(data.startDate),
         endDate: data.endDate ? new Date(data.endDate) : null,
         roundSeriesLength: data.roundSeriesLength,
         semiSeriesLength: data.semiSeriesLength,
         finalSeriesLength: data.finalSeriesLength,
+        bandaiSupportStatus: data.requestBandaiSupport ? "PENDING" : "NONE",
         organizerId: session.user.id,
         organizers: {
           create: {

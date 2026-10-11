@@ -1,5 +1,9 @@
 import { prisma } from "@/lib/prisma";
-import { getHeroByName, HEROES } from "@/lib/heroes";
+import {
+  getHeroByName,
+  getHeroRoleMap,
+  buildHeroRoleMapFromActions,
+} from "@/lib/hero-repository";
 import {
   isBanPhaseCompleteForTeams,
   isPickPhaseCompleteForTeams,
@@ -14,18 +18,11 @@ import {
 } from "@/lib/draft-turn-order";
 import type { GameRole } from "@/components/HeroCard";
 
-function buildHeroRoleMap(
+async function buildHeroRoleMap(
   actions: { heroName: string | null; gameRole: string | null }[]
 ) {
-  const heroRoleByName = new Map(
-    HEROES.map((h) => [h.nameEn, h.gameRole as GameRole])
-  );
-  for (const action of actions) {
-    if (action.heroName && action.gameRole) {
-      heroRoleByName.set(action.heroName, action.gameRole as GameRole);
-    }
-  }
-  return heroRoleByName;
+  const base = await getHeroRoleMap();
+  return buildHeroRoleMapFromActions(base, actions);
 }
 
 export async function syncDraftPhase(matchId: string) {
@@ -39,7 +36,7 @@ export async function syncDraftPhase(matchId: string) {
     where: { matchId },
   });
   const teamIds = getDraftTeamIds(draftConfig);
-  const heroRoleByName = buildHeroRoleMap(actions);
+  const heroRoleByName = await buildHeroRoleMap(actions);
 
   if (draftConfig.currentPhase === "HERO_BAN") {
     if (isBanPhaseCompleteForTeams(actions, heroRoleByName, teamIds)) {
@@ -115,14 +112,13 @@ export async function executeDraftAction(
     return { error: "Teams not configured", status: 400 };
   }
 
-  const dbHero = await prisma.hero.findFirst({
-    where: { nameEn: input.heroName },
-  });
-  const hero = dbHero ?? getHeroByName(input.heroName);
+  const dbHero = await getHeroByName(input.heroName);
 
-  if (!hero) {
+  if (!dbHero) {
     return { error: "Hero not found", status: 404 };
   }
+
+  const hero = dbHero;
 
   const existingUse = await prisma.draftAction_.findFirst({
     where: {
@@ -229,44 +225,52 @@ export async function executeDraftAction(
     },
   });
 
-  await prisma.draftConfig.update({
-    where: { matchId },
-    data: {
-      currentTurn: getPhaseActionCount(
-        [...existingActions, action],
-        phase
-      ),
-    },
-  });
-
   const allActions = await prisma.draftAction_.findMany({
     where: { matchId },
   });
-  const heroRoleByName = buildHeroRoleMap(allActions);
+  const heroRoleByName = await buildHeroRoleMap(allActions);
+
+  let nextPhase = draftConfig.currentPhase;
+  let nextTurn = getPhaseActionCount([...existingActions, action], phase);
+  let isActive = true;
+  let draftCompletedAt: Date | null = null;
 
   if (input.action === "BAN") {
     if (isBanPhaseCompleteForTeams(allActions, heroRoleByName, teamIds)) {
-      await prisma.draftConfig.update({
-        where: { matchId },
-        data: { currentPhase: "HERO_PICK", currentTurn: 0 },
-      });
+      nextPhase = "HERO_PICK";
+      nextTurn = 0;
     }
   }
 
   if (input.action === "PICK") {
     if (isPickPhaseCompleteForTeams(allActions, heroRoleByName, teamIds)) {
-      await prisma.draftConfig.update({
-        where: { matchId },
-        data: { isActive: false, draftCompletedAt: new Date() },
-      });
+      isActive = false;
+      draftCompletedAt = new Date();
     }
   }
+
+  await prisma.draftConfig.update({
+    where: { matchId },
+    data: {
+      currentPhase: nextPhase,
+      currentTurn: nextTurn,
+      isActive,
+      draftCompletedAt,
+      turnStartedAt: isActive ? new Date() : null,
+    },
+  });
 
   return { action, status: 201 };
 }
 
 export async function getDraftPayload(matchId: string) {
   await syncDraftPhase(matchId);
+
+  const { applyBanTimeoutIfNeeded, ensureDraftHeroOrder } = await import(
+    "@/lib/draft-timer"
+  );
+  await ensureDraftHeroOrder(matchId);
+  await applyBanTimeoutIfNeeded(matchId);
 
   const draft = await prisma.draftConfig.findUnique({
     where: { matchId },
@@ -311,10 +315,25 @@ export async function getDraftPayload(matchId: string) {
         ? draft?.team2
         : null;
 
+  let banSecondsRemaining: number | null = null;
+  if (
+    draft?.isActive &&
+    draft.currentPhase === "HERO_BAN" &&
+    draft.turnStartedAt
+  ) {
+    const limitMs = (draft.banTimeSeconds || 45) * 1000;
+    banSecondsRemaining = Math.max(
+      0,
+      Math.ceil((limitMs - (Date.now() - draft.turnStartedAt.getTime())) / 1000)
+    );
+  }
+
   return {
     config: draft,
     actions,
     entries,
+    heroOrder: draft?.heroOrderJson ?? null,
+    banSecondsRemaining,
     turn: {
       activeTeamId,
       activeTeamName: activeTeam?.name ?? null,

@@ -23,13 +23,6 @@ export async function getUnreadCount(userId: string) {
   );
 }
 
-export async function markAsRead(notificationId: string, userId: string) {
-  return prisma.notification.updateMany({
-    where: { id: notificationId, userId },
-    data: { read: true },
-  });
-}
-
 export async function markAllAsRead(userId: string) {
   return prisma.notification.updateMany({
     where: { userId, read: false },

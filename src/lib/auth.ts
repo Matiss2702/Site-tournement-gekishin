@@ -5,6 +5,9 @@ import { prisma } from "./prisma";
 import { loginSchema } from "./validations";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  // Required outside dev (`next start`, Docker, reverse proxy): Auth.js v5
+  // otherwise rejects every request with "UntrustedHost".
+  trustHost: true,
   providers: [
     Credentials({
       credentials: {

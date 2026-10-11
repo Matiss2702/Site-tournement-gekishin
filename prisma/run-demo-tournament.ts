@@ -74,9 +74,16 @@ function usedHeroNames(
   );
 }
 
+type DemoDraftAction = {
+  heroName: string | null;
+  action: string;
+  teamId: string | null;
+  gameRole: string | null;
+};
+
 function pickBanHero(
   heroes: HeroRow[],
-  actions: { heroName: string | null; action: string; teamId: string | null }[],
+  actions: DemoDraftAction[],
   teamId: string,
   heroRoleByName: Map<string, GameRole>
 ) {
@@ -101,7 +108,7 @@ function pickBanHero(
 
 function pickPickHero(
   heroes: HeroRow[],
-  actions: { heroName: string | null; action: string; teamId: string | null }[],
+  actions: DemoDraftAction[],
   teamId: string,
   heroRoleByName: Map<string, GameRole>
 ) {

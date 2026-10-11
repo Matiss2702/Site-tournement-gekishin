@@ -2,6 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { findDraftConfigByToken } from "@/lib/draft-matches";
 import { DraftBoard } from "@/components/DraftBoard";
+import { BackToTournamentLink } from "@/components/BackToTournamentLink";
 
 export default async function DraftCaptainPage({
   params,
@@ -23,6 +24,7 @@ export default async function DraftCaptainPage({
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
+      <BackToTournamentLink tournamentId={id} />
       <h1 className="text-3xl font-bold mb-2 italic tracking-tight">
         {t("captainDraft")}
       </h1>
